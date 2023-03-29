@@ -1,8 +1,15 @@
 package com.ecommerce.thetasport.service.productABF;
 
+/**
+ * Enumerazione che rappresenta le possibili sottocategorie di prodotti.
+ */
 public enum SubCategory {
     SHOES,TSHIRT;
 
+    /**
+     * Ritorna il nome della sottocategoria in formato testuale.
+     * @return il nome della sottocategoria come stringa.
+     */
     @Override
     public String toString(){
         String name;

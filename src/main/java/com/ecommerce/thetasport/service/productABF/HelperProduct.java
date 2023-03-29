@@ -3,6 +3,15 @@ package com.ecommerce.thetasport.service.productABF;
 import com.ecommerce.thetasport.model.ProductBean;
 
 public class HelperProduct {
+
+    /**
+     * Inizializza il prodotto tramite il builder, impostando i valori del ProductBean.
+     * @param newProduct il prodotto da inizializzare.
+     * @param productBean i dati del prodotto.
+     * @throws NullPointerException viene lanciata nel momento in cui
+     * l'oggetto in questione risulta essere null, viene passata una stringa
+     * in input per identificare l'eccezione quando viene lanciata
+     */
     public static void initPorduct(AbstractProduct newProduct, ProductBean productBean){
         try {
             if ( newProduct == null ) {

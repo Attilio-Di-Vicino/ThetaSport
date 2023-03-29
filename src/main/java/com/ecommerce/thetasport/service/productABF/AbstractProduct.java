@@ -1,14 +1,17 @@
 package com.ecommerce.thetasport.service.productABF;
 
+/**
+ * Classe astratta che rappresenta un prodotto generico.
+ */
 public abstract class AbstractProduct {
-    private int code;
-    private String name;
-    private String description;
-    private int stock;
-    private double price;
-    private Category category;
-    private SubCategory subCategory;
-    private String image;
+    private int code;// Codice del prodotto
+    private String name; // Nome del prodotto
+    private String description; // Descrizione del prodotto
+    private int stock; // Quantità disponibile del prodotto
+    private double price; // Prezzo del prodotto
+    private String image; // Percorso dell'immagine del prodotto
+    protected Category category; // Categoria del prodotto
+    protected SubCategory subCategory; // Sottocategoria del prodotto
 
     public int getCode() {
         return this.code;
@@ -30,51 +33,71 @@ public abstract class AbstractProduct {
         return this.price;
     }
 
-    public Category getCategory() {
-        return this.category;
-    }
-
     public String getImage(){
         return this.image;
+    }
+
+    public Category getCategory() {
+        return this.category;
     }
 
     public SubCategory getSubCategory() {
         return this.subCategory;
     }
 
-    public void setCode(int code){this.code = code;}
-
-    public void setCategory(Category category){this.category = category;}
-
+    /**
+     * Imposta il nome del prodotto.
+     * @param name Il nome del prodotto
+     * @return L'oggetto {@code AbstractProduct} corrente
+     */
     public AbstractProduct setName(String name){
         this.name = name;
         return this;
     }
 
+    /**
+     * Imposta la descrizione del prodotto.
+     * @param description La descrizione del prodotto
+     * @return L'oggetto {@code AbstractProduct} corrente
+     */
     public AbstractProduct setDescription(String description){
         this.description = description;
         return this;
     }
 
+    /**
+     * Imposta la descrizione del prodotto.
+     * @param stock La descrizione del prodotto
+     * @return L'oggetto {@code AbstractProduct} corrente
+     */
     public AbstractProduct setStock(int stock){
         this.stock = stock;
         return this;
     }
 
+    /**
+     * Imposta il prezzo del prodotto.
+     * @param price Il prezzo del prodotto
+     * @return L'oggetto {@code AbstractProduct} corrente
+     */
     public AbstractProduct setPrice(double price){
         this.price = price;
         return this;
     }
 
+    /**
+     * Imposta il percorso dell'immagine del prodotto.
+     * @param image Il percorso dell'immagine del prodotto
+     * @return L'oggetto {@code AbstractProduct} corrente
+     */
     public AbstractProduct setImage(String image){
         this.image = image;
         return this;
     }
 
-    public AbstractProduct setSubCategory(SubCategory subCategory) {
-        this.subCategory = subCategory;
-        return this;
-    }
-
+    /**
+     * Costruisce della categoria di un prodotto.
+     * @return Un oggetto prodotto
+     */
     public abstract AbstractProduct build();
 }

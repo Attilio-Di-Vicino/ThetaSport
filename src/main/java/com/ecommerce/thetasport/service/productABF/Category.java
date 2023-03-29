@@ -1,8 +1,15 @@
 package com.ecommerce.thetasport.service.productABF;
 
+/**
+ * Enumerazione che rappresenta le categorie dei prodotti.
+ */
 public enum Category {
     FOOTBALL,TENNIS;
 
+    /**
+     * Restituisce il nome della categoria.
+     * @return il nome della categoria come stringa
+     */
     @Override
     public String toString(){
         String name;
