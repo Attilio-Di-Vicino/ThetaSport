@@ -1,0 +1,6 @@
+package com.ecommerce.thetasport.service.productFM;
+import com.ecommerce.thetasport.service.productABF.Product;
+@FunctionalInterface
+public interface ShortsFactory {
+    Product createShorts();
+}
