@@ -12,17 +12,17 @@ public class DirectorTennis {
      * Metodo statico che crea un prodotto del tipo "Tennis" sulla base delle informazioni contenute in un oggetto
      * di tipo {@link ProductBean}.
      * @param productBean oggetto di tipo {@link ProductBean} che contiene le informazioni del prodotto da creare
-     * @return un nuovo oggetto di tipo {@link AbstractProductTennis} rappresentante il prodotto creato
+     * @return un nuovo oggetto di tipo {@link Product} rappresentante il prodotto creato
      */
-    public static AbstractProductTennis createProduct(@NotNull ProductBean productBean) {
+    public static Product createProduct(@NotNull ProductBean productBean) {
         // Viene istanziata la factory specifica per i prodotti di tipo "Tennis"
         TennisConcreteFactory tennisConcreteFactory = new TennisConcreteFactory();
-        AbstractProductTennis newProductTennis;
+        Product newProductTennis;
         // In base alla sottocategoria del prodotto da creare viene invocato il metodo corretto della factory
         switch (productBean.getSubCategory()){
-            case SHOES: newProductTennis = tennisConcreteFactory.createTennisShoes();
+            case SHOES: newProductTennis = tennisConcreteFactory.createShoes();
                 break;
-            case TSHIRT: newProductTennis = tennisConcreteFactory.createTennisTShirt();
+            case TSHIRT: newProductTennis = tennisConcreteFactory.createTShirt();
                 break;
             default: newProductTennis = null;
                 break;

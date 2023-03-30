@@ -1,26 +1,26 @@
 package com.ecommerce.thetasport.service.productABF;
 
 /**
- * Implementazione concreta delle interfacce {@link TennisShoesAbstractFactory} e {@link TennisTShirtAbstractFactory}.
- * Questa fabbrica crea istanze delle classi {@link TennisShoes} e {@link TennisTShirt}.
+ * Implementazione concreta delle interfacce {@link ShoesFactory} e {@link TShirtFactory}.
+ * Questa fabbrica crea istanze delle classi {@link Shoes} e {@link TShirt}.
  */
-public class TennisConcreteFactory implements TennisShoesAbstractFactory, TennisTShirtAbstractFactory {
+public class TennisConcreteFactory implements ShoesFactory, TShirtFactory {
 
     /**
-     * Crea un'istanza di {@link TennisShoes}.
-     * @return un'istanza di {@link TennisShoes}.
+     * Crea un'istanza della classe {@link Shoes}.
+     * @return un oggetto di tipo {@link Product} rappresentante un paio di scarpe da tennis.
      */
     @Override
-    public AbstractProductTennis createTennisShoes(){
-        return new TennisShoes();
+    public Product createShoes(){
+        return new Shoes().build(Category.TENNIS);
     }
 
     /**
-     * Crea un'istanza di {@link TennisTShirt}.
-     * @return un'istanza di {@link TennisTShirt}.
+     * Crea un'istanza della classe {@link TShirt}.
+     * @return un oggetto di tipo {@link Product} rappresentante una maglia da tennis.
      */
     @Override
-    public AbstractProductTennis createTennisTShirt(){
-        return new TennisTShirt();
+    public Product createTShirt(){
+        return new TShirt().build(Category.TENNIS);
     }
 }

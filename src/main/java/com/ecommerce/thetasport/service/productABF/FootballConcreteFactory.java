@@ -1,26 +1,26 @@
 package com.ecommerce.thetasport.service.productABF;
 
 /**
- * Implementazione concreta delle interfacce {@link FootballShoesAbstractFactory} e {@link FootballTShirtAbstractFactory}.
- * Questa fabbrica crea istanze delle classi {@link FootballShoes} e {@link FootballTShirt}.
+ * Implementazione concreta delle interfacce {@link ShoesFactory} e {@link TShirtFactory}.
+ * Questa fabbrica crea istanze delle classi {@link Shoes} e {@link TShirt}.
  */
-public class FootballConcreteFactory implements FootballShoesAbstractFactory, FootballTShirtAbstractFactory {
+public class FootballConcreteFactory implements ShoesFactory, TShirtFactory {
 
     /**
-     * Crea un'istanza della classe {@link FootballShoes}.
-     * @return un oggetto di tipo {@link AbstractProductFootball} rappresentante un paio di scarpe da calcio.
+     * Crea un'istanza della classe {@link Shoes}.
+     * @return un oggetto di tipo {@link Product} rappresentante un paio di scarpe da calcio.
      */
     @Override
-    public AbstractProductFootball createFootballShoes(){
-        return new FootballShoes();
+    public Product createShoes(){
+        return new Shoes().build(Category.FOOTBALL);
     }
 
     /**
-     * Crea un'istanza della classe {@link FootballTShirt}.
-     * @return un oggetto di tipo {@link AbstractProductFootball} rappresentante una maglia da calcio.
+     * Crea un'istanza della classe {@link TShirt}.
+     * @return un oggetto di tipo {@link Product} rappresentante una maglia da calcio.
      */
     @Override
-    public AbstractProductFootball createFootballTShirt(){
-        return new FootballTShirt();
+    public Product createTShirt(){
+        return new TShirt().build(Category.FOOTBALL);
     }
 }

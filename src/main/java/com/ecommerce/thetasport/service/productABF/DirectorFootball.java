@@ -12,17 +12,17 @@ public class DirectorFootball {
      * Metodo statico che crea un prodotto del tipo "Football" sulla base delle informazioni contenute in un oggetto
      * di tipo {@link ProductBean}.
      * @param productBean oggetto di tipo {@link ProductBean} che contiene le informazioni del prodotto da creare
-     * @return un nuovo oggetto di tipo {@link AbstractProductFootball} rappresentante il prodotto creato
+     * @return un nuovo oggetto di tipo {@link Product} rappresentante il prodotto creato
      */
-    public static AbstractProductFootball createProduct(@NotNull ProductBean productBean) {
+    public static Product createProduct(@NotNull ProductBean productBean) {
         // Viene istanziata la factory specifica per i prodotti di tipo "Football"
         FootballConcreteFactory footballConcreteFactory = new FootballConcreteFactory();
-        AbstractProductFootball newProductFootball;
+        Product newProductFootball;
         // In base alla sottocategoria del prodotto da creare viene invocato il metodo corretto della factory
         switch (productBean.getSubCategory()){
-            case SHOES: newProductFootball = footballConcreteFactory.createFootballShoes();
+            case SHOES: newProductFootball = footballConcreteFactory.createShoes();
                 break;
-            case TSHIRT: newProductFootball = footballConcreteFactory.createFootballTShirt();
+            case TSHIRT: newProductFootball = footballConcreteFactory.createTShirt();
                 break;
             default: newProductFootball = null;
                 break;

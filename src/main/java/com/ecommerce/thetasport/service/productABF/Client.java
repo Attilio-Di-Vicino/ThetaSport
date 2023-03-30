@@ -13,7 +13,7 @@ public class Client {
         productBean.setCategory(Category.FOOTBALL);
         productBean.setSubCategory(SubCategory.SHOES);
 
-        AbstractProduct productFootball = DirectorFootball.createProduct(productBean);
+        Product productFootball = DirectorFootball.createProduct(productBean);
         System.out.println(productFootball.getCategory() + " " + productFootball.getSubCategory());
 
         productFootball = DirectorTennis.createProduct(productBean);

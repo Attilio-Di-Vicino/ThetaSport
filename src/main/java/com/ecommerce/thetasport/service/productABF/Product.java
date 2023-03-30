@@ -1,9 +1,6 @@
 package com.ecommerce.thetasport.service.productABF;
 
-/**
- * Classe astratta che rappresenta un prodotto generico.
- */
-public abstract class AbstractProduct {
+public class Product {
     private int code;// Codice del prodotto
     private String name; // Nome del prodotto
     private String description; // Descrizione del prodotto
@@ -48,9 +45,9 @@ public abstract class AbstractProduct {
     /**
      * Imposta il nome del prodotto.
      * @param name Il nome del prodotto
-     * @return L'oggetto {@code AbstractProduct} corrente
+     * @return L'oggetto {@code Product} corrente
      */
-    public AbstractProduct setName(String name){
+    public Product setName(String name){
         this.name = name;
         return this;
     }
@@ -58,9 +55,9 @@ public abstract class AbstractProduct {
     /**
      * Imposta la descrizione del prodotto.
      * @param description La descrizione del prodotto
-     * @return L'oggetto {@code AbstractProduct} corrente
+     * @return L'oggetto {@code Product} corrente
      */
-    public AbstractProduct setDescription(String description){
+    public Product setDescription(String description){
         this.description = description;
         return this;
     }
@@ -68,9 +65,9 @@ public abstract class AbstractProduct {
     /**
      * Imposta la descrizione del prodotto.
      * @param stock La descrizione del prodotto
-     * @return L'oggetto {@code AbstractProduct} corrente
+     * @return L'oggetto {@code Product} corrente
      */
-    public AbstractProduct setStock(int stock){
+    public Product setStock(int stock){
         this.stock = stock;
         return this;
     }
@@ -78,9 +75,9 @@ public abstract class AbstractProduct {
     /**
      * Imposta il prezzo del prodotto.
      * @param price Il prezzo del prodotto
-     * @return L'oggetto {@code AbstractProduct} corrente
+     * @return L'oggetto {@code Product} corrente
      */
-    public AbstractProduct setPrice(double price){
+    public Product setPrice(double price){
         this.price = price;
         return this;
     }
@@ -88,9 +85,9 @@ public abstract class AbstractProduct {
     /**
      * Imposta il percorso dell'immagine del prodotto.
      * @param image Il percorso dell'immagine del prodotto
-     * @return L'oggetto {@code AbstractProduct} corrente
+     * @return L'oggetto {@code Product} corrente
      */
-    public AbstractProduct setImage(String image){
+    public Product setImage(String image){
         this.image = image;
         return this;
     }
@@ -99,5 +96,8 @@ public abstract class AbstractProduct {
      * Costruisce della categoria di un prodotto.
      * @return Un oggetto prodotto
      */
-    public abstract AbstractProduct build();
+    public Product build(Category category){
+        this.category = category;
+        return this;
+    }
 }
