@@ -1,8 +1,6 @@
-package com.ecommerce.thetasport.service.productFM;
+package com.ecommerce.thetasport.service.productabstractfactory;
 
-import com.ecommerce.thetasport.service.productABF.Category;
-import com.ecommerce.thetasport.service.productABF.SubCategory;
-public class Product {
+public abstract class Product {
     private int code;// Codice del prodotto
     private String name; // Nome del prodotto
     private String description; // Descrizione del prodotto
@@ -98,8 +96,5 @@ public class Product {
      * Costruisce della categoria di un prodotto.
      * @return Un oggetto prodotto
      */
-    public Product build(Category category){
-        this.category = category;
-        return this;
-    }
+    public abstract Product build();
 }

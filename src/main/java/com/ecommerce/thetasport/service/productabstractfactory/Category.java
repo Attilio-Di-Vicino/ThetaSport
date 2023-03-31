@@ -1,4 +1,4 @@
-package com.ecommerce.thetasport.service.productABF;
+package com.ecommerce.thetasport.service.productabstractfactory;
 
 /**
  * Enumerazione che rappresenta le categorie dei prodotti.
@@ -10,6 +10,7 @@ public enum Category {
      * Restituisce il nome della categoria.
      * @return il nome della categoria come stringa
      */
+    @SuppressWarnings("duplicate")
     @Override
     public String toString(){
         String name;

@@ -1,7 +1,7 @@
 package com.ecommerce.thetasport.model;
 
-import com.ecommerce.thetasport.service.productABF.Category;
-import com.ecommerce.thetasport.service.productABF.SubCategory;
+import com.ecommerce.thetasport.service.productabstractfactory.Category;
+import com.ecommerce.thetasport.service.productabstractfactory.SubCategory;
 
 import java.beans.JavaBean;
 import java.io.Serializable;

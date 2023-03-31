@@ -1,9 +1,8 @@
-package com.ecommerce.thetasport.service.productABF;
+package com.ecommerce.thetasport.service.productabstractfactory;
 
 import com.ecommerce.thetasport.model.ProductBean;
 
 public class HelperProduct {
-
     /**
      * Inizializza il prodotto tramite il builder, impostando i valori del ProductBean.
      * @param newProduct il prodotto da inizializzare.
