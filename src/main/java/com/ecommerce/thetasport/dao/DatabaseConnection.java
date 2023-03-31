@@ -10,12 +10,12 @@ public class DatabaseConnection {
 
     private DatabaseConnection() throws SQLException {
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName( "com.mysql.cj.jdbc.Driver" );
             String url = "jdbc:mysql://localhost:3306/THETASPORTDB";
-            this.connection = DriverManager.getConnection(url, "root", "password");
-            System.out.println("Database Connection Successful.. ");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
+            this.connection = DriverManager.getConnection( url, "root", "password" );
+            System.out.println( "Database Connection Successful.. " );
+        } catch ( ClassNotFoundException ex ) {
+            System.out.println( "Database Connection Creation Failed : " + ex.getMessage() );
         }
     }
 
@@ -24,9 +24,9 @@ public class DatabaseConnection {
     }
 
     public static DatabaseConnection getInstance() throws SQLException {
-        if (instance == null) {
+        if ( instance == null ) {
             instance = new DatabaseConnection();
-        } else if (instance.getConnection().isClosed()) {
+        } else if ( instance.getConnection().isClosed() ) {
             instance = new DatabaseConnection();
         }
         return instance;
