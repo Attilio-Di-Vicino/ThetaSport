@@ -1,5 +1,6 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
+import com.ecommerce.thetasport.service.cartvisitor.Cart;
 import com.ecommerce.thetasport.service.cartvisitor.ItemElement;
 
 public abstract class Product implements ItemElement {
@@ -115,5 +116,16 @@ public abstract class Product implements ItemElement {
     @Override
     public String toString(){
         return this.name;
+    }
+
+    /**
+     * Viene eseguito Ovverride di {@link Object#hashCode()}
+     * in modo tale da poter eseguire il controllo giusto tramite il metodo {@link Cart#add}
+     * In questo caso ci interessa solo il 'name' essendo attributo univoco
+     * @return hashCode di name
+     */
+    @Override
+    public int hashCode() {
+        return name.hashCode();
     }
 }
