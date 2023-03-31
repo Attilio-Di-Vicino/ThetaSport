@@ -5,13 +5,13 @@ import org.jetbrains.annotations.NotNull;
 
 public class TShirt extends Product {
     @Override
-    public Product build(){
+    public Product build() {
         this.subCategory = SubCategory.TSHIRT;
         return this;
     }
 
     @Override
-    public double accept(@NotNull ShoppingCartVisitor visitor){
+    public double accept( @NotNull ShoppingCartVisitor visitor ){
         return visitor.visit(this);
     }
 }

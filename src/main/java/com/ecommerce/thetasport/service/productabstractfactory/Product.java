@@ -50,7 +50,7 @@ public abstract class Product implements ItemElement {
      * @param name Il nome del prodotto
      * @return L'oggetto {@code Product} corrente
      */
-    public Product setName(String name){
+    public Product setName( String name ){
         this.name = name;
         return this;
     }
@@ -60,7 +60,7 @@ public abstract class Product implements ItemElement {
      * @param description La descrizione del prodotto
      * @return L'oggetto {@code Product} corrente
      */
-    public Product setDescription(String description){
+    public Product setDescription( String description ){
         this.description = description;
         return this;
     }
@@ -70,7 +70,7 @@ public abstract class Product implements ItemElement {
      * @param stock La descrizione del prodotto
      * @return L'oggetto {@code Product} corrente
      */
-    public Product setStock(int stock){
+    public Product setStock( int stock ){
         this.stock = stock;
         return this;
     }
@@ -80,7 +80,7 @@ public abstract class Product implements ItemElement {
      * @param price Il prezzo del prodotto
      * @return L'oggetto {@code Product} corrente
      */
-    public Product setPrice(double price){
+    public Product setPrice( double price ){
         this.price = price;
         return this;
     }
@@ -90,7 +90,7 @@ public abstract class Product implements ItemElement {
      * @param image Il percorso dell'immagine del prodotto
      * @return L'oggetto {@code Product} corrente
      */
-    public Product setImage(String image){
+    public Product setImage( String image ){
         this.image = image;
         return this;
     }
@@ -109,8 +109,8 @@ public abstract class Product implements ItemElement {
     @SuppressWarnings("'equals()' should check the class of its parameter")
     @Override
     public boolean equals( Object object ) {
-        Product product = (Product) object;
-        return this.name.equals(product.getName());
+        Product product = ( Product ) object;
+        return this.name.equals( product.getName() );
     }
 
     @Override

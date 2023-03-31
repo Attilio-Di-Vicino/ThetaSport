@@ -12,17 +12,17 @@ public class HelperProduct {
      * l'oggetto in questione risulta essere null, viene passata una stringa
      * in input per identificare l'eccezione quando viene lanciata
      */
-    public static void initPorduct(Product newProduct, ProductBean productBean){
+    public static void initPorduct( Product newProduct, ProductBean productBean ){
         try {
             if ( newProduct == null ) {
-                throw new NullPointerException("Product is null.");
+                throw new NullPointerException( "Product is null." );
             }
-            newProduct.setName(productBean.getName())
-                    .setDescription(productBean.getDescription())
-                    .setStock(productBean.getStock())
-                    .setPrice(productBean.getPrice())
-                    .setImage(productBean.getImage());
-        } catch (NullPointerException e) {
+            newProduct.setName( productBean.getName() )
+                    .setDescription( productBean.getDescription() )
+                    .setStock( productBean.getStock() )
+                    .setPrice( productBean.getPrice() )
+                    .setImage( productBean.getImage() );
+        } catch ( NullPointerException e ) {
             e.printStackTrace();
         }
     }

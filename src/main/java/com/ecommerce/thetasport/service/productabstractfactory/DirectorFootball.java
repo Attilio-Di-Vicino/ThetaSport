@@ -14,13 +14,13 @@ public class DirectorFootball {
      * @param productBean oggetto di tipo {@link ProductBean} che contiene le informazioni del prodotto da creare
      * @return un nuovo oggetto di tipo {@link Product} rappresentante il prodotto creato
      */
-    @SuppressWarnings("Duplicated code fragment (13 lines long)")
+    @SuppressWarnings( "Duplicated code fragment (13 lines long)" )
     public static Product createProduct(@NotNull ProductBean productBean) {
         // Viene istanziata la factory specifica per i prodotti di tipo "Football"
         FootballConcreteFactory footballConcreteFactory = new FootballConcreteFactory();
         Product newProductFootball;
         // In base alla sottocategoria del prodotto da creare viene invocato il metodo corretto della factory
-        switch (productBean.getSubCategory()){
+        switch ( productBean.getSubCategory() ) {
             case SHOES: newProductFootball = footballConcreteFactory.createShoes();
                 break;
             case TSHIRT: newProductFootball = footballConcreteFactory.createTShirt();
@@ -29,7 +29,7 @@ public class DirectorFootball {
                 break;
         }
         // Vengono inizializzate le informazioni comuni a tutti i prodotti, utilizzando l'helper "HelperProduct"
-        HelperProduct.initPorduct(newProductFootball,productBean);
+        HelperProduct.initPorduct( newProductFootball, productBean );
         return newProductFootball;
     }
 }

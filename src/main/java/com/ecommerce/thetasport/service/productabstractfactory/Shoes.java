@@ -12,7 +12,7 @@ public class Shoes extends Product {
     }
 
     @Override
-    public double accept(@NotNull ShoppingCartVisitor visitor){
+    public double accept( @NotNull ShoppingCartVisitor visitor ){
         return visitor.visit(this);
     }
 }

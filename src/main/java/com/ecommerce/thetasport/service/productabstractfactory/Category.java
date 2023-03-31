@@ -12,9 +12,9 @@ public enum Category {
      */
     @SuppressWarnings("duplicate")
     @Override
-    public String toString(){
+    public String toString() {
         String name;
-        switch (this){
+        switch ( this ) {
             case FOOTBALL:
                 name = "Football";
                 break;

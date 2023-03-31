@@ -12,9 +12,9 @@ public enum SubCategory {
      */
     @SuppressWarnings("duplicate")
     @Override
-    public String toString(){
+    public String toString() {
         String name;
-        switch (this){
+        switch ( this ){
             case SHOES: name = "Shoes";
                 break;
             case TSHIRT: name = "TShirt";
@@ -23,8 +23,7 @@ public enum SubCategory {
                 break;
             case ACCESSORIES: name = "Accessories";
                 break;
-            default:
-                name = null;
+            default: name = null;
                 break;
         }
         return name;
