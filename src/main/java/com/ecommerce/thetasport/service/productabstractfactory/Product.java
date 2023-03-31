@@ -1,8 +1,10 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
-public abstract class Product {
+import com.ecommerce.thetasport.service.cartvisitor.ItemElement;
+
+public abstract class Product implements ItemElement {
     private int code;// Codice del prodotto
-    private String name; // Nome del prodotto
+    private String name; // Nome del prodotto univoco
     private String description; // Descrizione del prodotto
     private int stock; // Quantità disponibile del prodotto
     private double price; // Prezzo del prodotto
@@ -97,4 +99,21 @@ public abstract class Product {
      * @return Un oggetto prodotto
      */
     public abstract Product build();
+
+    /**
+     * considerando che il nome è un attributo unico
+     * @param object Object da confrontare
+     * @return il risultato del confronto di tipo boolean
+     */
+    @SuppressWarnings("'equals()' should check the class of its parameter")
+    @Override
+    public boolean equals( Object object ) {
+        Product product = (Product) object;
+        return this.name.equals(product.getName());
+    }
+
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }
