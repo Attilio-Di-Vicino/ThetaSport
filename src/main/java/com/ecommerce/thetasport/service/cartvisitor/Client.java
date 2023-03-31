@@ -78,21 +78,9 @@ public class Client {
         System.out.println("My cart total");
         System.out.println(total);
 
-        /*cart.removeAll();
-        System.out.println("My cart remove all");
-        System.out.println(cart);*/
-
         HelperStrategy.pay(new CashStrategy("a","3","and"),shoppingCartVisitor.getTotal());
-
+        cart.removeAll();
+        System.out.println("My cart remove all");
+        System.out.println(cart);
     }
-
-    /*private static double calculatePrice(@NotNull List<ItemElement> items){
-        ShoppingCartVisitor visitor = new ShoppingCartVisitorImpl();
-        double sum = 0;
-
-        for (ItemElement item : items){
-            sum = sum + item.accept(visitor);
-        }
-        return sum;
-    }*/
 }
