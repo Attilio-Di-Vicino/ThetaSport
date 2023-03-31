@@ -1,12 +1,12 @@
 package com.ecommerce.thetasport.service.paymentstrategy;
 
-public class CreditCardStrategy implements PaymentStrategy{
+public class CreditCardStrategy implements PaymentStrategy {
     private String name;
     private String cardNumber;
     private String cvv;
     private String dateOfExpiry;
 
-    public CreditCardStrategy(String name, String cardNumber, String cvv, String dateOfExpiry){
+    public CreditCardStrategy( String name, String cardNumber, String cvv, String dateOfExpiry ) {
         this.name = name;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
@@ -14,7 +14,7 @@ public class CreditCardStrategy implements PaymentStrategy{
     }
 
     @Override
-    public void pay(double amount) {
-        System.out.println(amount +" paid with credit/debit card");
+    public void pay( double amount ) {
+        System.out.println( amount + " paid with credit/debit card" );
     }
 }

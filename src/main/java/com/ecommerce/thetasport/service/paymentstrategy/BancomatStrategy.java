@@ -6,7 +6,7 @@ public class BancomatStrategy implements PaymentStrategy{
     private String cvv;
     private String dateOfExpiry;
 
-    public BancomatStrategy(String name, String cardNumber, String cvv, String dateOfExpiry){
+    public BancomatStrategy( String name, String cardNumber, String cvv, String dateOfExpiry ) {
         this.name = name;
         this.cardNumber = cardNumber;
         this.cvv = cvv;
@@ -14,7 +14,7 @@ public class BancomatStrategy implements PaymentStrategy{
     }
 
     @Override
-    public void pay(double amount) {
-        System.out.println(amount +" paid with Bancomat card");
+    public void pay( double amount ) {
+        System.out.println( amount + " paid with Bancomat card" );
     }
 }
