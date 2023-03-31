@@ -3,9 +3,8 @@ package com.ecommerce.thetasport.service.loginCor;
 public abstract class Handler {
     private Handler next;
 
-    public Handler setNextHandler(Handler next){
+    public void setNextHandler(Handler next){
         this.next = next;
-        return next;
     }
 
     public Handler getNextHandler(){
