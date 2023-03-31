@@ -22,14 +22,14 @@ public class ShoppingCartVisitorImpl implements ShoppingCartVisitor {
     @Override
     public double visit( @NotNull Shoes product ) {
         int quantity = cart.getMyCart().get(product);
-        System.out.println( "Nome: " + product.getName() + " costo: " + product.getPrice() + " quantity: " + quantity );
+        System.out.println( "Name: " + product.getName() + " price: " + product.getPrice() + " quantity: " + quantity );
         return product.getPrice() * quantity;
     }
 
     @Override
     public double visit( @NotNull TShirt product ) {
         int quantity = cart.getMyCart().get( product );
-        System.out.println( "Nome: " + product.getName() + " costo: " + product.getPrice() + " quantity: " + quantity );
+        System.out.println( "Name: " + product.getName() + " price: " + product.getPrice() + " quantity: " + quantity );
         return product.getPrice() * quantity;
     }
 

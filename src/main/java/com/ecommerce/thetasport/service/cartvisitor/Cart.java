@@ -44,6 +44,9 @@ public class Cart {
      */
     @Override
     public String toString() {
+        if ( this.myCart.isEmpty() ) {
+            return "Cart is empty";
+        }
         StringBuilder out = new StringBuilder();
         for ( ItemElement item : this.myCart.keySet() ){
             out.append( item.toString() ).append(" Quantity: ").append( this.myCart.get(item) ).append("\n");

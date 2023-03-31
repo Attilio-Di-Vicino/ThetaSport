@@ -13,6 +13,6 @@ public class CashStrategy implements PaymentStrategy {
 
     @Override
     public void pay( double amount ){
-        System.out.println( "Spedizione effettuata: " + amount + " Pagamento alla consegna." );
+        System.out.println( "\nShipping made to the " + this.address + " address with a total of " + amount + " and payment on delivery." );
     }
 }

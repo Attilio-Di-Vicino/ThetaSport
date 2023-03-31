@@ -15,6 +15,6 @@ public class BancomatStrategy implements PaymentStrategy{
 
     @Override
     public void pay( double amount ) {
-        System.out.println( amount + " paid with Bancomat card" );
+        System.out.println( "\n " + amount + " paid with Bancomat card" );
     }
 }

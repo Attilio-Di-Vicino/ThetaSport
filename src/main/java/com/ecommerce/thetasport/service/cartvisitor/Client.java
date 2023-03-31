@@ -5,82 +5,75 @@ import com.ecommerce.thetasport.service.paymentstrategy.CashStrategy;
 import com.ecommerce.thetasport.service.paymentstrategy.HelperStrategy;
 import com.ecommerce.thetasport.service.productabstractfactory.*;
 
-import java.sql.SQLException;
-
 public class Client {
-    public static void main(String[] agrs) throws SQLException, ClassNotFoundException {
-
+    public static void main( String[] agrs )  {
+        // create Cart and first product
         Cart cart = new Cart();
-
         ProductBean productBean = new ProductBean();
-        productBean.setName("primo");
-        productBean.setDescription("prova");
-        productBean.setPrice(100);
-        productBean.setStock(10);
-        productBean.setImage("image");
-        productBean.setCategory(Category.TENNIS);
-        productBean.setSubCategory(SubCategory.TSHIRT);
-
-        Product newProduct = null;
-        switch (productBean.getCategory()){
-            case FOOTBALL: newProduct = DirectorFootball.createProduct(productBean);
-                break;
-            case TENNIS: newProduct = DirectorTennis.createProduct(productBean);
-                break;
-            default: newProduct = null;
-                System.out.println("c");
-                break;
-        }
-        cart.add(newProduct);
-        /*List<Product> list = new ArrayList<>();
-        list.add(newProduct);*/
-        productBean.setCategory(Category.FOOTBALL);
-        productBean.setSubCategory(SubCategory.SHOES);
-        productBean.setName("secondo");
-        /*list.add(DirectorFootball.createProduct(productBean));
-
-        for ( Product product : list ){
-            product.accept(new ShoppingCartVisitorImpl());
-        }*/
-
+        productBean.setName( "Product one" );
+        productBean.setDescription( "Product one" );
+        productBean.setPrice( 88.99 );
+        productBean.setStock( 12 );
+        productBean.setImage( "image-one.png" );
+        productBean.setCategory( Category.TENNIS );
+        productBean.setSubCategory( SubCategory.TSHIRT );
+        Product newProduct = DirectorTennis.createProduct( productBean );
+        // add first product to cart
+        cart.add( newProduct );
+        // create Cart and second product
+        productBean.setName( "Product two" );
+        productBean.setDescription( "Product two" );
+        productBean.setPrice( 14.99 );
+        productBean.setStock( 12 );
+        productBean.setImage( "image-due.png" );
+        productBean.setCategory( Category.FOOTBALL );
+        productBean.setSubCategory( SubCategory.SHOES );
         newProduct = DirectorFootball.createProduct(productBean);
-
+        // add second product to cart
         cart.add(newProduct);
-
-        productBean.setName("terzo");
-        productBean.setSubCategory(SubCategory.TSHIRT);
-        newProduct = DirectorFootball.createProduct(productBean);
-        cart.add(newProduct,4);
-        System.out.println("My Cart");
-        System.out.println(cart);
-
-        cart.decreaseQuantity(newProduct);
-        System.out.println("My cart decrease");
-        System.out.println(cart);
-
-        cart.remove(newProduct);
-        System.out.println("My cart remove");
-        System.out.println(cart);
-
-        productBean.setName("terzo");
-        productBean.setSubCategory(SubCategory.TSHIRT);
-        newProduct = DirectorFootball.createProduct(productBean);
-        cart.add(newProduct);
-        System.out.println("My cart add terzo");
-        System.out.println(cart);
-
-        System.out.println("Add");
-        cart.add(newProduct, 10);
-        System.out.println(cart);
-
-        ShoppingCartVisitorImpl shoppingCartVisitor = new ShoppingCartVisitorImpl(cart);
+        System.out.println( "\n*** TEST CART WITH TWO PRODUCT ***" );
+        System.out.println( cart );
+        // create third product
+        productBean.setName( "Product three" );
+        productBean.setDescription( "Product three" );
+        productBean.setPrice( 34.99 );
+        productBean.setStock( 16 );
+        productBean.setImage( "image-three.png" );
+        productBean.setCategory( Category.FOOTBALL );
+        productBean.setSubCategory( SubCategory.TSHIRT );
+        newProduct = DirectorFootball.createProduct( productBean );
+        // add third product to cart whit quantity
+        cart.add( newProduct, 4 );
+        System.out.println( "\n*** TEST ADD CART WITH QUANTITY AND WITH THREE PRODUCT ***" );
+        System.out.println( cart );
+        // decrease quantity third product
+        cart.decreaseQuantity( newProduct );
+        System.out.println( "\n*** TEST CART WITH DECREASE QUANTITY THIRD PRODUCT ***" );
+        System.out.println( cart );
+        // remove third product
+        cart.remove( newProduct );
+        System.out.println( "\n*** TEST CART REMOVE THIRD PRODUCT ***" );
+        System.out.println( cart );
+        // test add new product but equals third product
+        newProduct = DirectorFootball.createProduct( productBean );
+        cart.add( newProduct );
+        System.out.println( "\n*** TEST ADD CART NEW PRODUCT BUT EQUALS THIRD PRODUCT ***" );
+        System.out.println( cart );
+        // test add new product with quantity but equals third product
+        newProduct = DirectorFootball.createProduct( productBean );
+        cart.add( newProduct, 10 );
+        System.out.println( "\n*** TEST ADD CART NEW PRODUCT WITH QUANTITY BUT EQUALS THIRD PRODUCT ***" );
+        System.out.println( cart );
+        // test payment method
+        ShoppingCartVisitorImpl shoppingCartVisitor = new ShoppingCartVisitorImpl( cart );
         double total = shoppingCartVisitor.getTotal();
-        System.out.println("My cart total");
-        System.out.println(total);
-
-        HelperStrategy.pay(new CashStrategy("a","3","and"),shoppingCartVisitor.getTotal());
+        System.out.println( "\n*** TEST PAYMENT METHOD AND TOTAL CART ***" );
+        System.out.println( "My cart total: " + total );
+        HelperStrategy.pay( new CashStrategy( "attilio@gmail.com",
+                "3333333333", "Via Napoli 18" ), shoppingCartVisitor.getTotal() );
+        // test remove all
         cart.removeAll();
-        System.out.println("My cart remove all");
-        System.out.println(cart);
+        System.out.println( "\n*** TEST CART REMOVE ALL ***" );
+        System.out.println( cart );
     }
 }
