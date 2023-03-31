@@ -23,6 +23,26 @@ public class Client {
                 System.out.println("c");
                 break;
         }
+
         System.out.println(newProduct.getCategory() + " " + newProduct.getSubCategory());
+
+        productBean.setName("prova");
+        productBean.setDescription("prova");
+        productBean.setPrice(100);
+        productBean.setStock(10);
+        productBean.setImage("image");
+        productBean.setCategory(Category.FOOTBALL);
+        productBean.setSubCategory(SubCategory.SHOES);
+        switch (productBean.getCategory()){
+            case FOOTBALL: newProduct = DirectorFootball.createProduct(productBean);
+                break;
+            case TENNIS: newProduct = DirectorTennis.createProduct(productBean);
+                break;
+            default:
+                System.out.println("c");
+                break;
+        }
+        System.out.println(newProduct.getCategory() + " " + newProduct.getSubCategory());
+        System.out.println(newProduct == newProduct);
     }
 }
