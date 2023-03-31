@@ -33,6 +33,7 @@ public class Client {
         productBean.setImage("image");
         productBean.setCategory(Category.FOOTBALL);
         productBean.setSubCategory(SubCategory.SHOES);
+
         switch (productBean.getCategory()){
             case FOOTBALL: newProduct = DirectorFootball.createProduct(productBean);
                 break;

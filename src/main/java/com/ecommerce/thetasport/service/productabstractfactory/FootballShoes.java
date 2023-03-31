@@ -1,6 +1,7 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
-public class FootballShoes extends Shoes{
+public class FootballShoes extends Shoes {
+
     @Override
     public Product build(){
         super.build();
