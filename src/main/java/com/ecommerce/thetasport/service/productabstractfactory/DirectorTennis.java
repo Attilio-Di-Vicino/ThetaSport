@@ -14,11 +14,10 @@ public class DirectorTennis {
      * @param productBean oggetto di tipo {@link ProductBean} che contiene le informazioni del prodotto da creare
      * @return un nuovo oggetto di tipo {@link Product} rappresentante il prodotto creato
      */
-    @SuppressWarnings( "Duplicated code fragment (13 lines long)" )
     public static Product createProduct( @NotNull ProductBean productBean ) {
         // Viene istanziata la factory specifica per i prodotti di tipo "Football"
         TennisConcreteFactory tennisConcreteFactory = new TennisConcreteFactory();
-        Product newProductTennis;
+        @SuppressWarnings( "DuplicatedCode" ) Product newProductTennis;
         // In base alla sottocategoria del prodotto da creare viene invocato il metodo corretto della factory
         switch ( productBean.getSubCategory() ) {
             case SHOES: newProductTennis = tennisConcreteFactory.createShoes();
