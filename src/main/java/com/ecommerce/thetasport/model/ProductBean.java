@@ -26,8 +26,7 @@ public class ProductBean implements Serializable {
         this.subCategory = null;
         this.image = "";
     }
-
-    public ProductBean getProductBean(){return this;}
+    
     public int getCode() {
         return this.code;
     }
@@ -89,5 +88,25 @@ public class ProductBean implements Serializable {
 
     public void setSubCategory(SubCategory subCategory) {
         this.subCategory = subCategory;
+    }
+
+    /**
+     * viene utilizzato un oggeto di tipo {@link StringBuilder}
+     * che ci permette di construire output tramite il pattern builder
+     * @return stringa elenco degli attributi del singolo prodotto
+     */
+    @SuppressWarnings("'StringBuilder out' can be replaced with 'String'")
+    @Override
+    public String toString() {
+        StringBuilder out = new StringBuilder();
+            out.append( " Code: " ).append( this.code ).append( "\n" )
+                    .append(" Name: ").append( this.name ).append( "\n" )
+                    .append( " Description: " ).append( this.description ).append( "\n" )
+                    .append( " Stock: " ).append( this.stock ).append( "\n" )
+                    .append( " Price: " ).append( this.price ).append( "\n" )
+                    .append( " Category: " ).append( this.category ).append( "\n" )
+                    .append( " SubCategory: " ).append( this.subCategory ).append( "\n" )
+                    .append( " Image: " ).append( this.image ).append( "\n" );
+        return out.toString();
     }
 }

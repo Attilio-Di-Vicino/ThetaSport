@@ -45,6 +45,8 @@ public abstract class Product implements ItemElement {
         return this.subCategory;
     }
 
+    public void setCode( int code ) { this.code = code; }
+
     /**
      * Imposta il nome del prodotto.
      * @param name Il nome del prodotto
