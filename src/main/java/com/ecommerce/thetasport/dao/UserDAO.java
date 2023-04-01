@@ -16,6 +16,7 @@ public class UserDAO {
     @SuppressWarnings("Field 'usersMap' may be 'final'")
     private static Map<String, String> usersMap = new HashMap<>();
     private static boolean result;
+    @SuppressWarnings("Field 'userBean' may be 'final'")
     private static UserBean userBean = new UserBean();
     private final static String QUERY_USERS_MAP_SQL = "SELECT EMAIL,PASSWORD FROM USER";
     private final static String INSERT_REGISTRATION_SQL = "INSERT INTO USER (EMAIL,NAME,PASSWORD) VALUES (?,?,?)";

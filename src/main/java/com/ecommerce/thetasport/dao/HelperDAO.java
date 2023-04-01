@@ -23,6 +23,7 @@ public class HelperDAO {
         productBean.setImage( rs.getString( "IMAGE" ) );
     }
 
+    @SuppressWarnings("Condition 'connection != null' is always 'true'")
     public static void editProduct( @NotNull Connection connection, PreparedStatement pstmt, String update, int code, String query) throws SQLException {
         try {
             pstmt = connection.prepareStatement( query );

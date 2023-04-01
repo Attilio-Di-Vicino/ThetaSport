@@ -1,16 +1,13 @@
 package com.ecommerce.thetasport.dao;
 
 import com.ecommerce.thetasport.model.ProductBean;
-import com.ecommerce.thetasport.service.cartvisitor.ItemElement;
 import com.ecommerce.thetasport.service.productabstractfactory.Category;
 import com.ecommerce.thetasport.service.productabstractfactory.Product;
 import com.ecommerce.thetasport.service.productabstractfactory.SubCategory;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.Date;
 
 /**
  * Classe DAO responsabile delle interrogazioni al database
