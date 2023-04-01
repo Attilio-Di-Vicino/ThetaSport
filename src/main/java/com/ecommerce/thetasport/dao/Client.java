@@ -1,6 +1,7 @@
 package com.ecommerce.thetasport.dao;
 
 import com.ecommerce.thetasport.model.ProductBean;
+import com.ecommerce.thetasport.model.TotalOrdersUsersBean;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
 import com.ecommerce.thetasport.service.cartvisitor.ItemElement;
 import com.ecommerce.thetasport.service.cartvisitor.ShoppingCartVisitorImpl;
@@ -63,7 +64,7 @@ public class Client {
         ProductDAO.insertListOrder( cart.getMyCart(), "attilio@gmail.com", shoppingCartVisitor.getTotal() );
         cart.removeAll();
         System.out.println( "\n*** SHOW NEW CART ***" );
-        System.out.println( cart );*/
+        System.out.println( cart );
         // test insert single product
         ProductBean productBeanTest = new ProductBean();
         productBeanTest.setName( "test" );
@@ -73,6 +74,15 @@ public class Client {
         productBeanTest.setCategory( Category.TENNIS );
         productBeanTest.setSubCategory( SubCategory.SHOES );
         Product productTest = Director.createProduct( productBeanTest );
-        ProductDAO.insertProduct( productTest );
+        ProductDAO.insertProduct( productTest );*/
+        System.out.println( "\n*** TEST SUM ORDER ***" );
+        System.out.println( "\nTHIS MONTHLY result: " + OrderDAO.getSumPriceOrderMonthly() );
+        System.out.println( "\nTHIS YEAR result: " + OrderDAO.getSumPriceOrderYear() );
+        System.out.println( "\nTOTAL result: " + OrderDAO.getSumPriceOrderTotal() );
+        System.out.println( "\n*** TEST TOTAL ORDERS USERS ***" );
+        List<TotalOrdersUsersBean> totalOrdersUsersBeanList = OrderDAO.getTotalOrdersUsersBeanList();
+        for ( TotalOrdersUsersBean item : totalOrdersUsersBeanList ) {
+            System.out.println( "ORDERID: " + item.getOrderId() + " EMAIL: " + item.getEmail() );
+        }
     }
 }

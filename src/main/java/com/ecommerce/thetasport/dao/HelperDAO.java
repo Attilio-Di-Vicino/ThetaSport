@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 public class HelperDAO {
     public static void setSingleProductBean( @NotNull ProductBean productBean, @NotNull ResultSet rs ) throws SQLException {
@@ -38,5 +39,15 @@ public class HelperDAO {
                 pstmt.close();
             }
         }
+    }
+
+    public static int getCurrentMonth() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.MONTH) + 1; // l'indice dei mesi inizia da 0, quindi aggiungiamo 1
+    }
+
+    public static int getCurrentYear() {
+        Calendar cal = Calendar.getInstance();
+        return cal.get(Calendar.YEAR);
     }
 }
