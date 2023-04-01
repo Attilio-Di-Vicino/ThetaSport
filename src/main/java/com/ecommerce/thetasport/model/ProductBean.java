@@ -16,7 +16,7 @@ public class ProductBean implements Serializable {
     private Category category;
     private SubCategory subCategory;
     private String image;
-    public ProductBean(){
+    public ProductBean() {
         this.code = - 1;
         this.name = "";
         this.description = "";
@@ -31,7 +31,7 @@ public class ProductBean implements Serializable {
         return this.code;
     }
 
-    public void setCode(int code) {
+    public void setCode( int code ) {
         this.code = code;
     }
 
@@ -39,7 +39,7 @@ public class ProductBean implements Serializable {
         return this.name;
     }
 
-    public void setName(String name) {
+    public void setName( String name ) {
         this.name = name;
     }
 
@@ -47,7 +47,7 @@ public class ProductBean implements Serializable {
         return this.description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription( String description ) {
         this.description = description;
     }
 
@@ -55,7 +55,7 @@ public class ProductBean implements Serializable {
         return this.stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock( int stock ) {
         this.stock = stock;
     }
 
@@ -63,7 +63,7 @@ public class ProductBean implements Serializable {
         return this.price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice( double price ) {
         this.price = price;
     }
 
@@ -71,7 +71,7 @@ public class ProductBean implements Serializable {
         return this.category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory( Category category ) {
         this.category = category;
     }
 
@@ -79,14 +79,14 @@ public class ProductBean implements Serializable {
         return this.image;
     }
 
-    public void setImage(String image){
+    public void setImage( String image ){
         this.image = image;
     }
     public SubCategory getSubCategory() {
         return subCategory;
     }
 
-    public void setSubCategory(SubCategory subCategory) {
+    public void setSubCategory( SubCategory subCategory ) {
         this.subCategory = subCategory;
     }
 

@@ -8,6 +8,7 @@ public class UserBean implements Serializable {
     private String name;
     private String email;
     private String password;
+
     public UserBean() {
         this.name = "";
         this.email = "";
