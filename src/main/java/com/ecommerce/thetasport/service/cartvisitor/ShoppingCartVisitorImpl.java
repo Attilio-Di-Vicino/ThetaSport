@@ -7,6 +7,12 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 import java.util.Map;
 
+/**
+ * Il compito di quella classe è quello di visita e del totale dei prodotti del carrello.
+ * Quindi implementa l'interfaccia {@link ShoppingCartVisitor}
+ * la quale contiene i vari metodi visit da implementare
+ * {@link ShoppingCartVisitor#visit(Shoes)} ed {@link ShoppingCartVisitor#visit(TShirt)}
+ */
 public class ShoppingCartVisitorImpl implements ShoppingCartVisitor {
 
     private final Cart cart;
@@ -21,7 +27,7 @@ public class ShoppingCartVisitorImpl implements ShoppingCartVisitor {
 
     @Override
     public double visit( @NotNull Shoes product ) {
-        int quantity = cart.getMyCart().get(product);
+        int quantity = cart.getMyCart().get( product );
         System.out.println( "Name: " + product.getName() + " price: " + product.getPrice() + " quantity: " + quantity );
         return product.getPrice() * quantity;
     }

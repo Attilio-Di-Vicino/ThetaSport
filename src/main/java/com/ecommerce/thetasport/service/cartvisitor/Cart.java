@@ -3,6 +3,9 @@ package com.ecommerce.thetasport.service.cartvisitor;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Il compito di quella classe è quello di aggiungere e rimuovere prodotti dal carrello.
+ */
 public class Cart {
 
     private final Map<ItemElement, Integer> myCart;
