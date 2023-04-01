@@ -75,7 +75,7 @@ public class OrderDAO {
                 pstmt.setInt( 2, id );
                 pstmt.setInt( 3, items.get( item ) );
                 int result = pstmt.executeUpdate();
-                System.out.println("Insert contains: " + product.getCode() + " result: " + result);
+                System.out.println( "Insert contains: " + product.getCode() + " result: " + result );
             }
         } catch ( SQLException e ) {
             e.printStackTrace();
@@ -103,7 +103,7 @@ public class OrderDAO {
     public static double getSumPriceOrderMonthly() throws SQLException {
         try {
             connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement(QUERY_MONTHLY_YEAR_SQL);
+            pstmt = connection.prepareStatement( QUERY_MONTHLY_YEAR_SQL );
             pstmt.setInt( 1, HelperDAO.getCurrentMonth() );
             pstmt.setInt( 2, HelperDAO.getCurrentYear() );
             rs = pstmt.executeQuery();
@@ -138,7 +138,7 @@ public class OrderDAO {
             pstmt = connection.prepareStatement( QUERY_YEARS_SQL );
             pstmt.setInt( 1, HelperDAO.getCurrentYear() );
             rs = pstmt.executeQuery();
-            if ( rs.next() ){
+            if ( rs.next() ) {
                 result = rs.getDouble( 1 );
             }
         } catch ( SQLException e ) {
@@ -208,7 +208,7 @@ public class OrderDAO {
                 totalOrdersUsersBean.setDate( rs.getString( "ORDERDATE" ) );
                 totalOrdersUsersBean.setTotal( rs.getDouble( "TOTAL" ) );
                 totalOrdersUsersBean.setQuantity( rs.getInt( "QUANTITY" ) );
-                totalOrdersUsersBeanList.add(totalOrdersUsersBean);
+                totalOrdersUsersBeanList.add( totalOrdersUsersBean );
             }
         } catch ( SQLException e ) {
             e.printStackTrace();
