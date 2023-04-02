@@ -1,5 +1,6 @@
 package com.ecommerce.thetasport.service.tfidf;
 
+import com.ecommerce.thetasport.service.annotations.Method;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -9,10 +10,14 @@ import java.util.List;
 public class HelperTFIDF {
 
     /**
-     * Converta una Lista di Stringe in una lista di singole parole
-     * @param phraseList lista di stringhe da convertire
-     * @return lista di word
+     * Converte una lista di frasi in una lista di parole.
+     *
+     * @param phraseList la lista di frasi da convertire
+     * @return la lista di parole
      */
+    @Method( description = "Converte una lista di frasi in una lista di parole",
+             parameters = { "la lista di frasi da convertire" },
+             returns = { "la lista di parole" } )
     public static @NotNull List<String> convertListStringToWordList( @NotNull List< String > phraseList ) {
         List< String > wordList = new ArrayList<>();
         for ( String singleWord: phraseList ) {
@@ -22,6 +27,15 @@ public class HelperTFIDF {
         return wordList;
     }
 
+    /**
+     * Converte una singola frase in una lista di parole.
+     *
+     * @param phraseList la frase da convertire
+     * @return la lista di parole
+     */
+    @Method( description = "Converte una singola frase in una lista di parole",
+             parameters = { "la frase da convertire" },
+             returns = { "la lista di parole" } )
     public static @NotNull List<String> convertStringToWordList( @NotNull String phraseList ) {
         List<String> wordList = new ArrayList<>();
         String[] words = phraseList.trim().split( "\\s+" );
