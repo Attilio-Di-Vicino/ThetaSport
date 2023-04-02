@@ -27,16 +27,16 @@ public class Client {
         System.out.println( "\n*** TEST WITH BANCOMAT ***" );
         PaymentStrategy paymentStrategy = new BancomatStrategy( "attilio", "4456 3245 1234 6345 5567",
                 "771", "2030-10-12" );
-        HelperStrategy.pay( paymentStrategy, shoppingCartVisitor.getTotal() );
+        ManagerPayments.pay( paymentStrategy, shoppingCartVisitor.getTotal() );
         // test payment method with credit card
         System.out.println( "\n*** TEST WITH CREDIT CARD ***" );
         paymentStrategy = new CreditCardStrategy( "mario", "4456 3245 1234 6345 5567",
                 "771", "2030-10-12" );
-        HelperStrategy.pay( paymentStrategy, shoppingCartVisitor.getTotal() );
+        ManagerPayments.pay( paymentStrategy, shoppingCartVisitor.getTotal() );
         // test payment method with cash method
         System.out.println( "\n*** TEST WITH CASH METHOD ***" );
         paymentStrategy = new CashStrategy( "lorenzo@gmail.com", "333 333 33 33",
                 "Via Napoli 60" );
-        HelperStrategy.pay( paymentStrategy, shoppingCartVisitor.getTotal() );
+        ManagerPayments.pay( paymentStrategy, shoppingCartVisitor.getTotal() );
     }
 }

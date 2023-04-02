@@ -2,12 +2,6 @@ package com.ecommerce.thetasport.dao;
 
 import com.ecommerce.thetasport.model.ProductBean;
 import com.ecommerce.thetasport.model.TotalOrdersUsersBean;
-import com.ecommerce.thetasport.service.cartvisitor.Cart;
-import com.ecommerce.thetasport.service.cartvisitor.ItemElement;
-import com.ecommerce.thetasport.service.cartvisitor.ShoppingCartVisitorImpl;
-import com.ecommerce.thetasport.service.paymentstrategy.BancomatStrategy;
-import com.ecommerce.thetasport.service.paymentstrategy.HelperStrategy;
-import com.ecommerce.thetasport.service.paymentstrategy.PaymentStrategy;
 import com.ecommerce.thetasport.service.productabstractfactory.*;
 
 import java.sql.Connection;

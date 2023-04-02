@@ -2,7 +2,7 @@ package com.ecommerce.thetasport.service.cartvisitor;
 
 import com.ecommerce.thetasport.model.ProductBean;
 import com.ecommerce.thetasport.service.paymentstrategy.CashStrategy;
-import com.ecommerce.thetasport.service.paymentstrategy.HelperStrategy;
+import com.ecommerce.thetasport.service.paymentstrategy.ManagerPayments;
 import com.ecommerce.thetasport.service.productabstractfactory.*;
 
 public class Client {
@@ -69,7 +69,7 @@ public class Client {
         double total = shoppingCartVisitor.getTotal();
         System.out.println( "\n*** TEST PAYMENT METHOD AND TOTAL CART ***" );
         System.out.println( "My cart total: " + total );
-        HelperStrategy.pay( new CashStrategy( "attilio@gmail.com",
+        ManagerPayments.pay( new CashStrategy( "attilio@gmail.com",
                 "3333333333", "Via Napoli 18" ), shoppingCartVisitor.getTotal() );
         // test remove all
         cart.removeAll();
