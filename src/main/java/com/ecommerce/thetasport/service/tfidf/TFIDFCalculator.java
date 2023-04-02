@@ -121,19 +121,10 @@ public class TFIDFCalculator {
      * @param email input mail user
      * @throws SQLException eccezione query
      */
-    public static @NotNull Map< String, Double > TFIDFSingleUser( String email ) throws SQLException {
+    public static @NotNull CustomPriorityQueue< String, Double > TFIDFSingleUser( String email, int numberOfProducts ) throws SQLException {
         // lista dei prodotti acquistati di uno specifico utente con i nomi dei prodotti separati in singole parole
         List< String > singleDocument = ProductDAO.getProductListAllOrderSingleUser( email );
         singleDocument = HelperTFIDF.convertListStringToWordList( singleDocument );
-
-
-        System.out.println( "\n*** TEST SINGLE DOCUMENT ***" );
-        int i = 0;
-        for ( String word : singleDocument ) {
-            System.out.println( "word: " + i++ + ": " + word );
-        }
-
-
         // quindi prendo tutti i nomi dei prodotti presenti nel database, ed andro ad dividere il nome
         // formando quindi per ogni nome una lista di stringe
         // ES: nome prodotto "Air Jordan" risultato doc1 = "Air" + "Jordan"
@@ -143,38 +134,19 @@ public class TFIDFCalculator {
             List< String > doc = HelperTFIDF.convertStringToWordList( singleProductName );
             documents.add( doc );
         }
-
-
-        System.out.println( "\n*** TEST ALL DOCUMENT ***" );
-        i = 0;
-        for ( List<String> list : documents ) {
-            for ( String word : list ) {
-                System.out.println( "word all product " + i++ + ": " + word );
-            }
-        }
-
-
-        Map< String, Double > resultTreeMapTFIDF = new TreeMap<>();
+        // Creazione di una nuova istanza della classe CustomPriorityQueue
+        CustomPriorityQueue< String, Double > maxQueue = new CustomPriorityQueue<>( new MyEntryComparator() );
         for ( String term : singleDocument ) {
-            Double index = resultTreeMapTFIDF.get( term );
-            if ( index == null ) {
-                // TF-IDF non è stato ancora calcolato
-                resultTreeMapTFIDF.put( term, tfIdf( singleDocument, documents, term ) );
+            if ( !maxQueue.containsKey( term ) ) {
+                // TF-IDF non è stato ancora calcolato rispetto al term corrente
+                maxQueue.add( new AbstractMap.SimpleEntry<>( term, tfIdf( singleDocument, documents, term ) ) );
             }
         }
-
-
-        System.out.println( "\n*** TEST MAP ***" );
-        System.out.println( resultTreeMapTFIDF );
-
-
-        // da modificare
-        Map<String, Double> result = new HashMap<>();
-        Map.Entry<String, Double> maxEntry = Collections.max(resultTreeMapTFIDF.entrySet(), Map.Entry.comparingByValue());
-        result.put(maxEntry.getKey(), maxEntry.getValue());
-        resultTreeMapTFIDF.remove(maxEntry.getKey(),maxEntry.getValue());
-        maxEntry = Collections.max(resultTreeMapTFIDF.entrySet(), Map.Entry.comparingByValue());
-        result.put(maxEntry.getKey(), maxEntry.getValue());
+        // inserisco i nome dei prodotti che hanno una valore maggiore
+        CustomPriorityQueue< String, Double > result = new CustomPriorityQueue<>( new MyEntryComparator() );
+        for ( int i = 0; i < numberOfProducts; i++ ) {
+            result.add( maxQueue.poll() );
+        }
         return result;
     }
 
@@ -187,10 +159,10 @@ public class TFIDFCalculator {
      * @param args main
      * @throws SQLException test
      */
-    public static void main(String[] args) throws SQLException {
-
-        System.out.println("ATTILIO");
-        Map<String, Double> result = TFIDFSingleUser("attilio@gmail.com");
-        System.out.println(result);
+    public static void main( String[] args ) throws SQLException {
+        System.out.println( "ATTILIO" );
+        CustomPriorityQueue< String, Double > result = TFIDFSingleUser( "attilio@gmail.com", 2 );
+        System.out.println( "\n*** TEST RESULT ***" );
+        System.out.println( result );
     }
 }
