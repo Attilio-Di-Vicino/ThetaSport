@@ -19,8 +19,8 @@ public class MyEntryComparator implements Comparator< Map.Entry<String, Double> 
      * @param entry2 La seconda entry da comparare.
      * @return Un intero negativo, zero o un intero positivo se la prima entry è meno di, uguale a, o maggiore della seconda entry.
      */
-    @Method( description = "Compara due {@link Map.Entry} della mappa per determinare l'ordine " +
-            "decrescente basato sul valore associato alla chiave.",
+    @Method( description = "Compara due valori della mappa per determinare l'ordine " +
+                           "decrescente basato sul valore associato alla chiave.",
             parameters = { "entry1 La prima entry da comparare.", "entry2 La seconda entry da comparare." },
             returns = { "Un intero negativo, zero o un intero positivo se la prima " +
                     "entry è meno di, uguale a, o maggiore della seconda entry." }
