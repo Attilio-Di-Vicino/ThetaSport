@@ -1,6 +1,6 @@
 package com.ecommerce.thetasport.service.loginCor;
 
-public class Login {
+public class ManagerLogin {
 
     /*public static ToHandle login(String name, String password, String usernameAdmin){
         Map<String, String> listaUtenti;
