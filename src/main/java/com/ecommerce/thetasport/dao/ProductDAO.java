@@ -32,6 +32,11 @@ public class ProductDAO {
     private final static String UPDATE_STOCK_SQL = "UPDATE PRODUCT SET STOCK = (?) WHERE CODE = (?)";
     private final static String UPDATE_PRICE_SQL = "UPDATE PRODUCT SET PRICE = (?) WHERE CODE = (?)";
     private final static String UPDATE_IMAGE_SQL = "UPDATE PRODUCT SET IMAGE = (?) WHERE CODE = (?)";
+    private static List<String> productList; // TFIDF
+    private final static String QUERY_PRODUCT_ORDER_SINGLE_USER_SQL = "SELECT P.NAME,C.QUANTITY FROM PRODUCT P " +
+            "JOIN CONTAINS C on P.CODE = C.CODE JOIN `ORDER` O on O.ORDERID = C.ORDERID_C " +
+            "JOIN USER U on O.EMAIL = U.EMAIL WHERE O.EMAIL = (?)";
+    private final static String QUERY_ALL_PRODUCT = "SELECT NAME FROM PRODUCT";
 
     /**
      * il metodo getSingleProduct() assume in input un codice univoco
@@ -258,5 +263,69 @@ public class ProductDAO {
     public static void editImageProduct( String image, int code ) throws SQLException {
         connection = DatabaseConnection.getInstance().getConnection();
         HelperDAO.editProduct( connection, pstmt, image, code, UPDATE_IMAGE_SQL );
+    }
+
+    /**
+     * il metodo getProductListAllOrderSingleUser() esegue un'interrogazione al database
+     * e restituisce una lista di string la quale conterrà tutti i prodotti acquistati da uno
+     * specifico utente, e se un pordotto è stato acquistato più di una volta allora sarà
+     * inserito quante volte è stato acquistato, ES: "Air Jordan" acquistato 2 volte
+     * la lista avrà 2 elementi al suo interno che sono "Air Jordan".
+     * @param email mail che fa riferimento ad un utente specifico
+     * @return lista di string contente i pordotti acquistati da un singolo utente
+     * @throws SQLException Definisce un'eccezione generale che si può generare
+     */
+    public static List<String> getProductListAllOrderSingleUser( String email ) throws SQLException {
+        try {
+            connection = DatabaseConnection.getInstance().getConnection();
+            pstmt = connection.prepareStatement( QUERY_PRODUCT_ORDER_SINGLE_USER_SQL );
+            pstmt.setString( 1, email );
+            rs = pstmt.executeQuery();
+            productList = new ArrayList<>();
+            while ( rs.next() ) {
+                int quantity = rs.getInt( "QUANTITY" );
+                for ( int i = 0; i < quantity; i++ ) {
+                    productList.add( rs.getString( "NAME" ) );
+                }
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( connection != null ) {
+                connection.close();
+            }
+            if ( pstmt != null ) {
+                pstmt.close();
+            }
+            if ( rs != null ) {
+                rs.close();
+            }
+        }
+        return productList;
+    }
+
+    public static List< String > getAllProductList() throws SQLException {
+        try {
+            connection = DatabaseConnection.getInstance().getConnection();
+            pstmt = connection.prepareStatement( QUERY_ALL_PRODUCT );
+            rs = pstmt.executeQuery();
+            productList = new ArrayList<>();
+            while ( rs.next() ) {
+                productList.add( rs.getString( "NAME" ) );
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( connection != null ) {
+                connection.close();
+            }
+            if ( pstmt != null ) {
+                pstmt.close();
+            }
+            if ( rs != null ) {
+                rs.close();
+            }
+        }
+        return productList;
     }
 }
