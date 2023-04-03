@@ -7,6 +7,7 @@ package com.ecommerce.thetasport.service.paymentstrategy;
  *
  * @author Theta Sport
  * @version 1.0
+ * @see PaymentStrategy
  */
 public class BancomatStrategy implements PaymentStrategy{
     private String name;
