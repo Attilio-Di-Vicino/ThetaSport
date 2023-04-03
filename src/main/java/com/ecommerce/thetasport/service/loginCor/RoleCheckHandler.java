@@ -1,11 +1,13 @@
 package com.ecommerce.thetasport.service.loginCor;
 
 public class RoleCheckHandler extends Handler {
-    private final String USERNAMEADMIN;
-    public RoleCheckHandler( String usernameAdmin ) { this.USERNAMEADMIN = usernameAdmin; }
+    private final String USERNAME_ADMIN;
+
+    public RoleCheckHandler( String usernameAdmin ) { this.USERNAME_ADMIN = usernameAdmin; }
+
     @Override
     public ToHandle handle( String username, String password ) {
-        if ( USERNAMEADMIN.equals( username ) ) {
+        if ( USERNAME_ADMIN.equals( username ) ) {
             System.out.println( "Admin page" );
             return ToHandle.ADMIN_ACCESS;
         }
