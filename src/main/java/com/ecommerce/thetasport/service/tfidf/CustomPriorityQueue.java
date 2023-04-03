@@ -5,10 +5,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 /**
- * Questa classe estende {@link PriorityQueue} e implementa una coda di priorità con l'aggiunta di una mappa per gestire
- * la presenza di chiavi duplicate. Le entry sono ordinate sulla base di un {@link Comparator} personalizzato.
+ * Questa classe estende {@link PriorityQueue} e implementa una coda di priorità con l'aggiunta di una mappa per gestire <br>
+ * la presenza di chiavi duplicate. Le entry sono ordinate sulla base di un {@link Comparator} personalizzato. <br>
+ *
  * @param <K> Il tipo della chiave.
  * @param <V> Il tipo del valore.
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 public class CustomPriorityQueue< K, V > extends PriorityQueue< Map.Entry < K, V > > {
 
@@ -18,7 +22,7 @@ public class CustomPriorityQueue< K, V > extends PriorityQueue< Map.Entry < K, V
     private final Map< K, V > map;
 
     /**
-     * Costruisce una nuova coda di priorità con un comparatore personalizzato.
+     * Costruisce una nuova coda di priorità con un {@link Comparator} personalizzato.
      *
      * @param comparator Il comparatore personalizzato da utilizzare per ordinare le entry della coda di priorità.
      */

@@ -6,8 +6,12 @@ import java.util.Comparator;
 import java.util.Map;
 
 /**
- * Questa classe implementa un {@link Comparator} per ordinare una mappa di stringhe e double in ordine decrescente
+ * Questa classe implementa un {@link Comparator} per ordinare una mappa di stringhe e double in ordine decrescente <br>
  * basandosi sul valore associato alla chiave.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ * @see Comparator
  */
 public class MyEntryComparator implements Comparator< Map.Entry<String, Double> > {
 

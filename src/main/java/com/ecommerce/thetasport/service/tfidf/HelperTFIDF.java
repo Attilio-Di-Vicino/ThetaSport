@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * La classe HelperTFIDF contiene metodi utili per il calcolo del TF-IDF.<br>
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 public class HelperTFIDF {
 
     /**

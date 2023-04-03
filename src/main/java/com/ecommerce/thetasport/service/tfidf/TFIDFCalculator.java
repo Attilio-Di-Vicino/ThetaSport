@@ -1,21 +1,34 @@
 package com.ecommerce.thetasport.service.tfidf;
 
 import com.ecommerce.thetasport.dao.ProductDAO;
+import com.ecommerce.thetasport.service.loginCor.Handler;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Il TF-IDF è un algoritmo di estrazione delle informazioni testuali da una base dati.<br>
+ * è una funzione utilizzata per misurare l'importanza di un termine rispetto ad un documento o ad una collezione di documenti.<br>
+ * Tale funzione aumenta proporzionalmente al numero di volte che il termine è contenuto nel documento,<br>
+ * ma cresce in maniera inversamente proporzionale con la frequenza del termine nella collezione. L'idea alla base di questo<br>
+ * comportamento è di dare più importanza ai termini che compaiono nel documento, ma che in generale sono poco frequenti.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 public class TFIDFCalculator {
 
     /**
-     * Questa componente misura la frequenza di una parola all'interno di un documento specifico.
-     * Quante più occorrenze della parola si presentano nel documento,
-     * tanto maggiore è il valore dell'indicatore TF.
-     * TF = O(K,X) / D(X)
-     * @param doc  list of strings
-     * @param term String represents a term
-     * @return term frequency of term in document
+     * Questa componente misura la frequenza di una parola all'interno di un documento specifico.<br>
+     * Quante più occorrenze della parola si presentano nel documento,<br>
+     * tanto maggiore è il valore dell'indicatore TF.<br><br>
+     *
+     * TF = O(K,X) / D(X)<br>
+     *
+     * @param doc  lista di strings
+     * @param term String che rappresenta un termine
+     * @return term frequency del termine nel documento
      */
     public static double tf( @NotNull List< String > doc, String term ) {
         double result = 0;
@@ -27,12 +40,14 @@ public class TFIDFCalculator {
     }
 
     /**
-     * Questo indicatore misura la frequenza inversa di una parola tra tutti i documenti.
-     * E' molto alto nei termini specifici, mentre è molto basso nelle parole comuni.
-     * IDF = log N / n(k)
-     * @param docs list of strings represents the dataset
-     * @param term String represents a term
-     * @return the inverse term frequency of term in documents
+     * Questo indicatore misura la frequenza inversa di una parola tra tutti i documenti.<br>
+     * E' molto alto nei termini specifici, mentre è molto basso nelle parole comuni.<br><br>
+     *
+     * IDF = log N / n(k)<br>
+     *
+     * @param docs list di list di string che rappresentano i documenti
+     * @param term String che rappresenta un termine
+     * @return inverse term frequency di un termine nei documenti
      */
     public static double idf( @NotNull List<List< String >> docs, String term ) {
         double n = 0;
@@ -48,11 +63,14 @@ public class TFIDFCalculator {
     }
 
     /**
-     * TF-IDF = TF(K,X) · IDF(K)
-     * @param doc  a text document
-     * @param docs all documents
-     * @param term term
-     * @return the TF-IDF of term
+     * Esegue il prodotto tra i rispettivi risultati del tf e del idf<br><br>
+     *
+     * TF-IDF = TF(K,X) · IDF(K)<br>
+     *
+     * @param doc singolo documento
+     * @param docs tutti i documenti
+     * @param term termine
+     * @return TF-IDF del termine
      */
     public static double tfIdf( List<String> doc, List< List<String> > docs, String term ) {
         return tf( doc, term ) * idf( docs, term ) ;
@@ -150,14 +168,14 @@ public class TFIDFCalculator {
         return result;
     }
 
-
     /**
-     * Il parametro TF-IDF è elevato quando la parola è molto frequente in un documento e
-     * il termine non è presente su tutti i documenti della banca dati.
-     * Questo permette di ridurre l'importanza delle parole comuni ( es. "del", "della", "un", ecc. ) e
-     * valorizzare gli altri termini della query dell'utente.
-     * @param args main
-     * @throws SQLException test
+     * Il parametro TF-IDF è elevato quando la parola è molto frequente in un documento e <br>
+     * il termine non è presente su tutti i documenti della banca dati. <br>
+     * Questo permette di ridurre l'importanza delle parole comuni ( es. "del", "della", "un", ecc. ) e <br>
+     * valorizzare gli altri termini della query dell'utente. <br>
+     * 
+     * @param args argomento di default
+     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static void main( String[] args ) throws SQLException {
         System.out.println( "ATTILIO" );
