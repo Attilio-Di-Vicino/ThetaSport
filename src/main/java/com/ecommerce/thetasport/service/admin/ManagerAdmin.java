@@ -15,7 +15,7 @@ public class ManagerAdmin {
 
     public static List< ProductBean > getOfferSingleUser( String email, int numberOfProductForOffer ) throws SQLException {
         List< ProductBean > productBeanListOffer = new ArrayList<>();
-        CustomPriorityQueue< String, Double > resultTFIDF = TFIDFCalculator.TFIDFSingleUser( email, 2 );
+        CustomPriorityQueue< String, Double > resultTFIDF = TFIDFCalculator.TFIDFSingleUser( email, 10 );
         System.out.println( resultTFIDF );
         List< ProductBean > productBeanList = ProductDAO.getProductBeanList();
         // qui c'è da capire se è meglio eliminare il term dalla queue o no
@@ -40,7 +40,7 @@ public class ManagerAdmin {
     }
 
     public static void main( String[] args ) throws SQLException {
-        List< ProductBean > productBeanList = getOfferSingleUser( "attilio@gmail.com", 80 );
+        List< ProductBean > productBeanList = getOfferSingleUser( "attilio@gmail.com", 40 );
         System.out.println( "\n*** TEST TF-IDF OFFER ***" );
         System.out.println( "Number of products for offer is: " + productBeanList.size() );
         System.out.println( productBeanList );

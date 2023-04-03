@@ -45,7 +45,7 @@ public class CustomPriorityQueue< K, V > extends PriorityQueue< Map.Entry < K, V
      * @return {@code true} se la nuova entry è stata aggiunta con successo alla coda di priorità, {@code false} altrimenti.
      */
     @Override
-    public boolean offer( Map.@NotNull Entry< K, V > entry ) {
+    public boolean offer( Map.Entry< K, V > entry ) {
         if ( map.containsKey( entry.getKey() ) ) {
             // Rimuovi la vecchia entry se la chiave esiste già nella mappa
             remove( entry );
