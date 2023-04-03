@@ -11,10 +11,16 @@ package com.ecommerce.thetasport.service.paymentstrategy;
  * @see PaymentStrategy
  */
 public class CreditCardStrategy implements PaymentStrategy {
-    private String name;
-    private String cardNumber;
-    private String cvv;
-    private String dateOfExpiry;
+    private final String NAME;
+    @SuppressWarnings( value = { "Field can be converted to a local variable",
+            "Private field 'CARD_NUMBER' is assigned but never accessed" } )
+    private final String CARD_NUMBER;
+    @SuppressWarnings( value = { "Field can be converted to a local variable",
+            "Private field 'CVV' is assigned but never accessed" } )
+    private final String CVV;
+    @SuppressWarnings( value = { "Field can be converted to a local variable",
+            "Private field 'DATE_OF_EXPIRY' is assigned but never accessed" } )
+    private final String DATE_OF_EXPIRY;
 
 
     /**
@@ -26,10 +32,10 @@ public class CreditCardStrategy implements PaymentStrategy {
      * @param dateOfExpiry la data di scadenza della carta.
      */
     public CreditCardStrategy( String name, String cardNumber, String cvv, String dateOfExpiry ) {
-        this.name = name;
-        this.cardNumber = cardNumber;
-        this.cvv = cvv;
-        this.dateOfExpiry = dateOfExpiry;
+        this.NAME = name;
+        this.CARD_NUMBER = cardNumber;
+        this.CVV = cvv;
+        this.DATE_OF_EXPIRY = dateOfExpiry;
     }
 
     /**
@@ -41,7 +47,7 @@ public class CreditCardStrategy implements PaymentStrategy {
      */
     @Override
     public void pay( double amount ) {
-        System.out.println( "\n " + name + " has successfully made a payment of $"
+        System.out.println( "\n " + NAME + " has successfully made a payment of $"
                 + amount + " paid with credit/debit card" );
     }
 }

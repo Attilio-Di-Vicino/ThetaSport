@@ -10,9 +10,14 @@ package com.ecommerce.thetasport.service.paymentstrategy;
  * @see PaymentStrategy
  */
 public class CashStrategy implements PaymentStrategy {
-    private String email;
-    private String tel;
-    private String address;
+
+    @SuppressWarnings( value = { "Field can be converted to a local variable",
+            "Private field 'EMAIL' is assigned but never accessed" } )
+    private final String EMAIL;
+    @SuppressWarnings( value = { "Field can be converted to a local variable",
+            "Private field 'TEL' is assigned but never accessed" } )
+    private final String TEL;
+    private final String ADDRESS;
 
 
     /**
@@ -23,9 +28,9 @@ public class CashStrategy implements PaymentStrategy {
      * @param address l'indirizzo di spedizione del cliente.
      */
     public CashStrategy( String email, String tel, String address ) {
-        this.email = email;
-        this.tel = tel;
-        this.address = address;
+        this.EMAIL = email;
+        this.TEL = tel;
+        this.ADDRESS = address;
     }
 
     /**
@@ -37,7 +42,7 @@ public class CashStrategy implements PaymentStrategy {
      */
     @Override
     public void pay( double amount ){
-        System.out.println( "\nShipping made to the " + address + " address with a total of $"
+        System.out.println( "\nShipping made to the " + ADDRESS + " address with a total of $"
                 + amount + " and payment on delivery." );
     }
 }
