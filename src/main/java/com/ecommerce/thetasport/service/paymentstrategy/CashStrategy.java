@@ -4,6 +4,9 @@ package com.ecommerce.thetasport.service.paymentstrategy;
  * Questa classe implementa la strategia di pagamento in contanti alla consegna.<br>
  * La classe definisce un costruttore che accetta le informazioni di contatto del cliente,<br>
  * e implementa il metodo {@link PaymentStrategy#pay} definito nell'interfaccia {@link PaymentStrategy}.
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 public class CashStrategy implements PaymentStrategy {
     private String email;

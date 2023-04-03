@@ -6,6 +6,9 @@ import org.jetbrains.annotations.NotNull;
  * Classe che rappresenta un gestore di pagamenti.
  *
  * <p>Permette di effettuare il pagamento di una determinata somma attraverso<br> una specifica strategia di pagamento.</p>
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 public class ManagerPayments {
 

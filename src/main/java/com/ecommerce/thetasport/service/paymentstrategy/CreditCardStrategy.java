@@ -5,6 +5,9 @@ package com.ecommerce.thetasport.service.paymentstrategy;
  *
  * La classe definisce un costruttore che accetta le informazioni sulla carta di credito,<br>
  * e implementa il metodo {@link PaymentStrategy#pay} definito nell'interfaccia {@link PaymentStrategy}.
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 public class CreditCardStrategy implements PaymentStrategy {
     private String name;

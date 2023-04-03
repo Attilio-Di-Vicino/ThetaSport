@@ -4,6 +4,9 @@ package com.ecommerce.thetasport.service.paymentstrategy;
  * Questa classe implementa la strategia di pagamento con carta Bancomat.<br>
  * La classe definisce un costruttore che accetta le informazioni della carta Bancomat del cliente,<br>
  * e implementa il metodo {@link PaymentStrategy#pay} definito nell'interfaccia {@link PaymentStrategy}.
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 public class BancomatStrategy implements PaymentStrategy{
     private String name;
