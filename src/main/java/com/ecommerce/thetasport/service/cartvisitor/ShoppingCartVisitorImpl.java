@@ -44,7 +44,7 @@ public class ShoppingCartVisitorImpl implements ShoppingCartVisitor {
      */
     @Override
     public double visit( @NotNull Shoes product ) {
-        int quantity = cart.getMyCart().get( product );
+        int quantity = cart.getMY_CART().get( product );
         System.out.println( "Name: " + product.getName() + " price: " + product.getPrice() + " quantity: " + quantity );
         return product.getPrice() * quantity;
     }
@@ -57,7 +57,7 @@ public class ShoppingCartVisitorImpl implements ShoppingCartVisitor {
      */
     @Override
     public double visit( @NotNull TShirt product ) {
-        int quantity = cart.getMyCart().get( product );
+        int quantity = cart.getMY_CART().get( product );
         System.out.println( "Name: " + product.getName() + " price: " + product.getPrice() + " quantity: " + quantity );
         return product.getPrice() * quantity;
     }
@@ -69,7 +69,7 @@ public class ShoppingCartVisitorImpl implements ShoppingCartVisitor {
      */
     public double getTotal() {
         total = 0.0;
-        Map<ItemElement, Integer> myCart = cart.getMyCart();
+        Map<ItemElement, Integer> myCart = cart.getMY_CART();
         for ( ItemElement item : myCart.keySet() ) {
             total += item.accept( this );
         }

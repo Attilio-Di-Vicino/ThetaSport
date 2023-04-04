@@ -11,21 +11,20 @@ import java.util.Map;
  */
 public class Cart {
 
-    private final Map<ItemElement, Integer> myCart;
-
+    private final Map<ItemElement, Integer> MY_CART;
 
     /**
      * Costruttore senza argomenti che inizializza la mappa del carrello.
      */
     public Cart(){
-        this.myCart = new HashMap<>();
+        this.MY_CART = new HashMap<>();
     }
 
     /**
      * Metodo che restituisce la mappa del carrello.
      * @return mappa del carrello
      */
-    public Map<ItemElement, Integer> getMyCart() { return this.myCart; }
+    public Map<ItemElement, Integer> getMY_CART() { return this.MY_CART; }
 
     /**
      * Metodo per aggiungere un elemento al carrello con una quantità specificata.<br>
@@ -34,10 +33,10 @@ public class Cart {
      * @param quantity quantità dell'elemento da aggiungere
      */
     public void add( ItemElement itemElement, int quantity ) {
-        if ( this.myCart.containsKey( itemElement ) ) {
-            this.myCart.put( itemElement, this.myCart.get( itemElement ) + quantity );
+        if ( this.MY_CART.containsKey( itemElement ) ) {
+            this.MY_CART.put( itemElement, this.MY_CART.get( itemElement ) + quantity );
         } else {
-            this.myCart.put( itemElement, quantity );
+            this.MY_CART.put( itemElement, quantity );
         }
     }
 
@@ -54,14 +53,14 @@ public class Cart {
      * @param itemElement elemento da rimuovere
      */
     public void remove( ItemElement itemElement ) {
-        this.myCart.remove( itemElement );
+        this.MY_CART.remove( itemElement );
     }
 
     /**
      * Metodo per rimuovere tutti gli elementi dal carrello.
      */
     public void removeAll() {
-        this.myCart.clear();
+        this.MY_CART.clear();
     }
 
     /**
@@ -69,7 +68,7 @@ public class Cart {
      * @param itemElement elemento di cui decrementare la quantità
      */
     public void decreaseQuantity( ItemElement itemElement ) {
-        this.myCart.put( itemElement, this.myCart.get( itemElement ) - 1 );
+        this.MY_CART.put( itemElement, this.MY_CART.get( itemElement ) - 1 );
     }
 
     /**
@@ -79,12 +78,12 @@ public class Cart {
      */
     @Override
     public String toString() {
-        if ( this.myCart.isEmpty() ) {
-            return "Cart is empty";
+        if ( this.MY_CART.isEmpty() ) {
+            return "Cart is empty.";
         }
         StringBuilder out = new StringBuilder();
-        for ( ItemElement item : this.myCart.keySet() ){
-            out.append( item.toString() ).append(" Quantity: ").append( this.myCart.get(item) ).append("\n");
+        for ( ItemElement item : this.MY_CART.keySet() ) {
+            out.append( item.toString() ).append( " Quantity: " ).append( this.MY_CART.get(item) ).append("\n");
         }
         return out.toString();
     }

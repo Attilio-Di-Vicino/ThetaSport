@@ -30,5 +30,16 @@ public class Client {
         newProduct = DirectorCategory.createProduct( productBean );
         System.out.println( "\n*** TEST SECOND PRODUCT ***" );
         System.out.println( newProduct + " " + newProduct.getCategory() + " " + newProduct.getSubCategory() );
+        // create three product
+        // calling the director for object creation
+        Product newProduct3 = DirectorCategory.createProduct( productBean );
+        System.out.println( "\n*** TEST THREE PRODUCT ***" );
+        System.out.println( newProduct3 + " " + newProduct3.getCategory() + " " + newProduct3.getSubCategory() );
+        // test equals and hashcode
+        System.out.println( "\n*** TEST EQUALS AND HASHCODE ***" );
+        System.out.println( "Equals between second product and three product: "
+                + newProduct.equals( newProduct3 ) );
+        System.out.println( "HashCode between second product and three product: "
+                + "\n Product 2: " + newProduct.hashCode() + " Product 3: " + newProduct3.hashCode() );
     }
 }
