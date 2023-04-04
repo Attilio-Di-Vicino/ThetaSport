@@ -26,7 +26,7 @@ public class ValidPasswordHandler extends Handler {
      * Gestisce la richiesta di login controllando se la password inserita dall'utente è valida. <br>
      * nel caso in cui la password è sbagliata ritorna {@link ToHandle#WRONG_PASSWORD} <br>
      * altrimenti passa al gestore successivo <br>
-     * sovrascrive il metodo {@link Handler#handle(String, String)}
+     * Implementa il metodo {@link Handler#handle(String, String)}
      *
      * @param username Username inserito dall'utente
      * @param password Password inserita dall'utente

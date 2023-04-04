@@ -26,7 +26,7 @@ public class UsersExistHandler extends Handler {
      * Gestisce la richiesta di login controllando se l'utente esiste già nel sistema.
      * nel caso in cui la mail è sbagliata ritorna {@link ToHandle#UNREGISTERED} <br>
      * altrimenti passa al gestore successivo <br>
-     * sovrascrive il metodo {@link Handler#handle(String, String)}
+     * Implementa il metodo {@link Handler#handle(String, String)}
      *
      * @param username Username inserito dall'utente
      * @param password Password inserita dall'utente

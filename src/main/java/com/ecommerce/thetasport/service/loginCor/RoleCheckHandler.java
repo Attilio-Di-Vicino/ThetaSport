@@ -25,7 +25,7 @@ public class RoleCheckHandler extends Handler {
      * nel caso in cui la mail corrisponde a quella dell'admin<br>
      * ritorna {@link ToHandle#ADMIN_ACCESS} <br>
      * altrimenti passa al gestore successivo <br>
-     * sovrascrive il metodo {@link Handler#handle(String, String)}
+     * Implementa il metodo {@link Handler#handle(String, String)}
      *
      * @param username Username inserito dall'utente
      * @param password Password inserita dall'utente

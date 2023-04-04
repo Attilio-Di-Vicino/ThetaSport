@@ -25,10 +25,6 @@ public class AuthService {
      * @return Ritorna un'enumerazione {@link ToHandle} che indica l'operazione successiva da effettuare
      */
     public ToHandle login( String username, String password ){
-        ToHandle resultLogin = HANDLER.handle( username,password );
-        if ( resultLogin == ToHandle.ADMIN_ACCESS || resultLogin == ToHandle.USER_ACCESS ) {
-            System.out.println( "Successful login!" );
-        }
-        return resultLogin;
+        return HANDLER.handle( username,password );
     }
 }
