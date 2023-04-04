@@ -10,8 +10,7 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Classe DAO responsabile delle interrogazioni al database
- * riguardo i prodotti
+ * Classe DAO responsabile delle interrogazioni al database riguardo i prodotti
  */
 public class ProductDAO {
     private static Connection connection; // connessione al database

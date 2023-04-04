@@ -14,7 +14,7 @@ public class Client {
         productBean.setCategory( Category.TENNIS );
         productBean.setSubCategory( SubCategory.TSHIRT );
         // calling the director for object creation
-        Product newProduct = DirectorCategory.createProduct( productBean );
+        Product newProduct = Director.createProduct( productBean );
         System.out.println( "\n*** DIRECTOR TEST ***" );
         System.out.println( "\n*** TEST FIRST PRODUCT ***" );
         System.out.println( newProduct + " " + newProduct.getCategory() + " " + newProduct.getSubCategory() );
@@ -27,12 +27,12 @@ public class Client {
         productBean.setCategory( Category.FOOTBALL );
         productBean.setSubCategory( SubCategory.SHOES );
         // calling the director for object creation
-        newProduct = DirectorCategory.createProduct( productBean );
+        newProduct = Director.createProduct( productBean );
         System.out.println( "\n*** TEST SECOND PRODUCT ***" );
         System.out.println( newProduct + " " + newProduct.getCategory() + " " + newProduct.getSubCategory() );
         // create three product
         // calling the director for object creation
-        Product newProduct3 = DirectorCategory.createProduct( productBean );
+        Product newProduct3 = Director.createProduct( productBean );
         System.out.println( "\n*** TEST THREE PRODUCT ***" );
         System.out.println( newProduct3 + " " + newProduct3.getCategory() + " " + newProduct3.getSubCategory() );
         // test equals and hashcode

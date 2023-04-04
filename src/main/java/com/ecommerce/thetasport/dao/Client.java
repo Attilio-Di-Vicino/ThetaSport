@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Client {
     public static void main( String[] args ) throws SQLException, ClassNotFoundException {
-        // test connection
+        /*// test connection
         Connection connection = DatabaseConnection.getInstance().getConnection();
         // test single product
         System.out.println( "\n*** TEST SINGLE PRODUCT DAO CODE 18 ***" );
@@ -27,7 +27,7 @@ public class Client {
         List<ProductBean> productBeanList = ProductDAO.getProductBeanList();
         for ( ProductBean productBean : productBeanList ) {
             System.out.println( productBean );
-        }
+        }*/
         /*// test insert order
         // add new products to your cart by setting only the category, sub-category, name and price
         Cart cart = new Cart();
@@ -69,7 +69,7 @@ public class Client {
         productBeanTest.setSubCategory( SubCategory.SHOES );
         Product productTest = Director.createProduct( productBeanTest );
         ProductDAO.insertProduct( productTest );*/
-        System.out.println( "\n*** TEST SUM ORDER ***" );
+        /*System.out.println( "\n*** TEST SUM ORDER ***" );
         System.out.println( "\nTHIS MONTHLY result: " + OrderDAO.getSumPriceOrderMonthly() );
         System.out.println( "\nTHIS YEAR result: " + OrderDAO.getSumPriceOrderYear() );
         System.out.println( "\nTOTAL result: " + OrderDAO.getSumPriceOrderTotal() );
@@ -77,6 +77,6 @@ public class Client {
         List<TotalOrdersUsersBean> totalOrdersUsersBeanList = OrderDAO.getTotalOrdersUsersBeanList();
         for ( TotalOrdersUsersBean item : totalOrdersUsersBeanList ) {
             System.out.println( "ORDERID: " + item.getOrderId() + " EMAIL: " + item.getEmail() );
-        }
+        }*/
     }
 }

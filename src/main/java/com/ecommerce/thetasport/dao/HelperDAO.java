@@ -44,11 +44,11 @@ public class HelperDAO {
 
     public static int getCurrentMonth() {
         Calendar cal = Calendar.getInstance();
-        return cal.get(Calendar.MONTH) + 1; // l'indice dei mesi inizia da 0, quindi aggiungiamo 1
+        return cal.get( Calendar.MONTH ) + 1; // l'indice dei mesi inizia da 0, quindi aggiungiamo 1
     }
 
     public static int getCurrentYear() {
         Calendar cal = Calendar.getInstance();
-        return cal.get(Calendar.YEAR);
+        return cal.get( Calendar.YEAR );
     }
 }

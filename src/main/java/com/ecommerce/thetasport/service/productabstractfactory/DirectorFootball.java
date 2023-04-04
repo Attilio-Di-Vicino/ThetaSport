@@ -14,7 +14,7 @@ public class DirectorFootball {
      * @param productBean oggetto di tipo {@link ProductBean} che contiene le informazioni del prodotto da creare
      * @return un nuovo oggetto di tipo {@link Product} rappresentante il prodotto creato
      */
-    @SuppressWarnings( "Duplicated code fragment (13 lines long)" )
+    @SuppressWarnings( value = "Duplicated code fragment (11 lines long)" )
     public static Product createProduct( @NotNull ProductBean productBean ) {
         // Viene istanziata la factory specifica per i prodotti di tipo "Football"
         FootballConcreteFactory footballConcreteFactory = new FootballConcreteFactory();

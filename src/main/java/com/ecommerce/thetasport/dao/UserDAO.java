@@ -27,6 +27,7 @@ public class UserDAO {
      * il metodo getUsersMap() interroga il database e ritorna
      * una map la quale contiene coppie chiave valore di mail e password di un utente
      * viene utilizzata per effettuare l'accesso
+     *
      * @return map di mail e password contenente tutti gli utenti
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */

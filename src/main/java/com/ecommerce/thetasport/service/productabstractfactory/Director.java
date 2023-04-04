@@ -1,9 +1,13 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
 import com.ecommerce.thetasport.model.ProductBean;
-import com.ecommerce.thetasport.service.annotations.Method;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * L'IDEA QUI POTREBBE ESSERE QUELLA DI FARE UNA SCELTA A RUNTIME
+ * DALLA SERVLET QUINDI ELIMINARE QUESTO DIRECTOR E RIMANERE SOLO
+ * I DIRETORI DELLE CATEGORIE
+ */
 public class Director {
 
     public static Product createProduct( @NotNull ProductBean productBean ) {
