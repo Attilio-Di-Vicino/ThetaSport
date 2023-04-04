@@ -104,7 +104,9 @@ public abstract class Product implements ItemElement {
     public abstract Product build();
 
     /**
-     * considerando che il nome è un attributo unico
+     * Viene eseguito Ovverride di {@link Object#equals(Object)}
+     * considerando che il nome è un attributo unico.
+     *
      * @param object Object da confrontare
      * @return il risultato del confronto di tipo boolean
      */
@@ -123,11 +125,26 @@ public abstract class Product implements ItemElement {
     /**
      * Viene eseguito Ovverride di {@link Object#hashCode()}
      * in modo tale da poter eseguire il controllo giusto tramite il metodo {@link Cart#add}
-     * In questo caso ci interessa solo il 'name' essendo attributo univoco
+     * In questo caso, per il calcolo del valore hash, si utilizza una costante iniziale 17 e
+     * un fattore di moltiplicazione 31 ( che è un numero primo e quindi aiuta a ridurre le collisioni ).
+     * Si combinano poi tutti gli attributi della classe moltiplicandoli per il fattore di moltiplicazione e
+     * sommando il risultato al valore hash.
+     *
      * @return hashCode di name
      */
     @Override
     public int hashCode() {
-        return name.hashCode();
+        int result = 17;
+        result = 31 * result + code;
+        result = 31 * result + name.hashCode();
+        result = 31 * result + description.hashCode();
+        result = 31 * result + stock;
+        long temp = Double.doubleToLongBits( price );
+        result = 31 * result + ( int ) ( temp ^ ( temp >>> 32 ) );
+        result = 31 * result + image.hashCode();
+        result = 31 * result + category.hashCode();
+        result = 31 * result + subCategory.hashCode();
+        return result;
     }
+
 }
