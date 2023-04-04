@@ -2,6 +2,13 @@ package com.ecommerce.thetasport.service.tfidf;
 
 import java.sql.SQLException;
 
+/**
+ * La classe Client contiene test delle funzionalità.<br>
+ *
+ * @author Theta Sport
+ * @version 1.0
+ * @see ManagerTFIDF
+ */
 public class Client {
     /**
      * Il parametro TF-IDF è elevato quando la parola è molto frequente in un documento e <br>
