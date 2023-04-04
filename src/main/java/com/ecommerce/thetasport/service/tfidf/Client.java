@@ -1,7 +1,6 @@
 package com.ecommerce.thetasport.service.tfidf;
 
 import java.sql.SQLException;
-import java.util.AbstractMap;
 
 public class Client {
     /**
@@ -18,14 +17,5 @@ public class Client {
         CustomPriorityQueue< String, Double > result = ManagerTFIDF.TFIDFSingleUser( "attilio@gmail.com" );
         System.out.println( "\n*** TEST RESULT ***" );
         System.out.println( result );
-
-        CustomPriorityQueue< String, Double > maxQueue = new CustomPriorityQueue<>( new MyEntryComparator() );
-        // TF-IDF non è stato ancora calcolato rispetto al term corrente
-        maxQueue.add( new AbstractMap.SimpleEntry<>( "uno", 1.0 ) );
-        maxQueue.add( new AbstractMap.SimpleEntry<>( "uno", 2.0 ) );
-        maxQueue.add( new AbstractMap.SimpleEntry<>( "uno", 3.0 ) );
-        System.out.println( "\nTest" );
-        System.out.println( maxQueue );
-
     }
 }
