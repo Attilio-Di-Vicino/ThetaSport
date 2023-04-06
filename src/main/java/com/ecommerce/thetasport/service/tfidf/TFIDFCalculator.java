@@ -35,6 +35,9 @@ public class TFIDFCalculator {
             if ( term.equalsIgnoreCase( word ) )
                 result++;
         }
+        if ( doc.size() == 0 ) {
+            return 0;
+        }
         return result / doc.size();
     }
 
@@ -42,7 +45,7 @@ public class TFIDFCalculator {
      * Questo indicatore misura la frequenza inversa di una parola tra tutti i documenti.<br>
      * E' molto alto nei termini specifici, mentre è molto basso nelle parole comuni.<br><br>
      *
-     * IDF = log N / n(k)<br>
+     * IDF = ln N / n(k)<br>
      *
      * @param docs list di list di string che rappresentano i documenti
      * @param term String che rappresenta un termine

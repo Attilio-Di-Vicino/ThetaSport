@@ -15,52 +15,49 @@ public class TFIDFExample {
         usersOrders.put( "vincenzo", Arrays.asList( "scarpe", "cappello", "cappello", "pantalone" ) );
 
         //
-        List<String> singleDocuments = new ArrayList<>();
-        List<List<String>> documents = new ArrayList<>();
+        List<List<String>> documents;
 
         //
         Map< String, CustomPriorityQueue<String, Double> > mapResult = new HashMap<>();
-        double tfidf = 0.0;
+        double sumTFIDF;
 
         // per tutti gli utenti
         for ( String userMail : usersOrders.keySet() ) {
 
-            tfidf = 0.0;
             mapResult.put( userMail, new CustomPriorityQueue<>( new MyEntryComparator() ) );
 
             documents = new ArrayList<>();
-            // per tutta la lista creare i documents
-            for ( String userMail__ : usersOrders.keySet() ) {
-                if ( !userMail__.equals( userMail ) ) {
-                    documents.add( usersOrders.get( userMail__ ) );
+            // per tutta la lista creare i documents senza il singleDocument della persona corrente
+            for ( String userMailDocuments : usersOrders.keySet() ) {
+                if ( !userMailDocuments.equals( userMail ) ) {
+                    documents.add( usersOrders.get( userMailDocuments ) );
                 }
             }
 
-            tfidf = 0.0;
             // per ogni singolo documento
-            for ( String userMail_ : usersOrders.keySet() ) {
-                tfidf = 0.0;
-                // apparte che per lo user del qaule stiamo calconado i correlati
-                if ( !userMail_.equals( userMail ) ) {
+            for ( String userMailSingleDocument : usersOrders.keySet() ) {
+                // setting sumTFIDF
+                sumTFIDF = 0.0;
+                // calcolare il TF-IDF di un utente apparte che per l'utente corrente
+                if ( !userMailSingleDocument.equals( userMail ) ) {
 
                     List<String> termsAlredyCalculated = new ArrayList<>();
 
-                    // per tutti i termini
+                    // per tutti i termini una e una sola volta altrimenti sarebbe ridondante
                     for ( String term : usersOrders.get( userMail ) ) {
-
+                        // se non è stato gia calcolato per questo termine specifico
                         if ( !termsAlredyCalculated.contains( term ) ) {
 
                             termsAlredyCalculated.add( term );
 
-                            // TF-IDF
-                            tfidf += TFIDFCalculator.tfIdf( usersOrders.get( userMail_ ), documents, term );
-
+                            // TF-IDF per tutti i "term" sommato per un singleDocument
+                            sumTFIDF += TFIDFCalculator.tfIdf( usersOrders.get( userMailSingleDocument ), documents, term );
                         }
                     }
-                    mapResult.get( userMail ).add( new AbstractMap.SimpleEntry<>( userMail_, tfidf ) );
+                    // aggiungo alla map il risultato appena calcolato con la mail dello user in questione
+                    mapResult.get( userMail ).add( new AbstractMap.SimpleEntry<>( userMailSingleDocument, sumTFIDF ) );
                 }
             }
-
         }
 
         for ( String mail : mapResult.keySet() ) {
