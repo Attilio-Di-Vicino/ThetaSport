@@ -8,7 +8,7 @@ import com.ecommerce.thetasport.service.productabstractfactory.TShirt;
  * Un visitatore può calcolare il prezzo totale dei prodotti nel carrello in base alle diverse implementazioni dei metodi visit.
  * Implementare questa interfaccia per ogni tipo di visitatore desiderato.
  *
- * @author [Nome]
+ * @author Theta Sport
  * @version 1.0
  * @see Shoes
  * @see TShirt

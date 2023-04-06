@@ -68,7 +68,7 @@ public class Client {
         ShoppingCartVisitorImpl shoppingCartVisitor = new ShoppingCartVisitorImpl( cart );
         double total = shoppingCartVisitor.getTotal();
         System.out.println( "\n*** TEST PAYMENT METHOD AND TOTAL CART ***" );
-        System.out.println( "My cart total: " + total );
+        System.out.println( "My cart total: $" + total );
         ManagerPayments.pay( new CashStrategy( "attilio@gmail.com",
                 "3333333333", "Via Napoli 18" ), shoppingCartVisitor.getTotal() );
         // test remove all

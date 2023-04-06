@@ -57,4 +57,24 @@ public class CustomPriorityQueue< K, V > extends PriorityQueue< Map.Entry < K, V
         this.map.put( entry.getKey(), entry.getValue() );
         return super.offer( entry );
     }
+
+    /**
+     * viene utilizzato un oggeto di tipo {@link StringBuilder} <br>
+     * che ci permette di construire output tramite il pattern builder
+     *
+     * @return stringa elenco della coda di massima priorità
+     */
+    @Override
+    public String toString(){
+        StringBuilder stringBuilder = new StringBuilder();
+        Iterator< Map.Entry<K, V> > iterator = this.map.entrySet().iterator();
+        while ( iterator.hasNext() ) {
+            Map.Entry<K, V> entry = iterator.next();
+            stringBuilder.append( entry.getKey() ).append( " -> " ).append( entry.getValue() );
+            if ( iterator.hasNext() ) {
+                stringBuilder.append( "\n" );
+            }
+        }
+        return stringBuilder.toString();
+    }
 }

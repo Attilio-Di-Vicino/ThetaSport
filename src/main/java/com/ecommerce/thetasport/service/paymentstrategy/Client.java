@@ -12,12 +12,18 @@ public class Client {
         Cart cart = new Cart();
         cart.add( new FootballShoes().build()
                 .setName( "Product-one" )
+                .setDescription( "Product-one" )
+                .setImage( "Product-one" )
                 .setPrice( 18.99 ) );
         cart.add( new TennisShoes().build()
                 .setName( "Product-two" )
+                .setDescription( "Product-two" )
+                .setImage( "Product-two" )
                 .setPrice( 24.99 ), 4 );
         cart.add( new FootballTShirt().build()
                 .setName( "Product-three" )
+                .setDescription( "Product-three" )
+                .setImage( "Product-three" )
                 .setPrice( 64.99 ), 2 );
         System.out.println( "\n*** SHOW MY CART ***" );
         System.out.println( cart );

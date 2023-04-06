@@ -22,6 +22,7 @@ public class Cart {
 
     /**
      * Metodo che restituisce la mappa del carrello.
+     *
      * @return mappa del carrello
      */
     public Map<ItemElement, Integer> getMyCart() { return this.MY_CART; }
@@ -29,6 +30,7 @@ public class Cart {
     /**
      * Metodo per aggiungere un elemento al carrello con una quantità specificata.<br>
      * Se l'elemento è già presente nel carrello, la quantità viene incrementata.
+     *
      * @param itemElement elemento da aggiungere
      * @param quantity quantità dell'elemento da aggiungere
      */
@@ -42,6 +44,7 @@ public class Cart {
 
     /**
      * Metodo per aggiungere un elemento al carrello con una quantità di default di 1.
+     *
      * @param itemElement elemento da aggiungere
      */
     public void add( ItemElement itemElement ) {
@@ -50,6 +53,7 @@ public class Cart {
 
     /**
      * Metodo per rimuovere un elemento dal carrello.
+     *
      * @param itemElement elemento da rimuovere
      */
     public void remove( ItemElement itemElement ) {
@@ -65,6 +69,7 @@ public class Cart {
 
     /**
      * Metodo per decrementare la quantità di un elemento nel carrello di 1.
+     *
      * @param itemElement elemento di cui decrementare la quantità
      */
     public void decreaseQuantity( ItemElement itemElement ) {
@@ -74,6 +79,7 @@ public class Cart {
     /**
      * viene utilizzato un oggeto di tipo {@link StringBuilder} <br>
      * che ci permette di construire output tramite il pattern builder
+     *
      * @return stringa elenco degli oggetti e delle relative quantità
      */
     @Override
