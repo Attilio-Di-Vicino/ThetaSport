@@ -1,12 +1,11 @@
 package com.ecommerce.thetasport.service.tfidf;
 
 import com.ecommerce.thetasport.dao.ProductDAO;
+import com.ecommerce.thetasport.dao.UserDAO;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * La classe ManagerTFIDF contiene metodi utili per la gestione delle funzionalità dell'admin.<br>
@@ -143,5 +142,153 @@ public class ManagerTFIDF {
             result.add( maxQueue.poll() );
         }
         return result;
+    }
+
+    public static void getAllRelatedOffers() throws SQLException {
+        // lista di prodotti
+        //List< String > productNameList = ProductDAO.getProductListAllOrderSingleUser( "attilio@gmail.com" );
+        // productNameList = HelperTFIDF.convertListStringToWordList( productNameList );
+
+        /*for ( String singleProductName: orderSingleUser ) {
+            List< String > doc = HelperTFIDF.convertStringToWordList( singleProductName );
+            documents.add( doc );
+        }*/
+        /*List< String > userBeanList = UserDAO.getUsersMail();
+        List< List<String> > documents = new ArrayList<>();
+        for ( String email : userBeanList ) {
+            List< String > orderSingleUser = ProductDAO.getProductListAllOrderSingleUser( email );
+            documents.add( orderSingleUser );
+        }*/
+        CustomPriorityQueue< String, Double > maxQueue = new CustomPriorityQueue<>( new MyEntryComparator() );
+        List< String > userBeanList = UserDAO.getUsersMailMinusOne( "admin" );
+        // per tutti gli utente meno l'admin
+        String email = "attilio@gmail.com";
+        //for ( String email : userBeanList ) {
+        // prendi gli acquisti di un utente corrente
+        List< String > singleDocument = ProductDAO.getProductListAllOrderSingleUser( email );
+        //Map< String, List<String> > documents = new HashMap<>();
+        // lista di tutti gli acquisti da tutti gli utenti
+        List< List<String> > documents = new ArrayList<>();
+        List< String > userBeanListMinusOne = UserDAO.getUsersMailMinusOne( email );
+        for ( String emailMinusOne : userBeanListMinusOne ) {
+            List< String > orderSingleUser = ProductDAO.getProductListAllOrderSingleUser( emailMinusOne );
+            // costruzione dei documenti
+            documents.add( orderSingleUser );
+            //documents.put( emailMinusOne, orderSingleUser );
+        }
+        //System.out.println( "\n\n" + email + " : " + singleDocument );
+        //System.out.println( "\n\n" + documents );
+
+            /*List< List<String> > documents1 = new ArrayList<>();
+            for ( String key : documents.keySet() ) {
+                documents1.add( documents.get(key) );
+            }*/
+        maxQueue = new CustomPriorityQueue<>( new MyEntryComparator() );
+        // per ogni prodotto acquistato dall'utente corrente
+        for ( String term : singleDocument ) {
+            for ( String emailMinusOne : userBeanListMinusOne ) {
+                //if ( !maxQueue.containsKey( term ) ) {
+                // TF-IDF non è stato ancora calcolato rispetto al term corrente
+                System.out.println( "TF-IDF: " + term + " : " + TFIDFCalculator.tfIdf( singleDocument, documents, term )  );
+                maxQueue.add( new AbstractMap.SimpleEntry<>( emailMinusOne, TFIDFCalculator.tfIdf( singleDocument, documents, term ) ) );
+                //}
+            }
+        }
+        //}
+        System.out.println( "\n\n\n\n" + "users: " + email + " maxQueue: " + maxQueue );
+    }
+
+    public static void prova(){
+        List<List<String>> acquisti = new ArrayList<>();
+        acquisti.add(Arrays.asList("Scarpe", "Maglietta", "Pantaloni")); // Attilio
+        acquisti.add(Arrays.asList("Scarpe", "Maglietta")); // Mario
+        acquisti.add(Arrays.asList("Scarpe", "Pantaloni")); // Lorenzo
+        acquisti.add(Arrays.asList("Scarpe", "Maglietta", "Giacca")); // Giuseppe
+
+        Map<String, Map<Integer, Double>> tfIdfMap = new HashMap<>();
+
+        for (int i = 0; i < acquisti.size(); i++) {
+            List<String> acquisto = acquisti.get(i);
+            for (String term : acquisto) {
+                double tfIdf = TFIDFCalculator.tfIdf(acquisto, acquisti, term);
+                Map<Integer, Double> userMap = tfIdfMap.getOrDefault(term, new HashMap<>());
+                userMap.put(i, tfIdf);
+                tfIdfMap.put(term, userMap);
+            }
+        }
+        System.out.println( tfIdfMap );
+    }
+
+
+    /**
+     * Calcola i prodotti correlati basati sul TF-IDF.
+     *
+     * @param acquisti lista degli acquisti effettuati dagli utenti
+     * @param prodotto prodotto di riferimento per il calcolo dei prodotti correlati
+     * @return lista dei prodotti correlati
+     */
+    private static List<String> getProdottiCorrelati(List<List<String>> acquisti, String prodotto) {
+        List<String> prodottiCorrelati = new ArrayList<>();
+
+        // Calcola il TF-IDF per ogni prodotto nei documenti di acquisto
+        for (List<String> acquisto : acquisti) {
+            double tfIdf = TFIDFCalculator.tfIdf(acquisto, acquisti, prodotto);
+            if (tfIdf > 0) {
+                // Aggiungi il prodotto alla lista dei prodotti correlati se ha un TF-IDF maggiore di 0
+                for (String prodottoAcquisto : acquisto) {
+                    if (!prodottoAcquisto.equals(prodotto) && !prodottiCorrelati.contains(prodottoAcquisto)) {
+                        prodottiCorrelati.add(prodottoAcquisto);
+                    }
+                }
+            }
+        }
+
+        return prodottiCorrelati;
+    }
+
+    /**
+     * Propone offerte basate sui prodotti correlati.
+     *
+     * @param prodottiCorrelati lista dei prodotti correlati
+     * @return lista delle offerte consigliate
+     */
+    private static List<String> getOfferte(List<String> prodottiCorrelati) {
+        List<String> offerte = new ArrayList<>();
+
+        // Aggiungi offerte basate sui prodotti correlati
+        for (String prodotto : prodottiCorrelati) {
+            offerte.add("Acquista " + prodotto + " e ricevi uno sconto del 10% sul prezzo totale!");
+        }
+
+        return offerte;
+    }
+
+
+    public static void main(String[] args) throws SQLException {
+        // Lista degli acquisti effettuati dagli utenti
+        List<List<String>> acquisti = new ArrayList<>();
+        acquisti.add(Arrays.asList("maglia", "pallone", "scarpe"));
+        acquisti.add(Arrays.asList("pallone", "borraccia"));
+        acquisti.add(Arrays.asList("scarpe", "borraccia"));
+        acquisti.add(Arrays.asList("pallone", "scarpe"));
+
+        // Calcola i prodotti correlati basati sul TF-IDF
+        List<String> prodottiCorrelati = getProdottiCorrelati(acquisti, "scarpe");
+
+        // Stampa i prodotti correlati
+        System.out.println("Prodotti correlati per 'scarpe':");
+        for (String prodotto : prodottiCorrelati) {
+            System.out.println("- " + prodotto);
+        }
+
+        // Propone offerte basate sui prodotti correlati
+        List<String> offerte = getOfferte(prodottiCorrelati);
+
+        // Stampa le offerte
+        System.out.println("\nOfferte consigliate:");
+        for (String offerta : offerte) {
+            System.out.println("- " + offerta);
+        }
+        //prova();
     }
 }

@@ -58,7 +58,10 @@ public class TFIDFCalculator {
                 }
             }
         }
-        return Math.log( docs.size() / n );
+        if ( n == 0 ) {
+            return 0;
+        }
+        return Math.log( docs.size() / n ); // logaritmo naturale
     }
 
     /**
@@ -72,6 +75,6 @@ public class TFIDFCalculator {
      * @return TF-IDF del termine
      */
     public static double tfIdf( List<String> doc, List< List<String> > docs, String term ) {
-        return tf( doc, term ) * idf( docs, term ) ;
+        return tf( doc, term ) * idf( docs, term );
     }
 }
