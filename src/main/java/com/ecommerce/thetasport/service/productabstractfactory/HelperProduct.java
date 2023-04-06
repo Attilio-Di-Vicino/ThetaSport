@@ -2,6 +2,12 @@ package com.ecommerce.thetasport.service.productabstractfactory;
 
 import com.ecommerce.thetasport.model.ProductBean;
 
+/**
+ * La classe HelperProduct contiene metodi utili per la gestione deli prodotti.<br>
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 public class HelperProduct {
 
     /**

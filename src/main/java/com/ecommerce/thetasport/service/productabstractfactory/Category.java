@@ -1,25 +1,39 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Enumerazione che rappresenta le categorie dei prodotti.
+ * L'enumerazione {@code Category} rappresenta le categorie dei prodotti.
+ * Ogni costante dell'enumerazione rappresenta una categoria e ha un nome e un creatore di prodotti associati.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ * @see FootballProductCreator
+ * @see TennisProductCreator
  */
 public enum Category {
     FOOTBALL( "Football" , new FootballProductCreator() ),
     TENNIS( "Tennis" , new TennisProductCreator() );
 
-    private String name;
-    private ProductCreator creator;
+    private final String NAME;
+    private final ProductCreator CREATOR;
 
+    /**
+     * Costruttore dell'enumerazione che imposta il nome e il creatore di prodotti della categoria.
+     *
+     * @param name il nome della categoria
+     * @param creator il creatore di prodotti per la categoria
+     */
     Category( String name, ProductCreator creator ) {
-        this.name = name;
-        this.creator = creator;
+        this.NAME = name;
+        this.CREATOR = creator;
     }
 
+    /**
+     * Restituisce il creatore di prodotti associato alla categoria.
+     *
+     * @return il creatore di prodotti per la categoria
+     */
     public ProductCreator getCreator() {
-        return creator;
+        return CREATOR;
     }
 
     /**
@@ -29,6 +43,6 @@ public enum Category {
      */
     @Override
     public String toString() {
-        return name;
+        return NAME;
     }
 }

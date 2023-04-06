@@ -16,7 +16,7 @@ public class Client {
         productBean.setStock( 12 );
         productBean.setImage( "image-one.png" );
         productBean.setCategory( Category.TENNIS );
-        productBean.setSubCategory( SubCategory.TSHIRT );
+        productBean.setSubCategory( SubCategory.T_SHIRT);
         Product newProduct = DirectorTennis.createProduct( productBean );
         // add first product to cart
         cart.add( newProduct );
@@ -40,7 +40,7 @@ public class Client {
         productBean.setStock( 16 );
         productBean.setImage( "image-three.png" );
         productBean.setCategory( Category.FOOTBALL );
-        productBean.setSubCategory( SubCategory.TSHIRT );
+        productBean.setSubCategory( SubCategory.T_SHIRT);
         newProduct = DirectorFootball.createProduct( productBean );
         // add third product to cart whit quantity
         cart.add( newProduct, 4 );

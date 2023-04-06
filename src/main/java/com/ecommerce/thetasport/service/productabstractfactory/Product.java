@@ -3,6 +3,14 @@ package com.ecommerce.thetasport.service.productabstractfactory;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
 import com.ecommerce.thetasport.service.cartvisitor.ItemElement;
 
+/**
+ * La classe astratta {@code Product} rappresenta una classe con gli attributi e medoti base
+ * che deve avere un prodotto specifico.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ * @see ItemElement
+ */
 public abstract class Product implements ItemElement {
     private int code;// Codice del prodotto
     private String name; // Nome del prodotto univoco
@@ -49,6 +57,7 @@ public abstract class Product implements ItemElement {
 
     /**
      * Imposta il nome del prodotto.
+     *
      * @param name Il nome del prodotto
      * @return L'oggetto {@code Product} corrente
      */
@@ -59,6 +68,7 @@ public abstract class Product implements ItemElement {
 
     /**
      * Imposta la descrizione del prodotto.
+     *
      * @param description La descrizione del prodotto
      * @return L'oggetto {@code Product} corrente
      */
@@ -69,6 +79,7 @@ public abstract class Product implements ItemElement {
 
     /**
      * Imposta la descrizione del prodotto.
+     *
      * @param stock La descrizione del prodotto
      * @return L'oggetto {@code Product} corrente
      */
@@ -79,6 +90,7 @@ public abstract class Product implements ItemElement {
 
     /**
      * Imposta il prezzo del prodotto.
+     *
      * @param price Il prezzo del prodotto
      * @return L'oggetto {@code Product} corrente
      */
@@ -89,6 +101,7 @@ public abstract class Product implements ItemElement {
 
     /**
      * Imposta il percorso dell'immagine del prodotto.
+     *
      * @param image Il percorso dell'immagine del prodotto
      * @return L'oggetto {@code Product} corrente
      */
@@ -99,25 +112,42 @@ public abstract class Product implements ItemElement {
     }
 
     /**
-     * Costruisce della categoria di un prodotto.
+     * Costruisce della categoria e sotto-categoria di un prodotto.
+     *
      * @return Un oggetto prodotto
      */
     public abstract Product build();
 
     /**
-     * Viene eseguito Ovverride di {@link Object#equals(Object)}
-     * considerando che il nome è un attributo unico.
+     * Viene eseguito Override di {@link Object#equals(Object)}
      *
      * @param object Object da confrontare
      * @return il risultato del confronto di tipo boolean
      */
-    @SuppressWarnings( value = "'equals()' should check the class of its parameter" )
     @Override
     public boolean equals( Object object ) {
+        if ( object == this ) {
+            return true;
+        }
+        if ( !( object instanceof Product ) ) {
+            return false;
+        }
         Product product = ( Product ) object;
-        return this.name.equals( product.getName() );
+        return this.code == product.code &&
+                this.name.equals( product.name ) &&
+                this.description.equals( product.description ) &&
+                this.stock == product.stock &&
+                this.price == product.price &&
+                this.image.equals( product.image ) &&
+                this.category.equals( product.category ) &&
+                this.subCategory.equals( product.subCategory );
     }
 
+    /**
+     * Viene eseguito Override di {@link Object#toString()}
+     *
+     * @return il nome del prodotto
+     */
     @Override
     public String toString(){
         return this.name;
@@ -131,7 +161,7 @@ public abstract class Product implements ItemElement {
      * Si combinano poi tutti gli attributi della classe moltiplicandoli per il fattore di moltiplicazione e
      * sommando il risultato al valore hash.
      *
-     * @return hashCode di name
+     * @return hashCode dell'oggetto rappresentato come un intero
      */
     @Override
     public int hashCode() {

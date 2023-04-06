@@ -5,6 +5,11 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Classe che rappresenta il direttore per la creazione di prodotti del tipo "Football".
+ *
+ * @author Theta Sport
+ * @version 1.0
+ * @see Director
+ * @see FootballConcreteFactory
  */
 public class DirectorFootball {
 
@@ -24,7 +29,7 @@ public class DirectorFootball {
         switch ( productBean.getSubCategory() ) {
             case SHOES: newProductFootball = footballConcreteFactory.createShoes();
                 break;
-            case TSHIRT: newProductFootball = footballConcreteFactory.createTShirt();
+            case T_SHIRT: newProductFootball = footballConcreteFactory.createTShirt();
                 break;
             default: newProductFootball = null;
                 break;

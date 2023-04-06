@@ -5,14 +5,14 @@ import com.ecommerce.thetasport.model.ProductBean;
 public class Client {
     public static void main( String[] args ) {
         // create first product
-        /*ProductBean productBean = new ProductBean();
+        ProductBean productBean = new ProductBean();
         productBean.setName( "Product 1" );
         productBean.setDescription( "Product 1" );
         productBean.setPrice( 10.99 );
         productBean.setStock( 10 );
         productBean.setImage( "image-uno.png" );
         productBean.setCategory( Category.TENNIS );
-        productBean.setSubCategory( SubCategory.TSHIRT );
+        productBean.setSubCategory( SubCategory.T_SHIRT);
         // calling the director for object creation
         Product newProduct = Director.createProduct( productBean );
         System.out.println( "\n*** DIRECTOR TEST ***" );
@@ -40,19 +40,18 @@ public class Client {
         System.out.println( "Equals between second product and three product: "
                 + newProduct.equals( newProduct3 ) );
         System.out.println( "HashCode between second product and three product: "
-                + "\n Product 2: " + newProduct.hashCode() + " Product 3: " + newProduct3.hashCode() );*/
-
-
-        ProductBean productBean = new ProductBean();
+                + "\n Product 2: " + newProduct.hashCode() + " Product 3: " + newProduct3.hashCode() );
+        // delete
+        productBean = new ProductBean();
         productBean.setName( "Product 1" );
         productBean.setDescription( "Product 1" );
         productBean.setPrice( 10.99 );
         productBean.setStock( 10 );
         productBean.setImage( "image-uno.png" );
         productBean.setCategory( Category.TENNIS );
-        productBean.setSubCategory( SubCategory.TSHIRT );
+        productBean.setSubCategory( SubCategory.T_SHIRT);
         // calling the director for object creation
-        Product newProduct = DirectorPlus.createProduct( productBean );
+        newProduct = Director.createProduct( productBean );
         System.out.println( "\n*** DIRECTOR TEST ***" );
         System.out.println( "\n*** TEST FIRST PRODUCT ***" );
         System.out.println( newProduct + " " + newProduct.getCategory() + " " + newProduct.getSubCategory() );

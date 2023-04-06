@@ -24,7 +24,7 @@ public class Cart {
      * Metodo che restituisce la mappa del carrello.
      * @return mappa del carrello
      */
-    public Map<ItemElement, Integer> getMY_CART() { return this.MY_CART; }
+    public Map<ItemElement, Integer> getMyCart() { return this.MY_CART; }
 
     /**
      * Metodo per aggiungere un elemento al carrello con una quantità specificata.<br>

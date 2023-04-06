@@ -1,26 +1,34 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
 /**
- * Enumerazione che rappresenta le possibili sottocategorie di prodotti.
+ * L'enumerazione {@code SubCategory} rappresenta le sotto-categorie dei prodotti.
+ * Ogni costante dell'enumerazione rappresenta una sotto-categoria e ha un nome associato.
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 public enum SubCategory {
-    SHOES,TSHIRT;
+    SHOES( "Shoes" ),
+    T_SHIRT( "T-Shirt" );
+
+    private final String NAME;
 
     /**
-     * Ritorna il nome della sottocategoria in formato testuale.
-     * @return il nome della sottocategoria come stringa.
+     * Costruttore dell'enumerazione che imposta il nome della sotto-categoria.
+     *
+     * @param name il nome della categoria
+     */
+    SubCategory( String name ) {
+        this.NAME = name;
+    }
+
+    /**
+     * Restituisce il nome della sotto-categoria.
+     *
+     * @return il nome della sotto-categoria come stringa
      */
     @Override
     public String toString() {
-        String name;
-        switch ( this ){
-            case SHOES: name = "Shoes";
-                break;
-            case TSHIRT: name = "TShirt";
-                break;
-            default: name = null;
-                break;
-        }
-        return name;
+        return NAME;
     }
 }
