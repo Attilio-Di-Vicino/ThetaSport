@@ -6,7 +6,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserDAO {
@@ -15,10 +17,16 @@ public class UserDAO {
     private static ResultSet rs;
     @SuppressWarnings("Field 'usersMap' may be 'final'")
     private static Map<String, String> usersMap = new HashMap<>();
+    @SuppressWarnings( value = "Field 'usersList' may be 'final'" )
+    private static List< String > usersList = new ArrayList<>();
+    @SuppressWarnings( value = "Field 'usersListMinusOne' may be 'final'" )
+    private static List< String > usersListMinusOne = new ArrayList<>();
     private static boolean result;
     @SuppressWarnings("Field 'userBean' may be 'final'")
     private static UserBean userBean = new UserBean();
     private final static String QUERY_USERS_MAP_SQL = "SELECT EMAIL,PASSWORD FROM USER";
+    private final static String QUERY_USERS_MAIL_SQL = "SELECT EMAIL FROM USER";
+    private final static String QUERY_USERS_MAIL_MINUS_ONE_SQL = "SELECT EMAIL FROM USER WHERE EMAIL != (?)";
     private final static String INSERT_REGISTRATION_SQL = "INSERT INTO USER (EMAIL,NAME,PASSWORD) VALUES (?,?,?)";
     private final static String QUERY_EMAIL_EXIST_SQL = "SELECT count(EMAIL) FROM USER WHERE EMAIL = (?)";
     private final static String QUERY_USER_SQL = "SELECT * FROM USER WHERE EMAIL = (?)";
@@ -53,6 +61,71 @@ public class UserDAO {
             }
         }
         return usersMap;
+    }
+
+    /**
+     * il metodo getUsersMail() interroga il database e ritorna
+     * una list di string la quale contiene le mail di tutti gli utenti
+     *
+     * @return list di mail di tutti gli utenti
+     * @throws SQLException Definisce un'eccezione generale che si può generare
+     */
+    public static List < String > getUsersMail() throws SQLException {
+        try {
+            connection = DatabaseConnection.getInstance().getConnection();
+            pstmt = connection.prepareStatement( QUERY_USERS_MAIL_SQL );
+            rs = pstmt.executeQuery();
+            usersList = new ArrayList<>();
+            while ( rs.next() ) {
+                usersList.add( rs.getString( "EMAIL" ) );
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( connection != null ) {
+                connection.close();
+            }
+            if ( pstmt != null ) {
+                pstmt.close();
+            }
+            if ( rs != null ) {
+                rs.close();
+            }
+        }
+        return usersList;
+    }
+
+    /**
+     * il metodo getUsersMail() interroga il database e ritorna
+     * una list di string la quale contiene le mail di tutti gli utenti
+     *
+     * @return list di mail di tutti gli utenti
+     * @throws SQLException Definisce un'eccezione generale che si può generare
+     */
+    public static List < String > getUsersMailMinusOne( String email ) throws SQLException {
+        try {
+            connection = DatabaseConnection.getInstance().getConnection();
+            pstmt = connection.prepareStatement( QUERY_USERS_MAIL_MINUS_ONE_SQL );
+            pstmt.setString( 1, email );
+            rs = pstmt.executeQuery();
+            usersListMinusOne = new ArrayList<>();
+            while ( rs.next() ) {
+                usersListMinusOne.add( rs.getString( "EMAIL" ) );
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+        } finally {
+            if ( connection != null ) {
+                connection.close();
+            }
+            if ( pstmt != null ) {
+                pstmt.close();
+            }
+            if ( rs != null ) {
+                rs.close();
+            }
+        }
+        return usersListMinusOne;
     }
 
     /**
