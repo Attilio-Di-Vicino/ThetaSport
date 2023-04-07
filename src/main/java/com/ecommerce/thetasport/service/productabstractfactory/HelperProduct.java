@@ -22,7 +22,7 @@ public class HelperProduct {
     public static void initPorduct( Product newProduct, ProductBean productBean ) {
         try {
             if ( newProduct == null ) {
-                throw new NullPointerException( "Product is null." );
+                throw new NullPointerException( "Product in HelperProduct is null." );
             }
             newProduct.setName( productBean.getName() )
                     .setDescription( productBean.getDescription() )

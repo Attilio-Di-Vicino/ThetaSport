@@ -1,7 +1,6 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
 import com.ecommerce.thetasport.model.ProductBean;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * La classe {@code Director} si occupa di creare e restituire i prodotti, utilizzando il creatore
@@ -25,10 +24,13 @@ public class Director {
      * @return un oggetto {@code Product} creato dal creatore di prodotti associato alla categoria del prodotto
      * @throws IllegalArgumentException se la categoria del prodotto non ha un creatore di prodotti associato
      */
-    public static Product createProduct( @NotNull ProductBean productBean ) {
+    public static Product createProduct( ProductBean productBean ) {
+        if ( productBean == null ) {
+            throw new NullPointerException( "ProductBean in Director/createProduct is null." );
+        }
         ProductCreator creator = productBean.getCategory().getCreator();
         if ( creator == null ) {
-            throw new IllegalArgumentException( "Invalid product category" );
+            throw new IllegalArgumentException( "Invalid product category in Director/createProduct." );
         }
         return creator.createProduct( productBean );
     }

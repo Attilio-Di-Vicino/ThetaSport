@@ -1,7 +1,6 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
 import com.ecommerce.thetasport.model.ProductBean;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Classe che rappresenta il direttore per la creazione di prodotti del tipo "Football".
@@ -21,7 +20,10 @@ public class DirectorFootball {
      * @return un nuovo oggetto di tipo {@link Product} rappresentante il prodotto creato
      */
     @SuppressWarnings( value = "Duplicated code fragment (11 lines long)" )
-    public static Product createProduct( @NotNull ProductBean productBean ) {
+    public static Product createProduct( ProductBean productBean ) {
+        if ( productBean == null ) {
+            throw new NullPointerException( "ProductBean in DirectorFootball/createProduct is null." );
+        }
         // Viene istanziata la factory specifica per i prodotti di tipo "Football"
         FootballConcreteFactory footballConcreteFactory = new FootballConcreteFactory();
         Product newProductFootball;
