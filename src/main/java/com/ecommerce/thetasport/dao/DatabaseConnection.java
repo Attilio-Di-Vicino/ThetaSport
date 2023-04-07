@@ -13,7 +13,6 @@ public class DatabaseConnection {
             Class.forName( "com.mysql.cj.jdbc.Driver" );
             String url = "jdbc:mysql://localhost:3306/THETASPORTDB";
             this.connection = DriverManager.getConnection( url, "root", "password" );
-            System.out.println( "Database Connection Successful.. " );
         } catch ( ClassNotFoundException ex ) {
             System.out.println( "Database Connection Creation Failed : " + ex.getMessage() );
         }

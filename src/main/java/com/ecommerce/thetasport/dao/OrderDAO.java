@@ -42,6 +42,7 @@ public class OrderDAO {
      * recuperando ORDERID generato automaticamente.
      * Dopodiche bisogna riempire la tabella CONTAINS, quindi si itera la map che rappresenta il carrello
      * ed per ogni elemento si inserisce nella tabella CONTAINS con i rispettivi codici
+     *
      * @param items map che rappresenta il carrello della spesa
      * @param email mail dell'user che ha effettuato l'ordine
      * @param total totale del carrello della spesa
@@ -191,6 +192,7 @@ public class OrderDAO {
      * e restituisce una tupla composta da più attributi presenti in più tabelle
      * dopodiche construisce la lista che contiene tutti gli ordini effettuati
      * con ulteriori informazioni come il nome la mail di chi ha effettuato quell'ordine
+     *
      * @return lista di un oggetto composto da attributi di più tabelle
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
