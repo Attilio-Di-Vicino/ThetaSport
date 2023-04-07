@@ -84,7 +84,7 @@ public class ManagerTFIDF {
      * @return Una mappa che associa ad ogni email una lista di prodotti che possono essere offerti all'utente associato
      */
     public static @NotNull Map< String, List<List<String>> > getAllOffersMoreRelated(Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF ) {
-        return getAllOffersWithQuantityRelated( mapResultTFIDF, 1 );
+        return ManagerTFIDF.getAllOffersWithQuantityRelated( mapResultTFIDF, 1 );
     }
 
     /**
@@ -96,7 +96,7 @@ public class ManagerTFIDF {
      * @return Una mappa che associa ad ogni email una lista di prodotti che possono essere offerti all'utente associato
      */
     public static @NotNull Map< String, List<List<String>> > getAllOffersAllRelated( Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF ) {
-        return getAllOffersWithQuantityRelated( mapResultTFIDF, mapResultTFIDF.size() - 1 );
+        return ManagerTFIDF.getAllOffersWithQuantityRelated( mapResultTFIDF, mapResultTFIDF.size() - 1 );
     }
 
     /**
