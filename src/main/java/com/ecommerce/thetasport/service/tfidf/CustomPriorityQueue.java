@@ -67,7 +67,7 @@ public class CustomPriorityQueue< K, V > extends PriorityQueue< Map.Entry < K, V
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        Iterator< Map.Entry<K, V> > iterator = this.map.entrySet().iterator();
+        Iterator< Map.Entry<K, V> > iterator = map.entrySet().iterator();
         while ( iterator.hasNext() ) {
             Map.Entry<K, V> entry = iterator.next();
             stringBuilder.append( entry.getKey() ).append( " -> " ).append( entry.getValue() );

@@ -19,128 +19,125 @@ import java.util.*;
 public class ManagerTFIDF {
 
     /**
-     * È il numero massimo di valori forniti dall'algoritmo TF-IDF al fine di fornire prodotti correlati
+     * Calcola il punteggio TF-IDF per ogni utente e restituisce una map che ha come chiave la mail<br>
+     * dell'utente di riferimento, e come valore è associato una coda di massima priorità<br>
+     * la quale è ordinata in bale al valore del TF-IDF {@link TFIDFCalculator}.
+     *
+     * @return la mappa contenente i risultati TF-IDF per ogni user il quale è associato ad una coda di massima priorità
      */
-    private static final int BEST_TFIDF_VALUES = 2;
+    public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFAllUsers() {
+        // Map contenente i risultati TF-IDF per ogni user il quale
+        // è associato ad una coda di massima priorità
+        Map< String, CustomPriorityQueue<String, Double> > mapResultTFIDF = new HashMap<>();
+        List< List<String> > documents;
+        double sumTFIDF;
+        try {
+            Map< String, List<String> > usersOrders = new HashMap<>();
+            List< String > userMails = UserDAO.getUsersMailMinusOne( "admin" );
+            for ( String email : userMails ) {
+                usersOrders.put( email, ProductDAO.getProductListAllOrderSingleUser( email ) );
+            }
+            // per tutti gli utenti
+            for ( String userMail : usersOrders.keySet() ) {
+                mapResultTFIDF.put( userMail, new CustomPriorityQueue<>( new MyEntryComparator() ) );
+                documents = new ArrayList<>();
+                // per tutta la lista creare i documents senza il singleDocument della persona corrente
+                for ( String userMailDocuments : usersOrders.keySet() ) {
+                    if ( !userMailDocuments.equals( userMail ) ) {
+                        documents.add( usersOrders.get( userMailDocuments ) );
+                    }
+                }
+                // per ogni singolo documento
+                for ( String userMailSingleDocument : usersOrders.keySet() ) {
+                    // setting sumTFIDF
+                    sumTFIDF = 0.0;
+                    // calcolare il TF-IDF di un utente apparte che per l'utente corrente
+                    if ( !userMailSingleDocument.equals( userMail ) ) {
+                        List<String> termsAlredyCalculated = new ArrayList<>();
+                        // per tutti i termini una e una sola volta altrimenti sarebbe ridondante
+                        for ( String term : usersOrders.get( userMail ) ) {
+                            // se non è stato gia calcolato per questo termine specifico
+                            if ( !termsAlredyCalculated.contains( term ) ) {
+                                termsAlredyCalculated.add( term );
+                                // TF-IDF per tutti i "term" sommati per un singleDocument
+                                sumTFIDF += TFIDFCalculator.tfIdf( usersOrders.get( userMailSingleDocument ), documents, term );
+                            }
+                        }
+                        // aggiungo alla map il risultato appena calcolato con la mail dello user in questione
+                        mapResultTFIDF.get( userMail ).add( new AbstractMap.SimpleEntry<>( userMailSingleDocument, sumTFIDF ) );
+                    }
+                }
+            }
+        } catch ( SQLException e ) {
+            System.err.println( "Error executing SQL query on TFIDFAllUsers: " + e.getMessage() );
+            e.printStackTrace();
+        }
+        return mapResultTFIDF;
+    }
 
     /**
-     * L'idea è stata quella di assumere in input una mail ( chiave primaria ) di un utente <br>
-     * da qui quindi prendere attraverso una query tutti gli ordini effettuatai da esso <br>
-     * a questo punto avremo una lista composta dai nomi dei prodotti <i>ES: Air Jordan, Polo Nike, Shoes Nike </i><br>
-     * quindi andiamo a separare i nomi dei prodotti <i>Es: "Shoes Nike" = "Shoes" , "Nike" </i><br>
-     * avremo cosi una lista di singoli termini ->
-     * <strong> term (paramentro passato in input all'algoritmo TF-IDF). </strong><br><br>
+     * Questo metodo restituisce una mappa che associa ad ogni email contenuta nella chiave della mappa mapResultTFIDF una lista di prodotti.<br>
+     * Utilizza il metofo {@link ManagerTFIDF#getAllOffersWithQuantityRelated(Map, int)}<br>
+     * @see ManagerTFIDF#getAllOffersWithQuantityRelated(Map, int)
      *
-     * A questo punto andiamo a prendere tutti i prodotti presenti nel database <br>
-     * ed ogni singolo prodotto sara un singolo documento, quindi il totale di questi documenti <br>
-     * andra a comporre l'insieme dei documenti ->
-     * <strong> documents(paramentro passato in input all'algoritmo TF-IDF) </strong><br><br>
-     *
-     * A questo punto abbiamo: <br>
-     *  - <strong>singleDocument:</strong> un singolo documento cioè gli ordini di un utente specifico <br>
-     *  - <strong>documents:</strong> insieme dei nomi dei prodotti presenti nel database <br>
-     *  - <strong>term:</strong> singolo termine presente nella lista di stringe singleDocument <br><br><br>
-     *
-     *  <strong>ESEMPIO 1: </strong><br><br>
-     *
-     *  - supponiamo che in input assumiamo la email <i>attilio@gmail.com</i> <br>
-     *      i podotti acquistati da attilio sono: <br>
-     *      <i>["Air jordan","Air jordan","Mizuno","Polo","Polo","Mizuno","Mizuno"]</i> <br>
-     *      notiamo che attilio acquista due paia di Air jordan e tre paia di Mizuno. <br>
-     *      che usando la funzione per convertirli diventerrano: <br>
-     *      <strong>["Air","jordan","Air","jordan","Mizuno","Polo","Polo","Mizuno","Mizuno"] <br>
-     *      notiamo che ad esempio Mizuno compare tre volte nel singolo documento <br>
-     *      questo perchè nel calcolo del TF deve risultare 3 volte </strong><br><br>
-     *
-     *  - supponiamo che i prodotti presenti nel database sono: <br>
-     *      <strong>
-     *      1- ["Air jordan"] -> ["Air","jordan"] <br>
-     *      2- ["Air TShirt"] -> ["Air","TShirt"] <br>
-     *      3- ["Mizuno"] -> ["Mizuno"] <br>
-     *      4- ["Polo Air"] -> ["Polo", "Air"] <br>
-     *      5- ["Mizuno 100"] -> ["Mizuno", "100"] <br>
-     *      6- ["Polo"] -> ["Polo"] </strong><br><br>
-     *  - supponendo che come termine consideriamo "Air" allora avremo: <br>
-     *      <strong>
-     *      TF = 2/9 = 0,22 <br>
-     *      IDF = log(6/3) = 0,301 <br>
-     *      TF-IDF = 0,22 * 0,301 = 0,06622 </strong><br><br>
-     *  - supponendo che come termine consideriamo "Mizuno" allora avremo: <br>
-     *      <strong>
-     *      TF = 3/9 = 0,33 <br>
-     *      IDF = log(6/2) = 0.477 <br>
-     *      TF-IDF = 0,33 * 0.477 = 0,157 <br>
-     *  NOTIAMO CHE CON IL TERMINE "Mizuno" ABBIAMO UN RISULTATO PIÙ GRANDE </strong><br><br><br>
-     *
-     *  <strong>ESEMPIO 2: </strong><br><br>
-     *
-     *  - supponiamo che in input assumiamo la email <i>lorenzo@gmail.com </i><br>
-     *      i podotti acquistati da lorenzo sono: <br>
-     *      <i>["Air jordan","Air jordan","Mizuno","Polo","Polo","Mizuno","Mizuno"] </i><br>
-     *      notiamo che lorenzo acquista due paia di Air jordan e tre paia di Mizuno. <br>
-     *      che usando la funzione per convertirli diventerrano: <br>
-     *      <strong>["Air","jordan","Air","jordan","Mizuno","Polo","Polo","Mizuno","Mizuno"] </strong><br><br>
-     *
-     *  - supponiamo che i prodotti presenti nel database sono: <br>
-     *      <strong>
-     *      1- ["Air jordan"] -> ["Air","jordan"] <br>
-     *      2- ["Air TShirt"] -> ["Air","TShirt"] <br>
-     *      3- ["Air Mizuno"] -> ["Air", "Mizuno"] <br>
-     *      4- ["Polo Air"] -> ["Polo", "Air"] <br>
-     *      5- ["Air Mizuno 100"] -> ["Air", "Mizuno", "100"] </strong><br><br>
-     *
-     *  - supponendo che come termine consideriamo "Air" allora avremo: <br>
-     *      <strong>
-     *      TF = 2/9 = 0,22 <br>
-     *      IDF = log(5/5) = 0 <br>
-     *      TF-IDF = 0,22 * 0 = 0 <br>
-     *      TUTTI I PRODOTTI SONO AIR QUINDI NON È UNA PAROLA AL QUALE DARE IMPORTANZA </strong><br><br>
-     *
-     *  - supponendo che come termine consideriamo "Mizuno" allora avremo: <br>
-     *      <strong>
-     *      TF = 3/9 = 0,33 <br>
-     *      IDF = log(5/2) = 0.69 <br>
-     *      TF-IDF = 0,33 * 0.69 = 0,22 <br>
-     *   NOTIAMO CHE PER "Air" ABBIAMO COME RISULTATO 0 PERCHÈ ESSENDO PRESENTE IN TUTTI I PRODOTTI <br>
-     *   HA POCO IMPORTANZA, MENTRE INVECE PER "Mizuno" ABBIAMO UN RISULTATO PIÙ GRANDE <br>
-     *   E QUINDI GLI ATTRIBUIAMO UNA MAGGIORE IMPORTANZA </strong><br>
-     *
-     * @param email input mail user
-     * @throws SQLException Definisce un'eccezione generale che si può generare
+     * @param mapResultTFIDF una mappa che associa ad ogni email una coda di priorità personalizzata di termini TF-IDF
+     * @return Una mappa che associa ad ogni email una lista di prodotti che possono essere offerti all'utente associato
      */
-    public static @NotNull CustomPriorityQueue< String, Double > TFIDFSingleUser( String email ) throws SQLException {
-        // lista dei prodotti acquistati di uno specifico utente con i nomi dei prodotti separati in singole parole
-        List< String > singleDocument = ProductDAO.getProductListAllOrderSingleUser( email );
-        singleDocument = HelperTFIDF.convertListStringToWordList( singleDocument );
-        // quindi prendo tutti i nomi dei prodotti presenti nel database, ed andrò ad dividere il nome
-        // formando quindi per ogni nome una lista di stringe
-        // ES: nome prodotto "Air Jordan" risultato doc1 = "Air" , "Jordan"
-        List< String > productNameList = ProductDAO.getAllProductList();
-        List< List<String> > documents = new ArrayList<>();
-        for ( String singleProductName: productNameList ) {
-            List< String > doc = HelperTFIDF.convertStringToWordList( singleProductName );
-            documents.add( doc );
-        }
-        // Creazione di una nuova istanza della classe CustomPriorityQueue
-        CustomPriorityQueue< String, Double > maxQueue = new CustomPriorityQueue<>( new MyEntryComparator() );
-        for ( String term : singleDocument ) {
-            if ( !maxQueue.containsKey( term ) ) {
-                // TF-IDF non è stato ancora calcolato rispetto al term corrente
-                maxQueue.add( new AbstractMap.SimpleEntry<>( term, TFIDFCalculator.tfIdf( singleDocument, documents, term ) ) );
+    public static @NotNull Map< String, List<List<String>> > getAllOffersMoreRelated(Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF ) {
+        return getAllOffersWithQuantityRelated( mapResultTFIDF, 1 );
+    }
+
+    /**
+     * Questo metodo restituisce una mappa che associa ad ogni email contenuta nella chiave della mappa mapResultTFIDF una lista di prodotti.<br>
+     * Utilizza il metofo {@link ManagerTFIDF#getAllOffersWithQuantityRelated(Map, int)}
+     * @see ManagerTFIDF#getAllOffersWithQuantityRelated(Map, int)
+     *
+     * @param mapResultTFIDF una mappa che associa ad ogni email una coda di priorità personalizzata di termini TF-IDF
+     * @return Una mappa che associa ad ogni email una lista di prodotti che possono essere offerti all'utente associato
+     */
+    public static @NotNull Map< String, List<List<String>> > getAllOffersAllRelated( Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF ) {
+        return getAllOffersWithQuantityRelated( mapResultTFIDF, mapResultTFIDF.size() - 1 );
+    }
+
+    /**
+     * Questo metodo restituisce una mappa che associa ad ogni email contenuta nella chiave della mappa mapResultTFIDF una lista di prodotti.<br>
+     * La lista di prodotti rappresenta l'insieme dei prodotti che possono essere offerti all'utente associato all'email corrispondente,<br>
+     * sulla base della sua attività di acquisto passata e delle attività di acquisto degli altri utenti nella mappa mapResultTFIDF.<br>
+     * La lista di prodotti è organizzata in modo che i primi elementi siano quelli che sono stati acquistati con<br>
+     * maggiore frequenza dagli altri utenti nella mappa mapResultTFIDF
+     *
+     * @param mapResultTFIDF una mappa che associa ad ogni email una coda di priorità personalizzata di termini TF-IDF
+     * @param numberOfUserRelated il numero di utenti che devono essere considerati nella costruzione dell'offerta per ciascun utente
+     * @return Una mappa che associa ad ogni email una lista di prodotti che possono essere offerti all'utente associato
+     */
+    public static @NotNull Map< String, List<List<String>> > getAllOffersWithQuantityRelated( Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF, int numberOfUserRelated ) {
+        Map< String, List<List<String>> > offerUserMap = new HashMap<>();
+        try {
+            if ( mapResultTFIDF == null ) {
+                throw new NullPointerException( "Map Result TF-IDF is null." );
             }
+            for ( String email : mapResultTFIDF.keySet() ) {
+                offerUserMap.put( email, new ArrayList<>() );
+            }
+            for ( String email : mapResultTFIDF.keySet() ) {
+                CustomPriorityQueue< String, Double > userRelatedMaxQueue = mapResultTFIDF.get( email );
+                if ( numberOfUserRelated > userRelatedMaxQueue.size() ) {
+                    numberOfUserRelated = userRelatedMaxQueue.size();
+                }
+                for ( int i = 0; i < numberOfUserRelated; i++ ) {
+                    String userMailRelated = Objects.requireNonNull( userRelatedMaxQueue.poll() ).getKey();
+                    List< String > userProductRelated = ProductDAO.getProductListAllOrderSingleUser( userMailRelated );
+                    // lista ordini dell'utente al quale si vuole fare l'offerta
+                    List< String > userProductOffer = ProductDAO.getProductListAllOrderSingleUser( email );
+                    userProductRelated.removeAll( userProductOffer );
+                    offerUserMap.get( email ).add( userProductRelated );
+                }
+                offerUserMap.put( email, HelperTFIDF.deleteDuplicates( offerUserMap.get( email ) ) );
+            }
+        } catch ( SQLException e ) {
+            System.err.println( "Error executing SQL query on getAllOffersWithQuantityRelated: " + e.getMessage() );
+            e.printStackTrace();
         }
-        // inserisco i nome dei prodotti che hanno una valore maggiore
-        CustomPriorityQueue< String, Double > result = new CustomPriorityQueue<>( new MyEntryComparator() );
-        // questo controllo viene eseguito nel momento in cui il valore preso in input
-        // è maggiore del size della coda di massima priorità, di conseguenza non potrà
-        // essere formato da un numero maggiore rispetto al size della maxQueue
-        int bestValues = BEST_TFIDF_VALUES;
-        if ( bestValues > maxQueue.size() ) {
-            bestValues = maxQueue.size();
-        }
-        for ( int i = 0; i < bestValues; i++ ) {
-            result.add( maxQueue.poll() );
-        }
-        return result;
+        return offerUserMap;
     }
 }

@@ -1,7 +1,5 @@
 package com.ecommerce.thetasport.service.tfidf;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 
 /**
@@ -29,7 +27,7 @@ public class TFIDFCalculator {
      * @param term String che rappresenta un termine
      * @return term frequency del termine nel documento
      */
-    public static double tf( @NotNull List< String > doc, String term ) {
+    public static double tf( List< String > doc, String term ) {
         double result = 0;
         for ( String word : doc ) {
             if ( term.equalsIgnoreCase( word ) )
@@ -51,7 +49,7 @@ public class TFIDFCalculator {
      * @param term String che rappresenta un termine
      * @return inverse term frequency di un termine nei documenti
      */
-    public static double idf( @NotNull List<List< String >> docs, String term ) {
+    public static double idf( List<List< String >> docs, String term ) {
         double n = 0;
         for ( List<String> doc : docs ) {
             for ( String word : doc ) {

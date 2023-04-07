@@ -1,10 +1,14 @@
 package com.ecommerce.thetasport.service.tfidf;
 
+import com.ecommerce.thetasport.dao.ProductDAO;
+import com.ecommerce.thetasport.dao.UserDAO;
+
+import java.sql.SQLException;
 import java.util.*;
 
-public class TFIDFExample {
+//public class TFIDFExample {
 
-    public static void tfidfExample() {
+    /*public static void tfidfExample() throws SQLException {
         Map< String, List<String> > usersOrders = new HashMap<>();
         // ordini di tutti gli utenti
         usersOrders.put( "attilio", Arrays.asList( "scarpe", "scarpe", "maglia", "maglia" ) );
@@ -55,7 +59,7 @@ public class TFIDFExample {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         tfidfExample();
     }
-}
+}*/

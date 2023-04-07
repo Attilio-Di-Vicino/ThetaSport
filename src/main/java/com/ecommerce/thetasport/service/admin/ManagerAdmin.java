@@ -2,6 +2,7 @@ package com.ecommerce.thetasport.service.admin;
 
 import com.ecommerce.thetasport.dao.ProductDAO;
 import com.ecommerce.thetasport.model.ProductBean;
+import com.ecommerce.thetasport.service.tfidf.BackupTFIDF;
 import com.ecommerce.thetasport.service.tfidf.CustomPriorityQueue;
 import com.ecommerce.thetasport.service.tfidf.HelperTFIDF;
 import com.ecommerce.thetasport.service.tfidf.ManagerTFIDF;
@@ -18,7 +19,7 @@ public class ManagerAdmin {
 
     public static @NotNull List< ProductBean > getOfferSingleUser(String email ) throws SQLException {
         List< ProductBean > productBeanListOffer = new ArrayList<>();
-        CustomPriorityQueue< String, Double > resultTFIDF = ManagerTFIDF.TFIDFSingleUser( email );
+        CustomPriorityQueue< String, Double > resultTFIDF = BackupTFIDF.TFIDFSingleUser( email );
         System.out.println( resultTFIDF );
         List< ProductBean > productBeanList = ProductDAO.getProductBeanList();
         // qui c'è da capire se è meglio eliminare il term dalla queue o no
