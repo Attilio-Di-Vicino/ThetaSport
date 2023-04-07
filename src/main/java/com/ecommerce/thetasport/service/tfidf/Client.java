@@ -1,5 +1,7 @@
 package com.ecommerce.thetasport.service.tfidf;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,18 +32,21 @@ public class Client {
         }
         System.out.println( "\n*** TEST OFFERS ALL USERS ALL RELATED ***" );
         Map< String, List< List<String> > > offerUserMap = ManagerTFIDF.getAllOffersAllRelated( ManagerTFIDF.TFIDFAllUsers() );
-        for ( String email : offerUserMap.keySet() ) {
-            System.out.println( "\nFor " + email + " the offer is: " );
-            System.out.println( offerUserMap.get( email ) );
-        }
+        customPrint( offerUserMap );
         System.out.println( "\n*** TEST OFFERS ALL USERS MORE RELATED ***" );
         offerUserMap = ManagerTFIDF.getAllOffersMoreRelated( ManagerTFIDF.TFIDFAllUsers() );
-        for ( String email : offerUserMap.keySet() ) {
-            System.out.println( "\nFor " + email + " the offer is: " );
-            System.out.println( offerUserMap.get( email ) );
-        }
+        customPrint( offerUserMap );
         System.out.println( "\n*** TEST OFFERS ALL USERS WITH QUANTITY RELATED (2) ***" );
         offerUserMap = ManagerTFIDF.getAllOffersWithQuantityRelated( ManagerTFIDF.TFIDFAllUsers(), 2 );
+        customPrint( offerUserMap );
+    }
+
+    /**
+     * stampa a video la map con rispettiva mail
+     *
+     * @param offerUserMap map da stampare a video
+     */
+    private static void customPrint( @NotNull Map< String, List< List<String> > > offerUserMap ) {
         for ( String email : offerUserMap.keySet() ) {
             System.out.println( "\nFor " + email + " the offer is: " );
             System.out.println( offerUserMap.get( email ) );
