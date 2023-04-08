@@ -13,7 +13,7 @@ public class Client {
         handler = HelperCoR.linkHandler( new UsersExistHandler( users ), new ValidPasswordHandler( users ),
                 new RoleCheckHandler( "mario" ) );
         AuthService authService = new AuthService( handler );
-        System.out.println( "\n*** TEST ACCESS ADMIN ***" );
+        System.out.println( "\n*** TEST ACCESS ADMIN ( MARIO ) ***" );
         System.out.println( authService.login( "mario", "password" ) );
         System.out.println( "\n*** TEST ACCESS USER ***" );
         System.out.println( authService.login( "attilio", "password" ) );

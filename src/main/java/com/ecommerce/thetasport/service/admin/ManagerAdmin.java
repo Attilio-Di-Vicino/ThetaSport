@@ -1,7 +1,9 @@
 package com.ecommerce.thetasport.service.admin;
 
+import com.ecommerce.thetasport.dao.OrderDAO;
 import com.ecommerce.thetasport.dao.ProductDAO;
 import com.ecommerce.thetasport.model.ProductBean;
+import com.ecommerce.thetasport.model.TotalOrdersUsersBean;
 import com.ecommerce.thetasport.service.tfidf.BackupTFIDF;
 import com.ecommerce.thetasport.service.tfidf.CustomPriorityQueue;
 import com.ecommerce.thetasport.service.tfidf.HelperTFIDF;
@@ -48,5 +50,19 @@ public class ManagerAdmin {
         System.out.println( "\n*** TEST TF-IDF OFFER ***" );
         System.out.println( "Number of products for offer is: " + productBeanList.size() );
         System.out.println( productBeanList );
+    }
+
+    public static double getSumOrderMontly() throws SQLException {
+        return OrderDAO.getSumPriceOrderMonthly();
+    }
+    public static double getSumOrderYear() throws SQLException {
+        return OrderDAO.getSumPriceOrderYear();
+    }
+    public static double getSumOrderTotal() throws SQLException {
+        return OrderDAO.getSumPriceOrderTotal();
+    }
+
+    public static List< TotalOrdersUsersBean > getTotalOrderBean() throws SQLException {
+        return OrderDAO.getTotalOrdersUsersBeanList();
     }
 }
