@@ -50,14 +50,14 @@ public class LoginServlet extends HttpServlet {
         // Effettuo la verifica del login tramite il CoR
         ToHandle result = ManagerLogin.login( email, password, "admin" );
         switch (result) {
-            case UNREGISTERED: HelperController.loggedError( request, response, "Non sei registrato, registrati." );
+            case UNREGISTERED: HelperController.loggedError( request, response, "Please check your email or register!" );
                 break;
-            case WRONG_PASSWORD: HelperController.loggedError( request, response, "La password che hai inserito non è corretta." );
+            case WRONG_PASSWORD: HelperController.loggedError( request, response, "Please check your password" );
                 break;
             case USER_ACCESS:
                 try {
                     HelperController.loggedOrRegistrationSuccessful( request, response, email, 1, "jsp/index.jsp" );
-                } catch (SQLException e ) {
+                } catch ( SQLException e ) {
                     throw new RuntimeException( "SQL Error in LoginServlet/UserAccess" + e );
                 } catch ( ClassNotFoundException ce) {
                     throw new RuntimeException( "Error in LoginServlet/UserAccess" + ce );
@@ -66,7 +66,7 @@ public class LoginServlet extends HttpServlet {
             case ADMIN_ACCESS:
                 try {
                     HelperController.loggedOrRegistrationSuccessful( request, response, email, 2, "jsp/protected_admin_area.jsp" );
-                } catch (SQLException e ) {
+                } catch ( SQLException e ) {
                     throw new RuntimeException( "SQL Error in LoginServlet/AdminAccess" + e );
                 } catch ( ClassNotFoundException ce) {
                     throw new RuntimeException( "Error in LoginServlet/AdminAccess" + ce );

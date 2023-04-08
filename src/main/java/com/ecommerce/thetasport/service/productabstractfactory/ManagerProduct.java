@@ -11,4 +11,8 @@ public class ManagerProduct {
     public static List< ProductBean > getProductList() throws SQLException {
         return ProductDAO.getProductBeanList();
     }
+
+    public static ProductBean getSingleProduct( int code ) throws SQLException, ClassNotFoundException {
+        return ProductDAO.getSingleProduct( code );
+    }
 }

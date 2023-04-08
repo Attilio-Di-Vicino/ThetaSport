@@ -11,8 +11,9 @@
     <meta name="author" content="Untree.co">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png">
 
-    <!-- Bootstrap icons da eliminare-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap4" />

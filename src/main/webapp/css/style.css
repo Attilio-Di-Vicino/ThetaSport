@@ -209,12 +209,17 @@ a {
     padding-bottom: 50px;
     cursor: pointer; }
     .product-section .product-item .product-thumbnail {
+      border-radius: 10px;
       margin-bottom: 30px;
       position: relative;
       top: 0;
       -webkit-transition: .3s all ease;
       -o-transition: .3s all ease;
-      transition: .3s all ease; }
+      transition: .3s all ease;
+      width: 240px; /* Imposta una larghezza di 200 pixel */
+      height: 240px; /* Imposta un'altezza di 200 pixel */
+      object-fit: cover; /* In modo che l'immagine venga ridimensionata per riempire l'area specificata */
+    }
     .product-section .product-item h3 {
       font-weight: 600;
       font-size: 16px; }

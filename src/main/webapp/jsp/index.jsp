@@ -15,6 +15,7 @@
 </head>
     <body>
         <jsp:include page="component/navbar.jsp">
+            <jsp:param name="name" value="${userBean.getName()}"/>
             <jsp:param name="isLogged" value="${isLogged}"/>
             <jsp:param name="login" value="${login}"/>
             <jsp:param name="numItemCart" value="${numItemCart}"/>
@@ -36,18 +37,18 @@
                     <c:forEach var="product" items="${productBeanList}">
                         <div class="col-12 col-md-4 col-lg-3 mb-5">
                             <a class="product-item" href="#">
-                                <img src="${pageContext.request.contextPath}/images/product/${product.getImage()}" class="img-fluid product-thumbnail">
+                                <form action="SingleProductServlet" method="get">
+                                    <button style="background-color: transparent; border: none" name="codeProduct" value=${product.getCode()}>
+                                        <img src="${pageContext.request.contextPath}/images/product/${product.getImage()}" class="img-fluid product-thumbnail">
+                                    </button>
+                                </form>
                                 <h3 class="product-title">${product.getName()}</h3>
                                 <strong class="product-price">$ ${product.getPrice()}</strong>
 
                                 <span class="icon-cross">
-                                <img src="${pageContext.request.contextPath}/images/cross.svg" class="img-fluid">
-							</span>
+                                    <img src="${pageContext.request.contextPath}/images/cross.svg" class="img-fluid">
+                                </span>
                             </a>
-                            <form action="SingleProductServlet" method="get">
-                                <button name="codeProduct" value=${product.getCode()}>More</button>
-                            </form>
-
                             <button id="addToCartButton-${product.getCode()}" onclick="addToCart( '${product.getCode()}', 'index', '${pageContext.request.contextPath}' )">Aggiungi al carrello</button>
 
                             <form action="AddCartServlet" method="get">
@@ -66,5 +67,6 @@
         </div>
 
         <jsp:include page="component/footer.jsp"></jsp:include>
+        <jsp:include page="component/logout_modal.jsp"></jsp:include>
     </body>
 </html>

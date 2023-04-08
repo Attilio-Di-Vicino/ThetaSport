@@ -40,7 +40,11 @@
 
                         <div class="signin-form">
                             <h2 class="form-title">Sign up</h2>
-
+                            <c:choose>
+                                <c:when test="${ errorMessage != null}">
+                                    <h4 class="term-service" style="color: red">${errorMessage}</h4>
+                                </c:when>
+                            </c:choose>
                             <form method="post" action="LoginServlet" class="register-form" id="login-form">
                                 <div class="form-group">
                                     <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>

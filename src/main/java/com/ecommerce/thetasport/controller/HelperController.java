@@ -1,5 +1,6 @@
 package com.ecommerce.thetasport.controller;
 
+import com.ecommerce.thetasport.model.ProductBean;
 import com.ecommerce.thetasport.model.UserBean;
 import com.ecommerce.thetasport.service.admin.ManagerAdmin;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
@@ -123,5 +124,20 @@ public class HelperController {
             request.setAttribute( "orderList", ManagerAdmin.getTotalOrderBean() );
         }
         request.getRequestDispatcher( landingPage ).forward( request, response );
+    }
+
+    public static void getCode( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
+        ProductBean productBean;
+        try {
+            productBean = ManagerProduct.getSingleProduct( code );
+        } catch ( SQLException e ) {
+            throw new RuntimeException( "SQL Exception in HelperController/getCode" + e );
+        } catch ( ClassNotFoundException ce ) {
+            throw new RuntimeException( "ClassNotFound Exception in HelperController/getCode" + ce );
+        }
+        HelperController.verifyLoginAndCart( request );
+        request.setAttribute( "singleProduct", productBean );
+        request.getRequestDispatcher( "jsp/single_product.jsp" ).forward( request, response );
     }
 }
