@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Questa classe rappresenta un prodotto di tipo TShirt.
  * Questa classe estende la classe {@link Product} e implementa il metodo {@link Product#build()}
- * per impostare la sottocategoria del prodotto come {@link SubCategory#T_SHIRT}.
+ * per impostare la sottocategoria del prodotto come {@link SubCategory#TSHIRT}.
  * Implementa anche il metodo accept per supportare il pattern Visitor,
  * accettando un visitatore {@link ShoppingCartVisitor}.
  *
@@ -19,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 public class TShirt extends Product {
 
     /**
-     * Imposta la sottocategoria del prodotto come {@link SubCategory#T_SHIRT} e restituisce l'istanza corrente.
+     * Imposta la sottocategoria del prodotto come {@link SubCategory#TSHIRT} e restituisce l'istanza corrente.
      *
-     * @return l'istanza corrente di TShirt con la sottocategoria impostata come {@link SubCategory#T_SHIRT}
+     * @return l'istanza corrente di TShirt con la sottocategoria impostata come {@link SubCategory#TSHIRT}
      */
     @Override
     public Product build() {
-        this.subCategory = SubCategory.T_SHIRT;
+        this.subCategory = SubCategory.TSHIRT;
         return this;
     }
 

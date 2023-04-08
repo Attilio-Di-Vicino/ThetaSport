@@ -31,7 +31,7 @@ public class DirectorTennis {
         switch ( productBean.getSubCategory() ) {
             case SHOES: newProductTennis = tennisConcreteFactory.createShoes();
                 break;
-            case T_SHIRT: newProductTennis = tennisConcreteFactory.createTShirt();
+            case TSHIRT: newProductTennis = tennisConcreteFactory.createTShirt();
                 break;
             default: newProductTennis = null;
                 break;

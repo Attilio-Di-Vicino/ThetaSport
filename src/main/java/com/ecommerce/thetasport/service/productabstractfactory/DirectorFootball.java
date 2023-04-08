@@ -31,7 +31,7 @@ public class DirectorFootball {
         switch ( productBean.getSubCategory() ) {
             case SHOES: newProductFootball = footballConcreteFactory.createShoes();
                 break;
-            case T_SHIRT: newProductFootball = footballConcreteFactory.createTShirt();
+            case TSHIRT: newProductFootball = footballConcreteFactory.createTShirt();
                 break;
             default: newProductFootball = null;
                 break;

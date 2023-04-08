@@ -12,7 +12,7 @@ public class Client {
         productBean.setStock( 10 );
         productBean.setImage( "image-uno.png" );
         productBean.setCategory( Category.TENNIS );
-        productBean.setSubCategory( SubCategory.T_SHIRT);
+        productBean.setSubCategory( SubCategory.TSHIRT);
         // calling the director for object creation
         Product newProduct = Director.createProduct( productBean );
         System.out.println( "\n*** DIRECTOR TEST ***" );
@@ -49,7 +49,7 @@ public class Client {
         productBean.setStock( 10 );
         productBean.setImage( "image-uno.png" );
         productBean.setCategory( Category.TENNIS );
-        productBean.setSubCategory( SubCategory.T_SHIRT);
+        productBean.setSubCategory( SubCategory.TSHIRT);
         // calling the director for object creation
         newProduct = Director.createProduct( productBean );
         System.out.println( "\n*** DIRECTOR TEST ***" );

@@ -1,5 +1,7 @@
 package com.ecommerce.thetasport.model;
 
+import com.ecommerce.thetasport.service.cartvisitor.Cart;
+
 import java.beans.JavaBean;
 import java.io.Serializable;
 
@@ -8,6 +10,8 @@ public class UserBean implements Serializable {
     private String name;
     private String email;
     private String password;
+
+    private Cart myCart;
 
     public UserBean() {
         this.name = "";
@@ -37,5 +41,13 @@ public class UserBean implements Serializable {
 
     public void setPassword( String password ) {
         this.password = password;
+    }
+
+    public Cart getMyCart() {
+        return myCart;
+    }
+
+    public void setMyCart(Cart myCart) {
+        this.myCart = myCart;
     }
 }

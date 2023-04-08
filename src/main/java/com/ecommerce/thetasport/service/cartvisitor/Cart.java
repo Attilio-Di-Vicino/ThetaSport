@@ -93,4 +93,12 @@ public class Cart {
         }
         return out.toString();
     }
+
+    public int sizeCart() {
+        int i = 0;
+        for ( ItemElement item : MY_CART.keySet() ) {
+            i += MY_CART.get( item );
+        }
+        return i;
+    }
 }

@@ -9,7 +9,7 @@ package com.ecommerce.thetasport.service.productabstractfactory;
  */
 public enum SubCategory {
     SHOES( "Shoes" ),
-    T_SHIRT( "T-Shirt" );
+    TSHIRT( "T-Shirt" );
 
     private final String NAME;
 
