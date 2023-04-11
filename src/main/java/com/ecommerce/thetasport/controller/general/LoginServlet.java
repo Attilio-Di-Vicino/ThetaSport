@@ -10,6 +10,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
+/**
+ * LoginServlet is used to manage the login, there is a reference to this servlet in the index.jsp
+ */
 
 /**
  * LoginServlet viene utilizzata per la gestione del login, nell'index.jsp è presente un riferimento a questa servlet

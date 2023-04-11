@@ -7,6 +7,12 @@ import jakarta.servlet.annotation.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+/**
+ * HomeServlet respond to web application's root and verify whether a session exists.
+ * This check is executed to handle the case where the client returns to the home page while browsing
+ * but has already logged in, so there is an open session.
+ * If the session does not exist, it creates and sets the log in to 0, so not logged in.
+ */
 
 /**
  * HomeServlet risponde alla root della web application di conseguenza verifica l'esistenza di una sessione,
@@ -19,11 +25,21 @@ public class HomeServlet extends HttpServlet {
 
     /**
      *
+     * @param request request made via a browser
+     * @param response response
+     * @throws ServletException Define a general exeption that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
+     */
+
+
+    /**
+     *
      * @param request richiesta effettuata tramite un browser
      * @param response risposta
      * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
      * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
      */
+
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
