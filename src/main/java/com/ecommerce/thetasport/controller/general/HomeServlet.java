@@ -14,7 +14,7 @@ import java.io.IOException;
  * ma ha gia eseguito il login, e quindi esiste una sessione aperta.
  * Nel caso in cui la sessione non esista allora la crea ed setta il login a 0, quindi non loggato.
  */
-@WebServlet(name = "HomeServlet", value = "/")
+@WebServlet( name = "HomeServlet", value = "/" )
 public class HomeServlet extends HttpServlet {
 
     /**
@@ -25,10 +25,10 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
      */
     @Override
-    protected void doGet(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        HelperController.verifyLoginAndCart(request);
-        HelperController.ForwardProductList(request);
-        request.getRequestDispatcher("jsp/index.jsp").forward(request, response);
+    protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
+        response.setContentType( "text/html" );
+        HelperController.verifyLoginAndCart( request );
+        HelperController.ForwardProductList( request );
+        request.getRequestDispatcher( "jsp/index.jsp" ).forward( request, response );
     }
 }

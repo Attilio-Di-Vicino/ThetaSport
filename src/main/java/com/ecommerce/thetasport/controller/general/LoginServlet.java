@@ -44,12 +44,12 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
-        response.setContentType("text/html");
+        response.setContentType( "text/html" );
         String email = request.getParameter( "email" );
         String password = request.getParameter( "password" );
         // Effettuo la verifica del login tramite il CoR
         ToHandle result = ManagerLogin.login( email, password, "admin" );
-        switch (result) {
+        switch ( result ) {
             case UNREGISTERED: HelperController.loggedError( request, response, "Please check your email or register!" );
                 break;
             case WRONG_PASSWORD: HelperController.loggedError( request, response, "Please check your password" );
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
                     HelperController.loggedOrRegistrationSuccessful( request, response, email, 1, "jsp/index.jsp" );
                 } catch ( SQLException e ) {
                     throw new RuntimeException( "SQL Error in LoginServlet/UserAccess" + e );
-                } catch ( ClassNotFoundException ce) {
+                } catch ( ClassNotFoundException ce ) {
                     throw new RuntimeException( "Error in LoginServlet/UserAccess" + ce );
                 }
                 break;
@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
                     HelperController.loggedOrRegistrationSuccessful( request, response, email, 2, "jsp/protected_admin_area.jsp" );
                 } catch ( SQLException e ) {
                     throw new RuntimeException( "SQL Error in LoginServlet/AdminAccess" + e );
-                } catch ( ClassNotFoundException ce) {
+                } catch ( ClassNotFoundException ce ) {
                     throw new RuntimeException( "Error in LoginServlet/AdminAccess" + ce );
                 }
                 break;

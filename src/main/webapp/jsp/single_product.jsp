@@ -10,7 +10,7 @@
 <html>
     <head>
         <jsp:include page="component/header.jsp" >
-            <jsp:param name="title" value="Product" />
+            <jsp:param name="title" value="${singleProduct.getName()}" />
         </jsp:include>
     </head>
     <body>

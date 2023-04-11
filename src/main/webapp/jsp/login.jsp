@@ -16,11 +16,6 @@
 
         <style>
             <%@ include file="../css/style-login.css" %>
-            input[type="checkbox"] {
-                display: inline-block;
-                width: auto;
-                margin-right: 10px;
-            }
         </style>
     </head>
 
@@ -34,8 +29,10 @@
 
                         <div class="signin-image">
                             <figure>
-                                <img src="${pageContext.request.contextPath}/images/signin-image.png" class="img-fluid product-thumbnail">						</figure>
-                            <a href="RegistrationServlet" class="signup-image-link">Create an account</a>
+                                <img src="${pageContext.request.contextPath}/images/signin-image.png" class="img-fluid product-thumbnail">
+                            </figure>
+                            <a href="RegistrationServlet" class="signup-image-link link-primary text-decoration-none">Create an account</a>
+                            <a href="ForgotPasswordServlet" class="signup-image-link link-primary text-decoration-none">Forgot password</a>
                         </div>
 
                         <div class="signin-form">

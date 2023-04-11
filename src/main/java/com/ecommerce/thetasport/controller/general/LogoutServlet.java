@@ -13,7 +13,7 @@ import java.io.IOException;
  * viene effettuato un controllo superfluo alla sessione, perchè nel momento in cui viene invocata questa servlet
  * allora esiste una sessione.
  */
-@WebServlet(name = "LogoutServlet", value = "/LogoutServlet")
+@WebServlet( name = "LogoutServlet", value = "/LogoutServlet" )
 public class LogoutServlet extends HttpServlet {
 
     /**
@@ -23,7 +23,7 @@ public class LogoutServlet extends HttpServlet {
      * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
      */
     @Override
-    protected void doGet(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
         HttpSession session = request.getSession( false );
         if ( session != null ) {
