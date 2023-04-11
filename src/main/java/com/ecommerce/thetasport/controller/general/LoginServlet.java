@@ -11,23 +11,21 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.SQLException;
 /**
- * LoginServlet is used to manage the login, there is a reference to this servlet in the index.jsp
+ * LoginServlet is used to manage the login, there is a reference to this servlet in the index.jsp.
+ * Then invoking the get method which then forward the request to the dedicated login page.
+ * In the login page there is a form that invoke the post method of the following servlet,
+ * then  the login checks are performed (via a Chain of responsibility), and the login is handled
  */
 
-/**
- * LoginServlet viene utilizzata per la gestione del login, nell'index.jsp è presente un riferimento a questa servlet
- * invocando quindi il metodo get che inoltra quindi la richiesta alla pagina dedicata al login.
- * Quindi nella pagina dedicata al login è presente un form che invoca il metodo post della seguente servlet,
- * quindi vengono eseguiti i controlli per il login (CoR), ed viene gestito l'accesso.
- */
+
 @WebServlet( name = "LoginServlet", value = "/LoginServlet" )
 public class LoginServlet extends HttpServlet {
 
     /**
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
      */
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
@@ -36,15 +34,16 @@ public class LoginServlet extends HttpServlet {
     }
 
     /**
-     * doPost viene invocato tramite il form presente nella pagina dedicata del login, inizialmente memorizza localmente
-     * i parametri passati attraverso protocollo http, richiama la procedura dedicata alla verifica del login, e ne
-     * gestisce il risultato tramite uno switch.
+     * doPost is invoked via the form on the dedicated login page, initially stores locally
+     * the paramaters passed through http protocol, invokes the procedures dedicated to the login verification, and
+     * it handles the result via a switch.
      *
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
      */
+
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );

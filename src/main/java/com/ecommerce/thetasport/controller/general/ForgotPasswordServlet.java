@@ -10,37 +10,44 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * ForgotPasswordServlet viene utilizzata nel caso in cui l'utente non ricorda la password, nell'login.jsp è presente un riferimento a questa servlet
- * invocando quindi il metodo get che inoltra la richiesta alla pagina dedicata alla richiesta della password dimenticata.
- * Quindi nella pagina dedicata è presente un form che invoca il metodo post della seguente servlet.
+ * ForgotPasswordServlet is used if the user does not remember the password, there is a reference to this sevlet in the login.jsp
+ * which invokes the get method that forwards the request to the dedicated page to request the forgotten password.
+ * In the ForgotPassword.jsp file there is a form which invokes the post method of the following servlet
+ *
  */
+
+
 @WebServlet( name = "ForgotPasswordServlet", value = "/ForgotPasswordServlet" )
 public class ForgotPasswordServlet extends HttpServlet {
 
-    /**
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     /**
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
      */
+
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
         request.getRequestDispatcher( "jsp/forgot_password.jsp" ).forward( request, response );
     }
 
+
     /**
-     * Il metodo post inizialmete recupera i paramentri inoltrati tramite protocollo http dal client tramite un form,
-     * il form di riferimento gia esegui vari controllo sfruttando HTML5, è necessario però effettuare un controllo
-     * anche lato server, infatti andiamo a controllare se la email inserita dal client è presente nel database,
-     * essendo un'attributo unico ed identificativo, nel caso è presente nel database viene inoltrata una fake mail
-     * con la rispettiva password, altrimenti apparirà un messaggio di errore.
+     * The doPost method initially retrieves the parameters forwarded via http protocol from the client via a form,
+     * the reference form already perform various checks using HTML5, however, it's necessary to perform a server-sided
+     * check, in fact we check if the email inserted by the client exists in the database, being the unique and
+     * identifying attribute.If the email it's present a fake email is forwarded with the respective password
+     * otherwise an error message will appear
      *
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
      */
+
+
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );

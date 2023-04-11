@@ -14,31 +14,20 @@ import java.io.IOException;
  * If the session does not exist, it creates and sets the log in to 0, so not logged in.
  */
 
-/**
- * HomeServlet risponde alla root della web application di conseguenza verifica l'esistenza di una sessione,
- * questo controllo viene eseguito per gestire il caso in cui il client durante la navigazione torna alla pagina home,
- * ma ha gia eseguito il login, e quindi esiste una sessione aperta.
- * Nel caso in cui la sessione non esista allora la crea ed setta il login a 0, quindi non loggato.
- */
+
 @WebServlet( name = "HomeServlet", value = "/" )
 public class HomeServlet extends HttpServlet {
 
     /**
      *
-     * @param request request made via a browser
-     * @param response response
-     * @throws ServletException Define a general exeption that a servlet may generate when it encounters difficulties
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
      * @throws IOException Report thar an I/O exception has occurred
      */
 
 
-    /**
-     *
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
-     */
+
 
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
