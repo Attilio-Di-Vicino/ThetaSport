@@ -5,6 +5,7 @@ import com.ecommerce.thetasport.model.UserBean;
 import com.ecommerce.thetasport.service.admin.ManagerAdmin;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
 import com.ecommerce.thetasport.service.loginCor.ManagerLogin;
+import com.ecommerce.thetasport.service.productabstractfactory.Director;
 import com.ecommerce.thetasport.service.productabstractfactory.ManagerProduct;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class HelperController {
 
@@ -45,8 +47,8 @@ public class HelperController {
         session.setAttribute( "numItemCart",  myCart.sizeCart() );
         // setto variabili per la request
         request.setAttribute( "login", 0);
-        request.setAttribute( "itemsCart", myCart );
-        request.setAttribute( "numItemCart", myCart.sizeCart() );
+        // request.setAttribute( "itemsCart", myCart );
+        // request.setAttribute( "numItemCart", myCart.sizeCart() );
     }
 
     public static void sessionExists( @NotNull HttpServletRequest request ) {
@@ -56,8 +58,8 @@ public class HelperController {
         Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
         // setto variabili per la request
         request.setAttribute( "login", isLogged );
-        request.setAttribute( "itemsCart", myCart );
-        request.setAttribute( "numItemCart", myCart.sizeCart() );
+        // request.setAttribute( "itemsCart", myCart );
+        // request.setAttribute( "numItemCart", myCart.sizeCart() );
     }
 
     /**
@@ -106,8 +108,8 @@ public class HelperController {
         currentSession.setAttribute( "itemsCart", myCart );
         currentSession.setAttribute( "numItemCart", myCart.sizeCart() );
         // setto variabili per la request
-        request.setAttribute( "itemsCart", myCart );
-        request.setAttribute( "numItemCart", myCart.sizeCart() );
+        // request.setAttribute( "itemsCart", myCart );
+        // request.setAttribute( "numItemCart", myCart.sizeCart() );
         if ( landingPage.equals("jsp/index.jsp") ) {
             // home page
             HelperController.ForwardProductList( request );
@@ -137,5 +139,42 @@ public class HelperController {
         HelperController.verifyLoginAndCart( request );
         request.setAttribute( "singleProduct", productBean );
         request.getRequestDispatcher( "jsp/single_product.jsp" ).forward( request, response );
+    }
+
+    public static void statusLog( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        HttpSession session = request.getSession( false );
+        // recupero variabili dalla sessione
+        int isLogged = ( int ) session.getAttribute( "isLogged" );
+        if ( isLogged == 0 ) {
+            request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
+        }
+    }
+
+    public static void addCart( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        HttpSession session = request.getSession( false );
+        if ( session == null ) {
+            nullSession( request );
+        } else {
+            statusLog( request,response );
+            Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
+            int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
+            try {
+                myCart.add( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
+            } catch ( SQLException e ) {
+                throw new RuntimeException( "SQL Exception in HelperController/addCart" + e );
+            } catch ( ClassNotFoundException ce ) {
+                throw new RuntimeException( "ClassNotFound Exception in HelperController/addCart" + ce );
+            }
+            session.setAttribute( "itemsCart", myCart );
+            session.setAttribute( "numItemCart", myCart.sizeCart() );
+            sessionExists(request);
+        }
+    }
+
+    public static void addCartCaseIndex( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        addCart( request,response );
+        // request.getRequestDispatcher( "jsp/component/navbar.jsp" ).include( request, response );
+        // HelperController.ForwardProductList( request );
+        // request.getRequestDispatcher( "jsp/index.jsp" ).forward( request, response );
     }
 }

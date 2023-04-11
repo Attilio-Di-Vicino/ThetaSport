@@ -14,6 +14,42 @@
     </jsp:include>
 </head>
     <body>
+
+        <script>
+            function addToCart( productId, landingPage ) {
+                // Crea un oggetto XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                var numItemCart = 0;
+                numItemCart = parseInt(document.getElementById("cartSection").getAttribute("numItemCart"));
+
+                if (!isNaN(numItemCart)) {
+                    numItemCart = parseInt(numItemCart);
+                } else {
+                    numItemCart = 0;
+                }
+
+                // Configura la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
+                xhr.open('GET', "AddCartServlet?landingPage=" + landingPage + "&codeProduct=" + productId);
+
+                console.log("landingPage: " + landingPage);
+                console.log("productId: " + productId);
+
+                // Gestisci la risposta della servlet
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        numItemCart += 1;
+                        // Aggiorna il valore di numItemCart nella pagina
+                        // document.getElementById("cartSection").setAttribute("numItemCart", numItemCart.toString());
+                        // Aggiorna la sezione del carrello della pagina con i dati aggiornati
+                        document.getElementById( "cartSection" ).innerHTML = xhr.responseText;
+                    }
+                }
+
+                // Invia la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
+                xhr.send();
+            }
+        </script>
+
         <jsp:include page="component/navbar.jsp">
             <jsp:param name="name" value="${userBean.getName()}"/>
             <jsp:param name="isLogged" value="${isLogged}"/>
@@ -22,10 +58,11 @@
         </jsp:include>
 
         <jsp:include page="component/hero_section.jsp">
-            <jsp:param name="homeMessageOne" value="Best Product"/>
-            <jsp:param name="homeMessageTwo" value=" Sport time"/>
+            <jsp:param name="homeMessageOne" value="Challenge the limits"/>
+            <jsp:param name="homeMessageTwo" value=" of your sport with ThetaSport"/>
             <jsp:param name="slogan" value="Challenge the limits of your sport with ThetaSport"/>
             <jsp:param name="botton" value="Shop Now"/>
+            <jsp:param name="image" value="bicycle.svg"/>
             <jsp:param name="requestHref" value="HomeServlet"/>
         </jsp:include>
 
@@ -49,7 +86,7 @@
                                     <img src="${pageContext.request.contextPath}/images/cross.svg" class="img-fluid">
                                 </span>
                             </a>
-                            <button id="addToCartButton-${product.getCode()}" onclick="addToCart( '${product.getCode()}', 'index', '${pageContext.request.contextPath}' )">Aggiungi al carrello</button>
+                            <button id="addToCartButton" onclick="addToCart( '${product.getCode()}', 'index' )">Aggiungi al carrello</button>
 
                             <form action="AddCartServlet" method="get">
                                 <input type="hidden" name="landingPage" value="index">
@@ -68,5 +105,6 @@
 
         <jsp:include page="component/footer.jsp"></jsp:include>
         <jsp:include page="component/logout_modal.jsp"></jsp:include>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

@@ -16,6 +16,7 @@
     <body>
 
     <jsp:include page="component/navbar.jsp">
+        <jsp:param name="name" value="${userBean.getName()}"/>
         <jsp:param name="isLogged" value="${isLogged}"/>
         <jsp:param name="login" value="${login}"/>
         <jsp:param name="numItemCart" value="${numItemCart}"/>
@@ -26,9 +27,11 @@
         <jsp:param name="homeMessageTwo" value=" Sport time"/>
         <jsp:param name="slogan" value="Challenge the limits of your sport with ThetaSport"/>
         <jsp:param name="botton" value="Shop Now"/>
+        <jsp:param name="image" value="football-rugby.svg"/>
         <jsp:param name="requestHref" value="HomeServlet"/>
     </jsp:include>
 
+    <div style="margin-top: 100px;"></div>
     <!-- Open Content -->
     <section class="bg-light">
         <div class="container pb-5">
