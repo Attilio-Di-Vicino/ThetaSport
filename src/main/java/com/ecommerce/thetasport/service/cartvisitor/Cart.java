@@ -57,7 +57,20 @@ public class Cart {
      * @param itemElement elemento da rimuovere
      */
     public void remove( ItemElement itemElement ) {
-        this.MY_CART.remove( itemElement );
+        if ( MY_CART.containsKey( itemElement ) ) {
+            MY_CART.remove( itemElement );
+        }
+    }
+
+    /**
+     * Metodo per rimuovere un elemento dal carrello.
+     *
+     * @param itemElement elemento da rimuovere
+     */
+    public void removeQuantityOne( ItemElement itemElement ) {
+        if ( MY_CART.containsKey( itemElement ) ) {
+            MY_CART.put( itemElement, MY_CART.get( itemElement ) - 1 );
+        }
     }
 
     /**

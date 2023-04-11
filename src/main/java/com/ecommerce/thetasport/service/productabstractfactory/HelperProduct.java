@@ -28,7 +28,8 @@ public class HelperProduct {
                     .setDescription( productBean.getDescription() )
                     .setStock( productBean.getStock() )
                     .setPrice( productBean.getPrice() )
-                    .setImage( productBean.getImage() );
+                    .setImage( productBean.getImage() )
+                    .setCode(productBean.getCode() );
         } catch ( NullPointerException e ) {
             e.printStackTrace();
         }

@@ -4,6 +4,7 @@ import com.ecommerce.thetasport.model.ProductBean;
 import com.ecommerce.thetasport.model.UserBean;
 import com.ecommerce.thetasport.service.admin.ManagerAdmin;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
+import com.ecommerce.thetasport.service.cartvisitor.ShoppingCartVisitorImpl;
 import com.ecommerce.thetasport.service.loginCor.ManagerLogin;
 import com.ecommerce.thetasport.service.productabstractfactory.Director;
 import com.ecommerce.thetasport.service.productabstractfactory.ManagerProduct;
@@ -15,7 +16,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 public class HelperController {
 
@@ -58,8 +58,8 @@ public class HelperController {
         Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
         // setto variabili per la request
         request.setAttribute( "login", isLogged );
-        // request.setAttribute( "itemsCart", myCart );
-        // request.setAttribute( "numItemCart", myCart.sizeCart() );
+        request.setAttribute( "itemsCart", myCart );
+        request.setAttribute( "numItemCart", myCart.sizeCart() );
     }
 
     /**
@@ -171,10 +171,89 @@ public class HelperController {
         }
     }
 
+    public static void removeCart( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        HttpSession session = request.getSession( false );
+        if ( session == null ) {
+            nullSession( request );
+            request.setAttribute( "errorMessageCart", "do login" );
+        } else {
+            statusLog( request, response );
+            Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
+            int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
+            myCart.removeQuantityOne( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
+            session.setAttribute( "itemsCart", myCart );
+            sessionExists( request );
+        }
+    }
+
+    public static void cartPage( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        HttpSession session = request.getSession( false );
+        if ( session == null ) {
+            request.setAttribute( "errorCart", true );
+            request.setAttribute( "errorMessage", "Error" );
+            request.getRequestDispatcher( "jsp/cart.jsp" ).forward( request, response );
+        } else {
+            statusLog( request,response );
+            sessionExists( request );
+            Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
+            ShoppingCartVisitorImpl shoppingCartVisitor = new ShoppingCartVisitorImpl( myCart );
+            double total = shoppingCartVisitor.getTotal();
+            session.setAttribute( "itemsCart", myCart );
+            request.setAttribute("totalPrice", total );
+            request.getRequestDispatcher( "jsp/cart.jsp" ).forward( request, response );
+        }
+    }
+
+    public static void singleProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getCode(request, response);
+    }
+
     public static void addCartCaseIndex( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         addCart( request,response );
         // request.getRequestDispatcher( "jsp/component/navbar.jsp" ).include( request, response );
-        // HelperController.ForwardProductList( request );
-        // request.getRequestDispatcher( "jsp/index.jsp" ).forward( request, response );
+        HelperController.ForwardProductList( request );
+        request.getRequestDispatcher( "jsp/index.jsp" ).forward( request, response );
+    }
+
+    public static void addCartCaseCart( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        addCart( request, response );
+        cartPage( request, response );
+    }
+
+    public static void addCartCaseSingleProduct( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        addCart( request,response );
+        singleProduct( request,response );
+    }
+
+    public static void removeCartCaseIndex( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        removeCart( request, response );
+        HelperController.ForwardProductList( request );
+        request.getRequestDispatcher( "jsp/index.jsp" ).forward( request, response );
+    }
+
+    public static void removeCartCaseCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        removeCart(request,response);
+        cartPage(request,response);
+    }
+
+    public static void removeCartCaseSingleProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        removeCart(request,response);
+        singleProduct(request,response);
+    }
+
+    public static void removeObjectCart( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException, SQLException, ClassNotFoundException {
+        HttpSession session = request.getSession( false );
+        if ( session == null ) {
+            nullSession( request );
+            request.setAttribute( "errorMessageCart", "do login" );
+        } else {
+            statusLog( request, response );
+            Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
+            int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
+            myCart.remove( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
+            session.setAttribute( "itemsCart", myCart );
+            sessionExists( request );
+        }
+        cartPage( request, response );
     }
 }

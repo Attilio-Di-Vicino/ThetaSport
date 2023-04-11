@@ -23,8 +23,8 @@
     </jsp:include>
 
     <jsp:include page="component/hero_section.jsp">
-        <jsp:param name="homeMessageOne" value="Best Product"/>
-        <jsp:param name="homeMessageTwo" value=" Sport time"/>
+        <jsp:param name="homeMessageOne" value="ThetaSport: where AI meets sport"/>
+        <jsp:param name="homeMessageTwo" value=" to maximize your performance"/>
         <jsp:param name="slogan" value="Challenge the limits of your sport with ThetaSport"/>
         <jsp:param name="botton" value="Shop Now"/>
         <jsp:param name="image" value="football-rugby.svg"/>
@@ -32,6 +32,7 @@
     </jsp:include>
 
     <div style="margin-top: 100px;"></div>
+    <br>
     <!-- Open Content -->
     <section class="bg-light">
         <div class="container pb-5">
