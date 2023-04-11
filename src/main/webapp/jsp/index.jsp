@@ -34,19 +34,20 @@
                 console.log("landingPage: " + landingPage);
                 console.log("productId: " + productId);
 
+                // Invia la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
+                xhr.send();
+
                 // Gestisci la risposta della servlet
                 xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
                         numItemCart += 1;
+                        console.log(numItemCart);
                         // Aggiorna il valore di numItemCart nella pagina
-                        // document.getElementById("cartSection").setAttribute("numItemCart", numItemCart.toString());
+                        document.getElementById( "cartSection" ).setAttribute( "numItemCart", numItemCart );
                         // Aggiorna la sezione del carrello della pagina con i dati aggiornati
                         document.getElementById( "cartSection" ).innerHTML = xhr.responseText;
                     }
                 }
-
-                // Invia la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
-                xhr.send();
             }
         </script>
 

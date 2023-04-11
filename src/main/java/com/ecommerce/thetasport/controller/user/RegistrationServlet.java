@@ -51,7 +51,6 @@ public class RegistrationServlet extends HttpServlet {
         try {
             if ( !ManagerLogin.userMailExist( email ) ) {
                 ManagerLogin.registrationUser( name, email, password );
-                System.out.println("GGGG");
                 // Se si sta registrando è sicuramente un User e non un admin
                 HelperController.loggedOrRegistrationSuccessful( request, response, email, 1, "jsp/index.jsp" );
             } else {
