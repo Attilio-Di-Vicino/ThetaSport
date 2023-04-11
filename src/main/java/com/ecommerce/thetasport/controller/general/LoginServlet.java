@@ -10,14 +10,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 /**
- * LoginServlet is used to manage the login, there is a reference to this servlet in the index.jsp.
- * Then invoking the get method which then forward the request to the dedicated login page.
- * In the login page there is a form that invoke the post method of the following servlet,
+ * LoginServlet is used to manage the login, there is a reference to this servlet in the index.jsp. <br>
+ * Then invoking the get method which then forward the request to the dedicated login page. <br>
+ * In the login page there is a form that invoke the post method of the following servlet, <br>
  * then  the login checks are performed (via a Chain of responsibility), and the login is handled
  */
-
-
 @WebServlet( name = "LoginServlet", value = "/LoginServlet" )
 public class LoginServlet extends HttpServlet {
 
@@ -34,16 +33,15 @@ public class LoginServlet extends HttpServlet {
     }
 
     /**
-     * doPost is invoked via the form on the dedicated login page, initially stores locally
-     * the paramaters passed through http protocol, invokes the procedures dedicated to the login verification, and
-     * it handles the result via a switch.
+     * doPost is invoked via the form on the dedicated login page, initially stores locally <br>
+     * the parameters passed through http protocol, invokes the procedures dedicated to the login verification, <br>
+     * and it handles the result via a switch.
      *
      * @param request Request made via a browser
      * @param response Response
      * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
      * @throws IOException Report thar an I/O exception has occurred
      */
-
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );

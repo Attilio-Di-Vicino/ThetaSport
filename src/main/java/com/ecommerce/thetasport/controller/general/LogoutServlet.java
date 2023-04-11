@@ -8,11 +8,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 /**
- * Logout Servlet fetches the actual session and invalidates it, redirecting to the home page.
- * Is superfluously checked if there is a session, because if this servlet is invoked,
+ * Logout Servlet fetches the actual session and invalidates it, redirecting to the home page. <br>
+ * Is superfluously checked if there is a session, because if this servlet is invoked, <br>
  * then a session exists.
  */
-
 @WebServlet( name = "LogoutServlet", value = "/LogoutServlet" )
 public class LogoutServlet extends HttpServlet {
 
