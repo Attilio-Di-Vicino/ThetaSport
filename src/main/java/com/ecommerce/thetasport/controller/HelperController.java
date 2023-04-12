@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class HelperController {
 
@@ -254,5 +255,19 @@ public class HelperController {
             sessionExists( request );
         }
         cartPage( request, response );
+    }
+
+    public static void checkoutPage( @NotNull HttpServletRequest request, HttpServletResponse response ) {
+        HttpSession session = request.getSession( false );
+        // recupero variabili dalla sessione
+        int isLogged = ( int ) session.getAttribute( "isLogged" );
+        Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
+        // setto variabili per la request
+        request.setAttribute( "login", isLogged );
+        request.setAttribute( "itemsCart", myCart );
+        request.setAttribute( "numItemCart", myCart.sizeCart() );
+        ShoppingCartVisitorImpl shoppingCartVisitor = new ShoppingCartVisitorImpl( myCart );
+        double total = shoppingCartVisitor.getTotal();
+        request.setAttribute( "totalPrice", total );
     }
 }
