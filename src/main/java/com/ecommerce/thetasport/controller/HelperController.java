@@ -179,7 +179,7 @@ public class HelperController {
             statusLog( request, response );
             Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
             int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
-            myCart.removeQuantityOne( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
+            myCart.decreaseQuantity( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
             session.setAttribute( "itemsCart", myCart );
             sessionExists( request );
         }
@@ -210,8 +210,8 @@ public class HelperController {
     public static void addCartCaseIndex( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         addCart( request,response );
         // request.getRequestDispatcher( "jsp/component/navbar.jsp" ).include( request, response );
-        HelperController.ForwardProductList( request );
-        request.getRequestDispatcher( "jsp/index.jsp" ).forward( request, response );
+        // HelperController.ForwardProductList( request );
+        // request.getRequestDispatcher( "jsp/index.jsp" ).forward( request, response );
     }
 
     public static void addCartCaseCart( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {

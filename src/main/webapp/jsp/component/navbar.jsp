@@ -74,7 +74,7 @@
                                     <img src="${pageContext.request.contextPath}/images/cart.svg">
                                 </a>
                             </li>
-                            <span id="cartSection" style="height: 20px;" class="position-relative top-10 left-100 translate-middle badge rounded-pill bg-light text-dark">${param.numItemCart}</span>
+                            <span id="cartSection" style="height: 20px;" class="position-relative top-10 left-100 translate-middle badge rounded-pill bg-light text-dark">${numItemCart}</span>
                         </a>
                     </ul>
                 </div>

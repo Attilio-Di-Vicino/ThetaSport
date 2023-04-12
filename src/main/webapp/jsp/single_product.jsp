@@ -13,7 +13,7 @@
             <jsp:param name="title" value="${singleProduct.getName()}" />
         </jsp:include>
     </head>
-    <body>
+    <body class="bg-light">
 
     <jsp:include page="component/navbar.jsp">
         <jsp:param name="name" value="${userBean.getName()}"/>
@@ -109,7 +109,7 @@
         </div>
     </section>
     <!-- Close Content -->
-
+    <br><br>
     <jsp:include page="component/footer.jsp"></jsp:include>
 
     </body>

@@ -19,14 +19,14 @@
             function addToCart( productId, landingPage ) {
                 // Crea un oggetto XMLHttpRequest
                 var xhr = new XMLHttpRequest();
-                var numItemCart = 0;
+                // var numItemCart = 0;
                 numItemCart = parseInt(document.getElementById("cartSection").getAttribute("numItemCart"));
 
                 if (!isNaN(numItemCart)) {
                     numItemCart = parseInt(numItemCart);
-                } else {
+                }/* else {
                     numItemCart = 0;
-                }
+                }*/
 
                 // Configura la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
                 xhr.open('GET', "AddCartServlet?landingPage=" + landingPage + "&codeProduct=" + productId);

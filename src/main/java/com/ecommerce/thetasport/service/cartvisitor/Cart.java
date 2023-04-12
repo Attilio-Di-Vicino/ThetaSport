@@ -63,17 +63,6 @@ public class Cart {
     }
 
     /**
-     * Metodo per rimuovere un elemento dal carrello.
-     *
-     * @param itemElement elemento da rimuovere
-     */
-    public void removeQuantityOne( ItemElement itemElement ) {
-        if ( MY_CART.containsKey( itemElement ) ) {
-            MY_CART.put( itemElement, MY_CART.get( itemElement ) - 1 );
-        }
-    }
-
-    /**
      * Metodo per rimuovere tutti gli elementi dal carrello.
      */
     public void removeAll() {
@@ -85,8 +74,15 @@ public class Cart {
      *
      * @param itemElement elemento di cui decrementare la quantità
      */
-    public void decreaseQuantity( ItemElement itemElement ) {
-        this.MY_CART.put( itemElement, this.MY_CART.get( itemElement ) - 1 );
+    public void decreaseQuantity(ItemElement itemElement ) {
+        if ( MY_CART.containsKey( itemElement ) ) {
+            int number = MY_CART.get( itemElement );
+            if ( number <= 1 ) {
+                this.remove( itemElement );
+            } else {
+                MY_CART.put( itemElement, MY_CART.get( itemElement ) - 1 );
+            }
+        }
     }
 
     /**

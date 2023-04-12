@@ -49,7 +49,11 @@
                                 <tbody>
                                 <tr>
                                     <td class="product-thumbnail">
-                                        <img src="${pageContext.request.contextPath}/images/product/${product.getImage()}" alt="Image" class="img-fluid">
+                                        <form action="SingleProductServlet" method="get">
+                                            <button style="background-color: transparent; border: none" name="codeProduct" value=${product.getCode()}>
+                                                <img src="${pageContext.request.contextPath}/images/product/${product.getImage()}" style="height: 120px; width: 120px;" alt="Image" class="img-fluid">
+                                            </button>
+                                        </form>
                                     </td>
                                     <td class="product-name">
                                         <h2 class="h5 text-black">${product.getName()}</h2>
