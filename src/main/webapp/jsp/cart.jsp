@@ -6,6 +6,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -78,7 +79,8 @@
                                         </div>
 
                                     </td>
-                                    <td>$${ itemsCart.getMyCart().get( product ) * product.getPrice() }</td>
+                                    <fmt:setLocale value = "en_US"/>
+                                    <td><fmt:formatNumber value="${itemsCart.getMyCart().get( product ) * product.getPrice()}" type="currency"/></td>
                                     <td><form action="RemoveObjectCartServlet" method="get" >
                                         <input type="hidden" name="codeProduct" value="${product.getCode()}">
                                         <input type="submit" class="btn btn-black btn-sm" value="X">
