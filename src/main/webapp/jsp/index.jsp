@@ -20,10 +20,10 @@
                 // Crea un oggetto XMLHttpRequest
                 var xhr = new XMLHttpRequest();
                 // var numItemCart = 0;
-                numItemCart = parseInt(document.getElementById("cartSection").getAttribute("numItemCart"));
+                numItemCart = Number(document.getElementById("cartSection").getAttribute("numItemCart"));
 
                 if (!isNaN(numItemCart)) {
-                    numItemCart = parseInt(numItemCart);
+                    numItemCart = Number(numItemCart);
                 }/* else {
                     numItemCart = 0;
                 }*/
@@ -105,7 +105,6 @@
         </div>
 
         <jsp:include page="component/footer.jsp"></jsp:include>
-        <jsp:include page="component/logout_modal.jsp"></jsp:include>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

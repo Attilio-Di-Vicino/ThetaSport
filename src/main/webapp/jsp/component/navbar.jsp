@@ -33,7 +33,7 @@
                         </c:choose>
                         <c:choose>
                             <c:when test="${ param.login == null || param.login == 0 }">
-                                <li><a class="nav-link" href="LoginServlet" >login</a></li>
+                                <li><a class="nav-link" href="LoginServlet" >Login</a></li>
                             </c:when>
                             <c:otherwise>
                                 <!-- Nav Item - User Information -->

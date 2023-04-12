@@ -17,6 +17,7 @@
 
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap4" />
+    <jsp:include page="logout_modal.jsp"></jsp:include>
 
     <!-- Bootstrap CSS -->
     <style>
