@@ -352,8 +352,9 @@
                                                     <tbody>
                                                     <c:forEach var="product" items="${itemsCart.getMyCart().keySet()}">
                                                         <tr>
-                                                            <td>${product.getName()} <strong class="mx-2">x</strong> 1</td>
-                                                            <td>$${product.getPrice()}</td>
+                                                            <td>${product.getName()} <strong class="mx-2">x</strong> ${itemsCart.getMyCart().get( product )}</td>
+                                                            <fmt:setLocale value = "en_US"/>
+                                                            <td><fmt:formatNumber value="${itemsCart.getMyCart().get( product ) * product.getPrice()}" type="currency"/></td>
                                                         </tr>
                                                     </c:forEach>
                                                     <tr>
@@ -471,10 +472,11 @@
                                                     <th>Total</th>
                                                     </thead>
                                                     <tbody>
-                                                    <c:forEach var="product" items="${itemsCart}">
+                                                    <c:forEach var="product" items="${itemsCart.getMyCart().keySet()}">
                                                         <tr>
-                                                            <td>${product.getName()} <strong class="mx-2">x</strong> 1</td>
-                                                            <td>$${product.getPrice()}</td>
+                                                            <td>${product.getName()} <strong class="mx-2">x</strong> ${itemsCart.getMyCart().get( product )}</td>
+                                                            <fmt:setLocale value = "en_US"/>
+                                                            <td><fmt:formatNumber value="${itemsCart.getMyCart().get( product ) * product.getPrice()}" type="currency"/></td>
                                                         </tr>
                                                     </c:forEach>
                                                     <tr>

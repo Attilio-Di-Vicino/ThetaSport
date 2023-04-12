@@ -31,21 +31,15 @@ public class CashServlet extends HttpServlet {
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
-        @SuppressWarnings( value = "Variable 'country' is never used")
         String country = request.getParameter( "cc_country" );
         String firstName = request.getParameter( "cc_fname" );
-        @SuppressWarnings(  value = "Variable 'lastName' is never used")
         String lastName = request.getParameter( "cc_lname" );
-        @SuppressWarnings( value = "Variable 'address' is never used")
         String address = request.getParameter( "cc_address" );
         String shippingAddress = request.getParameter( "cc_s_address" );
-        @SuppressWarnings( value = "Variable 'stateCountry' is never used" )
         String stateCountry = request.getParameter( "cc_state_country" );
-        @SuppressWarnings( value = "Variable 'postalCode' is never used" )
         String postalCode = request.getParameter( "cc_postal_zip" );
         String email = request.getParameter( "cc_email_address" );
         String phone = request.getParameter( "cc_phone" );
-        @SuppressWarnings( value = "Variable 'orderNotes' is never used" )
         String orderNotes = request.getParameter( "cc_order_notes" );
         // Manager payment
         HttpSession session = request.getSession(false);
@@ -62,6 +56,9 @@ public class CashServlet extends HttpServlet {
         // svuotare il carrello
         myCart.removeAll();
         session.setAttribute( "itemsCart", myCart );
+        HelperController.sessionExists( request );
+        HelperController.setVarThankYouPage( request, country, firstName, lastName, address,
+                                             shippingAddress, stateCountry, postalCode, email, phone, orderNotes );
         request.getRequestDispatcher( "jsp/thank_you.jsp" ).forward( request,response );
     }
 }

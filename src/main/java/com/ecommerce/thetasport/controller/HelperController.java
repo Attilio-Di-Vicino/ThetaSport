@@ -270,4 +270,18 @@ public class HelperController {
         double total = shoppingCartVisitor.getTotal();
         request.setAttribute( "totalPrice", total );
     }
+
+    public static void setVarThankYouPage( @NotNull HttpServletRequest request, String country, String firstName,
+                                           String lastName, String address, String shippingAddress, String stateCountry,
+                                           String postalCode, String email, String phone, String orderNotes ) {
+        request.setAttribute( "country", country );
+        request.setAttribute( "name", firstName + " " + lastName );
+        request.setAttribute( "address", address );
+        request.setAttribute( "shippingAddress", shippingAddress );
+        request.setAttribute( "stateCountry", stateCountry );
+        request.setAttribute( "postalCode", postalCode );
+        request.setAttribute( "email", email );
+        request.setAttribute( "phone", phone );
+        request.setAttribute( "orderNotes", orderNotes );
+    }
 }

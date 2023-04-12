@@ -27,12 +27,12 @@
                         <li><a class="nav-link" href="">About us</a></li>
                         <li><a class="nav-link" href="">Contact us</a></li>
                         <c:choose>
-                            <c:when test="${ param.isLogged == 2 }">
+                            <c:when test="${ isLogged == 2 }">
                                 <li><a class="nav-link" href="AdminProtectedServlet">Dashboard</a></li>
                             </c:when>
                         </c:choose>
                         <c:choose>
-                            <c:when test="${ param.login == null || param.login == 0 }">
+                            <c:when test="${ login == null || login == 0 }">
                                 <li><a class="nav-link" href="LoginServlet" >Login</a></li>
                             </c:when>
                             <c:otherwise>
@@ -40,7 +40,7 @@
                                 <li class="nav-item dropdown no-arrow">
                                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span class="mr-2 d-none d-lg-inline text-gray-600">${param.name}</span>
+                                        <span class="mr-2 d-none d-lg-inline text-gray-600">${userBean.getName()}</span>
                                     </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
