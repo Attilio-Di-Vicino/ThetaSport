@@ -10,19 +10,13 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * DAO class responsible for database queries regarding products.
+ * Classe DAO responsabile delle interrogazioni al database riguardo i prodotti
  */
 public class ProductDAO {
-    private static Connection connection; // database connection
-    private static PreparedStatement pstmt; // prepared statement for database queries
-    private static ResultSet rs; // query result
-    private static final ProductBean productBean = new ProductBean(); // single product
     private final static String QUERY_SINGLE_PRODUCT_SQL = "SELECT * FROM PRODUCT WHERE CODE = (?)";
-    private static int result;
     private final static String QUERY_SOLD_SINGLE_CATEGORY_SQL = "SELECT SUM(C.QUANTITY) FROM `ORDER` " +
             "JOIN `CONTAINS` C on `ORDER`.ORDERID = C.ORDERID_C JOIN PRODUCT P on P.CODE = C.CODE " +
             "WHERE P.CATEGORY = (?) AND P.SUBCATEGORY = (?)";
-    private static List<ProductBean> productBeanList; // list of all product
     private final static String QUERY_ALL_PRODUCT_SQL = "SELECT * FROM PRODUCT";
     private final static String INSERT_SINGLE_PRODUCT_SQL = "INSERT INTO PRODUCT (NAME, DESCRIPTION, STOCK, " +
             "PRICE, CATEGORY, SUBCATEGORY, IMAGE) VALUES (?,?,?,?,?,?,?)";
@@ -31,27 +25,27 @@ public class ProductDAO {
     private final static String UPDATE_STOCK_SQL = "UPDATE PRODUCT SET STOCK = (?) WHERE CODE = (?)";
     private final static String UPDATE_PRICE_SQL = "UPDATE PRODUCT SET PRICE = (?) WHERE CODE = (?)";
     private final static String UPDATE_IMAGE_SQL = "UPDATE PRODUCT SET IMAGE = (?) WHERE CODE = (?)";
-    private static List<String> productList; // TFIDF
     private final static String QUERY_PRODUCT_ORDER_SINGLE_USER_SQL = "SELECT P.NAME,C.QUANTITY FROM PRODUCT P " +
             "JOIN CONTAINS C on P.CODE = C.CODE JOIN `ORDER` O on O.ORDERID = C.ORDERID_C " +
             "JOIN USER U on O.EMAIL = U.EMAIL WHERE O.EMAIL = (?)";
     private final static String QUERY_ALL_PRODUCT = "SELECT NAME FROM PRODUCT";
 
     /**
-     * the getSingleProduct<br>
-     * il metodo getSingleProduct() takes as input a unique code<br>
-     * and queries the database returning the product inherent in that code.<br>
-     * sets the individual productBean with the help of {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)}<br>
-     * finally in the finally block the connection, prepared statement and result set are closed.
+     * il metodo getSingleProduct() assume in input un codice univoco <br>
+     * ed interroga il database restituendo il prodotto inerente al quel codice <br>
+     * setta il singolo productBean aiutandosi con {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)} <br>
+     * infine nel blocco finally vengono chiusi connection, prepared statement ed result set
      *
-     * @param code unique product code
-     * @return product having that code
-     * @throws SQLException Defines a general exception that can be generated
+     * @param code codice prodotto univoco
+     * @return prodotto avente quel codice
+     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static ProductBean getSingleProduct( int code ) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ProductBean productBean = new ProductBean();
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_SINGLE_PRODUCT_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_SINGLE_PRODUCT_SQL );
             pstmt.setString( 1, String.valueOf( code ) );
             rs = pstmt.executeQuery();
             if ( rs.next() ) {
@@ -60,9 +54,6 @@ public class ProductDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ){
-                connection.close();
-            }
             if ( pstmt != null ){
                 pstmt.close();
             }
@@ -74,19 +65,21 @@ public class ProductDAO {
     }
 
     /**
-     * the getSumSoldItemsCategory() method takes as input a category and subcategory<br>
-     * and queries the database returning the sum of items sold for that category and sub-category<br>
-     * finally in the finally block the connection, prepared statement and result set are closed
+     * il metodo getSumSoldItemsCategory() assume in input una categoria e sotto-categoria <br>
+     * ed interroga il database restituendo la somma degli item venduti per quella categoria e sotto-categoria <br>
+     * infine nel blocco finally vengono chiusi connection, prepared statement ed result set
      *
-     * @param category product category
-     * @param subCategory product sub-category
-     * @return sum of items sold for that category and sub-category
-     * @throws SQLException Defines a general exception that can be generated
+     * @param category categoria del porodotto
+     * @param subCategory sotto-categoria del prodotto
+     * @return somma degli item venduti per quella categoria e sotto-categoria
+     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static int getSumSoldItemsCategory( @NotNull Category category, @NotNull SubCategory subCategory ) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_SOLD_SINGLE_CATEGORY_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_SOLD_SINGLE_CATEGORY_SQL );
             pstmt.setString( 1, category.toString() );
             pstmt.setString( 2, subCategory.toString() );
             rs = pstmt.executeQuery();
@@ -96,9 +89,6 @@ public class ProductDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -110,20 +100,21 @@ public class ProductDAO {
     }
 
     /**
-     * The getProductBeanList() method is used for the list of all products.
-     * sets the individual productBean with the help of {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)}
-     * per poi aggiungerlo alla lista
+     * il metodo getProductBeanList() viene utilizzato per la lista di tutti i prodotti <br>
+     * setta il singolo productBean aiutandosi con {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)} <br>
+     * per poi aggiungerlo alla lista <br>
      * infine nel blocco finally vengono chiusi connection, prepared statement ed result set
      *
      * @return lista di tutti i prodotti
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static List<ProductBean> getProductBeanList() throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<ProductBean> productBeanList = new ArrayList<>();
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_ALL_PRODUCT_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_ALL_PRODUCT_SQL );
             rs = pstmt.executeQuery();
-            productBeanList = new ArrayList<>();
             while ( rs.next() ) {
                 ProductBean productBean = new ProductBean();
                 HelperDAO.setSingleProductBean( productBean, rs );
@@ -132,9 +123,6 @@ public class ProductDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ){
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -146,145 +134,120 @@ public class ProductDAO {
     }
 
     /**
-     * il metodo insertProduct() permette di inserire un prodotto all'interno del databese
-     * nel caso in cui l'immagine non viene inserita viene caricata un immagine di default
-     * considerando che solo l'admin può inserire i prodotti, e che lato client, quindi
+     * il metodo insertProduct() permette di inserire un prodotto all'interno del databese <br>
+     * nel caso in cui l'immagine non viene inserita viene caricata un immagine di default <br>
+     * considerando che solo l'admin può inserire i prodotti, e che lato client, quindi <br>
      * nella view dell'admin sono stati fatti vari controlli tramire HTML5
+     *
      * @param product product da inserire
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void insertProduct( @NotNull Product product ) throws SQLException {
-        try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( INSERT_SINGLE_PRODUCT_SQL );
-            pstmt.setString( 1, product.getName() );
-            pstmt.setString( 2, product.getDescription() );
-            pstmt.setInt( 3,product.getStock() );
-            pstmt.setDouble( 4,product.getPrice() );
-            pstmt.setString( 5, product.getCategory().toString() );
-            pstmt.setString( 6, product.getSubCategory().toString() );
+    public static void insertProduct( @NotNull Product product ) {
+        try ( PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection()
+                .prepareStatement( INSERT_SINGLE_PRODUCT_SQL ) ) {
+            pstmt.setString(1, product.getName());
+            pstmt.setString(2, product.getDescription());
+            pstmt.setInt(3, product.getStock());
+            pstmt.setDouble(4, product.getPrice());
+            pstmt.setString(5, product.getCategory().toString());
+            pstmt.setString(6, product.getSubCategory().toString());
             // in questo caso non è necessaria un'eccezione
             String image = product.getImage();
-            if ( image == null || image.equals("") ) {
+            if (image == null || image.equals("")) {
                 image = "default-image.jpeg";
             }
-            pstmt.setString( 7, image );
+            pstmt.setString(7, image);
             pstmt.executeUpdate();
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
         }
     }
 
     /**
-     * il metodo editNameProduct() permette di modificare il nome di un prodotto
-     * si avvale del metodo {@link HelperDAO#editProduct(Connection, PreparedStatement, String, int, String)}
+     * il metodo editNameProduct() permette di modificare il nome di un prodotto <br>
+     * si avvale del metodo {@link HelperDAO#editProduct(String, int, String)}
+     *
      * @param name nuovo nome del prodotto
      * @param code codice del prodotto che deve essere modificato
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void editNameProduct( String name, int code ) throws SQLException {
-        connection = DatabaseConnection.getInstance().getConnection();
-        HelperDAO.editProduct( connection, pstmt, name, code, UPDATE_NAME_SQL );
+    public static void editNameProduct( String name, int code ) {
+        HelperDAO.editProduct( name, code, UPDATE_NAME_SQL );
     }
 
     /**
-     * il metodo editDescriptionProduct() permette di modificare la descrizione di un prodotto
-     * si avvale del metodo {@link HelperDAO#editProduct(Connection, PreparedStatement, String, int, String)}
+     * il metodo editDescriptionProduct() permette di modificare la descrizione di un prodotto <br>
+     * si avvale del metodo {@link HelperDAO#editProduct(String, int, String)}
+     *
      * @param description nuova descrizione del prodotto
      * @param code codice del prodotto che deve essere modificato
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void editDescriptionProduct( String description, int code ) throws SQLException {
-        connection = DatabaseConnection.getInstance().getConnection();
-        HelperDAO.editProduct( connection, pstmt, description, code, UPDATE_DESCRIPTION_SQL );
+    public static void editDescriptionProduct( String description, int code ) {
+        HelperDAO.editProduct( description, code, UPDATE_DESCRIPTION_SQL );
     }
 
     /**
      * il metodo editStockProduct() permette di modificare lo stock di un prodotto
+     *
      * @param stock nuovo stock del prodotto
      * @param code codice del prodotto che deve essere modificato
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void editStockProduct( int stock, int code ) throws SQLException {
-        try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( UPDATE_STOCK_SQL );
-            pstmt.setInt( 1, stock );
-            pstmt.setInt( 2, code );
+    public static void editStockProduct( int stock, int code ) {
+        try ( PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection()
+                .prepareStatement( UPDATE_STOCK_SQL ) ) {
+            pstmt.setInt(1, stock);
+            pstmt.setInt(2, code);
             pstmt.executeUpdate();
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
         }
     }
 
     /**
      * il metodo editPriceProduct() permette di modificare il prezzo di un prodotto
+     *
      * @param price nuovo prezzo del prodotto
      * @param code codice del prodotto che deve essere modificato
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void editPriceProduct( double price, int code ) throws SQLException {
-        try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( UPDATE_PRICE_SQL );
-            pstmt.setDouble( 1, price );
-            pstmt.setInt( 2, code );
+    public static void editPriceProduct( double price, int code ) {
+        try ( PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection()
+                .prepareStatement( UPDATE_PRICE_SQL ) ) {
+            pstmt.setDouble(1, price);
+            pstmt.setInt(2, code);
             pstmt.executeUpdate();
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
         }
     }
 
     /**
-     * il metodo editImageProduct() permette di modificare l'immagine di un prodotto
-     * si avvale del metodo {@link HelperDAO#editProduct(Connection, PreparedStatement, String, int, String)}
+     * il metodo editImageProduct() permette di modificare l'immagine di un prodotto <br>
+     * si avvale del metodo {@link HelperDAO#editProduct(String, int, String)}
+     *
      * @param image nuova immagine del prodotto
      * @param code codice del prodotto che deve essere modificato
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void editImageProduct( String image, int code ) throws SQLException {
-        connection = DatabaseConnection.getInstance().getConnection();
-        HelperDAO.editProduct( connection, pstmt, image, code, UPDATE_IMAGE_SQL );
+    public static void editImageProduct( String image, int code ) {
+        HelperDAO.editProduct( image, code, UPDATE_IMAGE_SQL );
     }
 
     /**
-     * il metodo getProductListAllOrderSingleUser() esegue un'interrogazione al database
-     * e restituisce una lista di string la quale conterrà tutti i prodotti acquistati da uno
-     * specifico utente, e se un pordotto è stato acquistato più di una volta allora sarà
-     * inserito quante volte è stato acquistato, ES: "Air Jordan" acquistato 2 volte
+     * il metodo getProductListAllOrderSingleUser() esegue un'interrogazione al database <br>
+     * e restituisce una lista di string la quale conterrà tutti i prodotti acquistati da uno <br>
+     * specifico utente, e se un pordotto è stato acquistato più di una volta allora sarà <br>
+     * inserito quante volte è stato acquistato, ES: "Air Jordan" acquistato 2 volte <br>
      * la lista avrà 2 elementi al suo interno che sono "Air Jordan".
+     *
      * @param email mail che fa riferimento ad un utente specifico
      * @return lista di string contente i pordotti acquistati da un singolo utente
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static List<String> getProductListAllOrderSingleUser( String email ) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<String> productList = new ArrayList<>();
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_PRODUCT_ORDER_SINGLE_USER_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_PRODUCT_ORDER_SINGLE_USER_SQL );
             pstmt.setString( 1, email );
             rs = pstmt.executeQuery();
-            productList = new ArrayList<>();
             while ( rs.next() ) {
                 int quantity = rs.getInt( "QUANTITY" );
                 for ( int i = 0; i < quantity; i++ ) {
@@ -294,9 +257,6 @@ public class ProductDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -308,20 +268,18 @@ public class ProductDAO {
     }
 
     public static List< String > getAllProductList() throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<String> productList = new ArrayList<>();
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_ALL_PRODUCT );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_ALL_PRODUCT );
             rs = pstmt.executeQuery();
-            productList = new ArrayList<>();
             while ( rs.next() ) {
                 productList.add( rs.getString( "NAME" ) );
             }
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }

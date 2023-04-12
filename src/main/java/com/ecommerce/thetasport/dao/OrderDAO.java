@@ -10,12 +10,6 @@ import java.util.*;
 import java.util.Date;
 
 public class OrderDAO {
-
-    private static Connection connection; // database connection
-    private static PreparedStatement pstmt; // prepared statement for database queries
-    private static ResultSet rs; // query result
-    private static double result;
-    private static List<TotalOrdersUsersBean> totalOrdersUsersBeanList;
     private final static String INSERT_ORDER_SQL = "INSERT INTO `ORDER` (ORDERDATE, EMAIL, GROSSPROFIT) " +
             "VALUES (?,?,?)";
     private final static String INSERT_CONTAINS_SQL = "INSERT INTO CONTAINS (CODE, ORDERID_C, QUANTITY) " +
@@ -32,27 +26,29 @@ public class OrderDAO {
             " GROUP BY ORDERID";
 
     /**
-     * The insertListOrder method takes as input a map representing the shopping cart,<br>
-     * an email representing the email of the person who placed the order and a total given by the total<br>
-     * of the products in the shopping cart.<br>
-     * First goes to retrieve the time of when it was entered in year-month-day format<br>
-     * then prepares the statement by giving an input an additional statement which is a request<br>
-     * to return the key generated upon insertion into the ORDER table being an "AUTO_INCREMENT" attribute<br>
-     * then sets the values and performs the insertion into the ORDER table,<br>
-     * retrieving automatically generated ORDERID.<br>
-     * After that we need to fill the CONTAINS table, so we iterate the map representing the cart<br>
-     * and for each element you insert into the CONTAINS table with the respective codes.
-
-     * @param items map representing the shopping cart
-     * @param email email of the user who placed the order
-     * @param total shopping cart total
-     * @throws SQLException Defines a general exception that can be generated
+     * il metodo insertListOrder assume in input una map che rappresenta il carrello della spesa <br>
+     * una mail che rappresenta la mail di chi ha eseguito l'ordine, e un totale dato dal totale <br>
+     * dei prodotti presenti nel carrello <br>
+     * in primis va a recuperare l'orario al momento dell'inserimento in formato anno-mese-giorno <br>
+     * quindi prepara lo statement dando un input un ulteriore statement il quale è una richiesta <br>
+     * di ritornare la chiave generata all'inserimento nella tabella ORDER essendo un attributo "AUTO_INCREMENT" <br>
+     * quindi imposta i valori ed esegue l'inserimento nella tabella ORDER, <br>
+     * recuperando ORDERID generato automaticamente. <br>
+     * Dopodiche bisogna riempire la tabella CONTAINS, quindi si itera la map che rappresenta il carrello <br>
+     * ed per ogni elemento si inserisce nella tabella CONTAINS con i rispettivi codici
+     *
+     * @param items map che rappresenta il carrello della spesa
+     * @param email mail dell'user che ha effettuato l'ordine
+     * @param total totale del carrello della spesa
+     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static void insertOrder(Map<ItemElement, Integer> items, String email, double total ) throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( INSERT_ORDER_SQL, Statement.RETURN_GENERATED_KEYS );
-            // the current date in year-month-day format is taken
+            pstmt = DatabaseConnection.getInstance().getConnection()
+                    .prepareStatement( INSERT_ORDER_SQL, Statement.RETURN_GENERATED_KEYS );
+            // prendo la data attuale in formato anno-mese-giorno
             SimpleDateFormat dateFormat = new SimpleDateFormat();
             dateFormat.setTimeZone( TimeZone.getTimeZone( "Europe/Rome" ) );
             dateFormat.applyPattern( "yyyy.MM.dd" );
@@ -61,29 +57,24 @@ public class OrderDAO {
             pstmt.setDouble( 3, total );
             pstmt.executeUpdate();
             int id = 0;
-            // The value generated for the primary key column is retrieved
+            // Recupera il valore generato per la colonna di chiave primaria
             rs = pstmt.getGeneratedKeys();
             if ( rs.next() ) {
                 id = rs.getInt( 1 );
-                System.out.println( "Il valore generato per la chiave primaria è: " + id );
             }
-            // products within the shopping cart are cycled
-            // and inserted within the CONTAINS table.
+            // ciclo i prodotti presenti all'interno del carrello
+            // ed inserisco all'interno della tabella CONTAINS
             for ( ItemElement item : items.keySet() ) {
                 Product product = ( Product ) item;
-                pstmt = connection.prepareStatement( INSERT_CONTAINS_SQL );
+                pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( INSERT_CONTAINS_SQL );
                 pstmt.setInt( 1, product.getCode() );
                 pstmt.setInt( 2, id );
                 pstmt.setInt( 3, items.get( item ) );
-                int result = pstmt.executeUpdate();
-                System.out.println( "Insert contains: " + product.getCode() + " result: " + result );
+                pstmt.executeUpdate();
             }
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -94,18 +85,20 @@ public class OrderDAO {
     }
 
     /**
-     * The getSumPriceOrderMonthly method execute a query on the database<br>
-     * using two function that return the current month and year.<br>
-     * for the month {@link HelperDAO#getCurrentMonth()} is used<br>
-     * for the month {@link HelperDAO#getCurrentYear()} is used<br>
+     * il metodo getSumPriceOrderMonthly() esegue un interrogazione al database <br>
+     * avvalendosi di due funzioni che restituiscono il mese corrente e l'anno corrente <br>
+     * per il mese usa {@link HelperDAO#getCurrentMonth()} <br>
+     * per l'anno usa {@link HelperDAO#getCurrentYear()}
      *
-     * @return total gross profit of the current month
-     * @throws SQLException Defines a general exception that can be generated
+     * @return totale profitto lordo del mese corrente
+     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static double getSumPriceOrderMonthly() throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        double result = 0.0;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_MONTHLY_YEAR_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_MONTHLY_YEAR_SQL );
             pstmt.setInt( 1, HelperDAO.getCurrentMonth() );
             pstmt.setInt( 2, HelperDAO.getCurrentYear() );
             rs = pstmt.executeQuery();
@@ -115,9 +108,6 @@ public class OrderDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -129,16 +119,18 @@ public class OrderDAO {
     }
 
     /**
-     * the getSumPriceOrderYear() method performs a query to the database<br>
-     * making use of two functions that return the current year {@link HelperDAO#getCurrentYear()}.
+     * il metodo getSumPriceOrderYear() esegue un interrogazione al database <br>
+     * avvalendosi di due funzioni che restituiscono l'anno corrente {@link HelperDAO#getCurrentYear()}
      *
      * @return totale profitto lordo dell'anno corrente
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static double getSumPriceOrderYear() throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        double result = 0.0;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_YEARS_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_YEARS_SQL );
             pstmt.setInt( 1, HelperDAO.getCurrentYear() );
             rs = pstmt.executeQuery();
             if ( rs.next() ) {
@@ -147,9 +139,6 @@ public class OrderDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -161,15 +150,17 @@ public class OrderDAO {
     }
 
     /**
-     * The getSumPriceOrderTotal method performs a query to the database<br>
+     * il metodo getSumPriceOrderTotal() esegue un interrogazione al database
      *
      * @return totale profitto lordo
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static double getSumPriceOrderTotal() throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        double result = 0.0;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_TOTAL_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_TOTAL_SQL );
             rs = pstmt.executeQuery();
             if ( rs.next() ) {
                 result = rs.getDouble( 1 );
@@ -177,9 +168,6 @@ public class OrderDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -191,20 +179,21 @@ public class OrderDAO {
     }
 
     /**
-     * The getTotalOrdersUsersBeanList() method queries the database<br>
-     * and returns a tuple consisting of multiple attributes present in multiple tables<br>
-     * after which it constructs the list containing all the orders placed<br>
-     * with additional information such as the name the email of the person who placed that order
+     * il metodo getTotalOrdersUsersBeanList() interroga il database <br>
+     * e restituisce una tupla composta da più attributi presenti in più tabelle <br>
+     * dopodiche construisce la lista che contiene tutti gli ordini effettuati <br>
+     * con ulteriori informazioni come il nome la mail di chi ha effettuato quell'ordine
      *
      * @return lista di un oggetto composto da attributi di più tabelle
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static List< TotalOrdersUsersBean > getTotalOrdersUsersBeanList() throws SQLException {
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<TotalOrdersUsersBean> totalOrdersUsersBeanList = new ArrayList<>();
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_TOTAL_ORDERS_USERS_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_TOTAL_ORDERS_USERS_SQL );
             rs = pstmt.executeQuery();
-            totalOrdersUsersBeanList = new ArrayList<>();
             while ( rs.next() ) {
                 TotalOrdersUsersBean totalOrdersUsersBean = new TotalOrdersUsersBean();
                 totalOrdersUsersBean.setOrderId( rs.getInt( "ORDERID" ) );
@@ -218,9 +207,6 @@ public class OrderDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }

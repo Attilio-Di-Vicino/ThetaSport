@@ -2,7 +2,6 @@ package com.ecommerce.thetasport.dao;
 
 import com.ecommerce.thetasport.model.UserBean;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,18 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 public class UserDAO {
-    private static Connection connection;
-    private static PreparedStatement pstmt;
-    private static ResultSet rs;
-    @SuppressWarnings("Field 'usersMap' may be 'final'")
-    private static Map<String, String> usersMap = new HashMap<>();
-    @SuppressWarnings( value = "Field 'usersList' may be 'final'" )
-    private static List< String > usersList = new ArrayList<>();
-    @SuppressWarnings( value = "Field 'usersListMinusOne' may be 'final'" )
-    private static List< String > usersListMinusOne = new ArrayList<>();
-    private static boolean result;
-    @SuppressWarnings("Field 'userBean' may be 'final'")
-    private static UserBean userBean = new UserBean();
     private final static String QUERY_USERS_MAP_SQL = "SELECT EMAIL,PASSWORD FROM USER";
     private final static String QUERY_USERS_MAIL_SQL = "SELECT EMAIL FROM USER";
     private final static String QUERY_USERS_MAIL_MINUS_ONE_SQL = "SELECT EMAIL FROM USER WHERE EMAIL != (?)";
@@ -32,92 +19,68 @@ public class UserDAO {
     private final static String QUERY_USER_SQL = "SELECT * FROM USER WHERE EMAIL = (?)";
 
     /**
-     * il metodo getUsersMap() interroga il database e ritorna
-     * una map la quale contiene coppie chiave valore di mail e password di un utente
+     * il metodo getUsersMap() interroga il database e ritorna <br>
+     * una map la quale contiene coppie chiave valore di mail e password di un utente <br>
      * viene utilizzata per effettuare l'accesso
      *
      * @return map di mail e password contenente tutti gli utenti
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static Map<String, String> getUsersMap() throws SQLException {
-        try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_USERS_MAP_SQL );
-            rs = pstmt.executeQuery();
-            while ( rs.next() ) {
-                usersMap.put( rs.getString( "EMAIL" ), rs.getString( "PASSWORD" ) );
+        Map<String, String> usersMap = new HashMap<>();
+        try ( PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection()
+                        .prepareStatement( QUERY_USERS_MAP_SQL );
+              ResultSet rs = pstmt.executeQuery() ) {
+            while (rs.next()) {
+                usersMap.put(rs.getString("EMAIL"), rs.getString("PASSWORD"));
             }
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
-            if ( rs != null ) {
-                rs.close();
-            }
         }
         return usersMap;
     }
 
     /**
-     * il metodo getUsersMail() interroga il database e ritorna
+     * il metodo getUsersMail() interroga il database e ritorna <br>
      * una list di string la quale contiene le mail di tutti gli utenti
      *
      * @return list di mail di tutti gli utenti
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static List < String > getUsersMail() throws SQLException {
-        try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_USERS_MAIL_SQL );
-            rs = pstmt.executeQuery();
-            usersList = new ArrayList<>();
-            while ( rs.next() ) {
-                usersList.add( rs.getString( "EMAIL" ) );
+    public static List < String > getUsersMail() {
+        List< String > usersList = new ArrayList<>();
+        try ( PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection()
+                .prepareStatement( QUERY_USERS_MAIL_SQL );
+              ResultSet rs = pstmt.executeQuery() ) {
+            while (rs.next()) {
+                usersList.add(rs.getString("EMAIL"));
             }
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
-            if ( rs != null ) {
-                rs.close();
-            }
         }
         return usersList;
     }
 
     /**
-     * il metodo getUsersMail() interroga il database e ritorna
+     * il metodo getUsersMail() interroga il database e ritorna <br>
      * una list di string la quale contiene le mail di tutti gli utenti
      *
      * @return list di mail di tutti gli utenti
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static List < String > getUsersMailMinusOne( String email ) throws SQLException {
+        List< String > usersListMinusOne = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_USERS_MAIL_MINUS_ONE_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_USERS_MAIL_MINUS_ONE_SQL );
             pstmt.setString( 1, email );
             rs = pstmt.executeQuery();
-            usersListMinusOne = new ArrayList<>();
             while ( rs.next() ) {
                 usersListMinusOne.add( rs.getString( "EMAIL" ) );
             }
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -129,47 +92,39 @@ public class UserDAO {
     }
 
     /**
-     * il metodo registration() viene utilizzato per la registrazione di un utente
+     * il metodo registration() viene utilizzato per la registrazione di un utente <br>
      * esegue una insert nel database
+     *
      * @param name nome dell'utente che si sta registrando
      * @param email email dell'utente che si sta registrando
      * @param password password dell'utente che si sta registrando
-     * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void registration( String name, String email, String password ) throws SQLException {
-        try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( INSERT_REGISTRATION_SQL );
-            pstmt.setString( 1, email );
-            pstmt.setString( 2, name );
-            pstmt.setString( 3, password );
+    public static void registration( String name, String email, String password ) {
+        try ( PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection()
+                .prepareStatement( INSERT_REGISTRATION_SQL ) ) {
+            pstmt.setString(1, email);
+            pstmt.setString(2, name);
+            pstmt.setString(3, password);
             pstmt.executeUpdate();
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
-            if ( rs != null ) {
-                rs.close();
-            }
         }
     }
 
     /**
-     * il metodo userMailExist() va a verificare se la mail presa in input è presente o meno
+     * il metodo userMailExist() va a verificare se la mail presa in input è presente o meno <br>
      * all'interno del database
+     *
      * @param email mail da verificare
      * @return un boolean che sarà true se la mail è presente e false se non è presente
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public static boolean userMailExist( String email ) throws SQLException {
+        boolean result = false;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_EMAIL_EXIST_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_EMAIL_EXIST_SQL );
             pstmt.setString( 1, email );
             rs = pstmt.executeQuery();
             if ( rs.next() ) {
@@ -178,9 +133,6 @@ public class UserDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }
@@ -192,16 +144,19 @@ public class UserDAO {
     }
 
     /**
-     * il metodo getUser() interroga il database e restituisce
+     * il metodo getUser() interroga il database e restituisce <br>
      * le informazioni di un singolo utente
+     *
      * @param email email dell'utente chiave primaria
      * @return UserBean che conterrà le informazioni dell'utente
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
     public UserBean getUser( String email ) throws SQLException {
+        UserBean userBean = new UserBean();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            connection = DatabaseConnection.getInstance().getConnection();
-            pstmt = connection.prepareStatement( QUERY_USER_SQL );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_USER_SQL );
             pstmt.setString( 1, email );
             rs = pstmt.executeQuery();
             if ( rs.next() ) {
@@ -212,9 +167,6 @@ public class UserDAO {
         } catch ( SQLException e ) {
             e.printStackTrace();
         } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
             if ( pstmt != null ) {
                 pstmt.close();
             }

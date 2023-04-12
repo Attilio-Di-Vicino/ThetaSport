@@ -78,5 +78,6 @@ public class Client {
         for ( TotalOrdersUsersBean item : totalOrdersUsersBeanList ) {
             System.out.println( "ORDERID: " + item.getOrderId() + " EMAIL: " + item.getEmail() );
         }*/
+        System.out.println(UserDAO.getUsersMail());
     }
 }

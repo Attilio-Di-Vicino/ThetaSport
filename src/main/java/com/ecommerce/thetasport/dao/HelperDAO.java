@@ -5,7 +5,6 @@ import com.ecommerce.thetasport.service.productabstractfactory.Category;
 import com.ecommerce.thetasport.service.productabstractfactory.SubCategory;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,22 +22,13 @@ public class HelperDAO {
         productBean.setImage( rs.getString( "IMAGE" ) );
     }
 
-    @SuppressWarnings("Condition 'connection != null' is always 'true'")
-    public static void editProduct( @NotNull Connection connection, PreparedStatement pstmt, String update, int code, String query) throws SQLException {
-        try {
-            pstmt = connection.prepareStatement( query );
-            pstmt.setString( 1, update );
-            pstmt.setInt( 2, code );
+    public static void editProduct( String update, int code, String query) {
+        try ( PreparedStatement pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( query ) ) {
+            pstmt.setString(1, update);
+            pstmt.setInt(2, code);
             pstmt.executeUpdate();
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            if ( connection != null ) {
-                connection.close();
-            }
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
         }
     }
 
