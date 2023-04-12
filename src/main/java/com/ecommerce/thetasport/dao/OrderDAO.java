@@ -42,7 +42,7 @@ public class OrderDAO {
      * @param total totale del carrello della spesa
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
-    public static void insertOrder(Map<ItemElement, Integer> items, String email, double total ) throws SQLException {
+    public static void insertOrder( Map<ItemElement, Integer> items, String email, double total ) throws SQLException {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {

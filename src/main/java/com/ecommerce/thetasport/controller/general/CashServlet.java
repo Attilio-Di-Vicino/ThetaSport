@@ -1,6 +1,10 @@
 package com.ecommerce.thetasport.controller.general;
 
 import com.ecommerce.thetasport.controller.HelperController;
+import com.ecommerce.thetasport.service.cartvisitor.Cart;
+import com.ecommerce.thetasport.service.cartvisitor.ShoppingCartVisitorImpl;
+import com.ecommerce.thetasport.service.paymentstrategy.CashStrategy;
+import com.ecommerce.thetasport.service.paymentstrategy.ManagerPayments;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,44 +19,49 @@ import java.sql.SQLException;
 @WebServlet(name = "CashServlet", value = "/CashServlet")
 public class CashServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        HelperController.checkoutPage(request,response);
-        request.setAttribute("creditCart", false);
-        request.setAttribute("bancomat", false);
-        request.setAttribute("cash", true);
-        request.getRequestDispatcher("jsp/checkout.jsp").forward(request,response);
+    protected void doGet( HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
+        response.setContentType( "text/html" );
+        HelperController.checkoutPage( request,response );
+        request.setAttribute( "creditCart", false );
+        request.setAttribute( "bancomat", false );
+        request.setAttribute( "cash", true );
+        request.getRequestDispatcher( "jsp/checkout.jsp" ).forward( request,response );
     }
 
     @Override
-    protected void doPost(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        String country = request.getParameter("cc_country");
-        String firstName = request.getParameter("cc_fname");
-        String lastName = request.getParameter("cc_lname");
-        String address = request.getParameter("cc_address");
-        String shippingAddress = request.getParameter("cc_s_address");
-        String stateCountry = request.getParameter("cc_state_country");
-        String postalCode = request.getParameter("cc_postal_zip");
-        String email = request.getParameter("cc_email_address");
-        String phone = request.getParameter("cc_phone");
-        String orderNotes = request.getParameter("cc_order_notes");
-
-        /*HttpSession session = request.getSession(false);
-        List<ItemElement> items = (List<ItemElement>) session.getAttribute("itemsCart");
-        ShoppingCartVisitorImpl shoppingCartVisitor = new ShoppingCartVisitorImpl();
-        shoppingCartVisitor.pay(new CashStrategy(firstName,phone,shippingAddress),items);
-        // se è andato a buon fine non facciamo i seguenti controlli essendo un pagamento fake
+    protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
+        response.setContentType( "text/html" );
+        @SuppressWarnings( value = "Variable 'country' is never used")
+        String country = request.getParameter( "cc_country" );
+        String firstName = request.getParameter( "cc_fname" );
+        @SuppressWarnings(  value = "Variable 'lastName' is never used")
+        String lastName = request.getParameter( "cc_lname" );
+        @SuppressWarnings( value = "Variable 'address' is never used")
+        String address = request.getParameter( "cc_address" );
+        String shippingAddress = request.getParameter( "cc_s_address" );
+        @SuppressWarnings( value = "Variable 'stateCountry' is never used" )
+        String stateCountry = request.getParameter( "cc_state_country" );
+        @SuppressWarnings( value = "Variable 'postalCode' is never used" )
+        String postalCode = request.getParameter( "cc_postal_zip" );
+        String email = request.getParameter( "cc_email_address" );
+        String phone = request.getParameter( "cc_phone" );
+        @SuppressWarnings( value = "Variable 'orderNotes' is never used" )
+        String orderNotes = request.getParameter( "cc_order_notes" );
+        // Manager payment
+        HttpSession session = request.getSession(false);
+        Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
+        ShoppingCartVisitorImpl shoppingCartVisitor = new ShoppingCartVisitorImpl( myCart );
+        double total = shoppingCartVisitor.getTotal();
+        ManagerPayments.pay( new CashStrategy( firstName, phone, shippingAddress ), total);
         // inserire gli ordini nel DB
-        // svuotare il carrello
         try {
-            items = ManagerPay.managePay(items,email);
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            ManagerPayments.insertOrder( myCart, email, total );
+        } catch ( SQLException e ) {
+            throw new RuntimeException( "SQL Error in CashServlet/doPost" + e);
         }
-        session.setAttribute("itemsCart", items);
-
-        System.out.println("Cash Servlet");
-        request.getRequestDispatcher("jsp/thank_you.jsp").forward(request,response);*/
+        // svuotare il carrello
+        myCart.removeAll();
+        session.setAttribute( "itemsCart", myCart );
+        request.getRequestDispatcher( "jsp/thank_you.jsp" ).forward( request,response );
     }
 }

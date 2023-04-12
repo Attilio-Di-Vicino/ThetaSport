@@ -16,36 +16,36 @@
     <body>
 
         <script>
-            function addToCart( productId, landingPage ) {
+            function addToCart( productId, landingPage, isLogged ) {
                 // Crea un oggetto XMLHttpRequest
                 var xhr = new XMLHttpRequest();
-                var numItemCart = 0;
-                numItemCart = Number(document.getElementById("cartSection").innerHTML);
+                if ( isLogged === 0 ) {
+                    // Reindirizza l'utente a "login.jsp"
+                    window.location.href = "LoginServlet";
+                } else {
+                    var numItemCart = 0;
+                    numItemCart = Number( document.getElementById( "cartSection" ).innerHTML );
 
-                if (!isNaN(numItemCart)) {
-                    numItemCart = Number(numItemCart);
-                }/* else {
-                    numItemCart = 0;
-                }*/
+                    if (!isNaN(numItemCart)) {
+                        numItemCart = Number(numItemCart);
+                    }
 
-                // Configura la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
-                xhr.open('GET', "AddCartServlet?landingPage=" + landingPage + "&codeProduct=" + productId);
+                    // Configura la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
+                    xhr.open( 'GET', "AddCartServlet?landingPage=" + landingPage + "&codeProduct=" + productId );
 
-                console.log("landingPage: " + landingPage);
-                console.log("productId: " + productId);
+                    console.log( "landingPage: " + landingPage );
+                    console.log( "productId: " + productId );
 
-                // Invia la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
-                xhr.send();
+                    // Invia la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
+                    xhr.send();
 
-                // Gestisci la risposta della servlet
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        numItemCart += 1;
-                        console.log(numItemCart);
-                        // Aggiorna il valore di numItemCart nella pagina
-                        // document.getElementById( "cartSection" ).setAttribute( "numItemCart", numItemCart );
-                        // Aggiorna la sezione del carrello della pagina con i dati aggiornati
-                        document.getElementById( "cartSection" ).innerHTML = numItemCart;
+                    // Gestisci la risposta della servlet
+                    xhr.onreadystatechange = function() {
+                        if ( xhr.readyState === 4 && xhr.status === 200 ) {
+                            numItemCart += 1;
+                            console.log( numItemCart );
+                            document.getElementById( "cartSection" ).innerHTML = numItemCart;
+                        }
                     }
                 }
             }
@@ -71,10 +71,10 @@
         <div class="untree_co-section product-section before-footer-section">
             <div class="container">
                 <div class="row">
-                    <!-- Start Column 1 -->
+                    <!-- Start Column -->
                     <c:forEach var="product" items="${productBeanList}">
                         <div class="col-12 col-md-4 col-lg-3 mb-5">
-                            <a class="product-item" href="#">
+                            <a class="product-item">
                                 <form action="SingleProductServlet" method="get">
                                     <button style="background-color: transparent; border: none" name="codeProduct" value=${product.getCode()}>
                                         <img src="${pageContext.request.contextPath}/images/product/${product.getImage()}" class="img-fluid product-thumbnail">
@@ -83,23 +83,13 @@
                                 <h3 class="product-title">${product.getName()}</h3>
                                 <strong class="product-price">$ ${product.getPrice()}</strong>
 
-                                <span class="icon-cross">
+                                <span class="icon-cross" onclick="addToCart( '${product.getCode()}', 'index', ${isLogged} )">
                                     <img src="${pageContext.request.contextPath}/images/cross.svg" class="img-fluid">
                                 </span>
                             </a>
-                            <button id="addToCartButton" onclick="addToCart( '${product.getCode()}', 'index' )">Aggiungi al carrello</button>
-
-                            <form action="AddCartServlet" method="get">
-                                <input type="hidden" name="landingPage" value="index">
-                                <button name="codeProduct" value=${product.getCode()}>Add Cart</button>
-                            </form>
-                            <form action="RemoveCartServlet" method="get">
-                                <button name="codeProduct" value=${product.getCode()}>Remove Cart</button>
-                                <input type="hidden" name="landingPage" value="index">
-                            </form>
                         </div>
                     </c:forEach>
-                    <%-- End Column 1 --%>
+                    <%-- End Column --%>
                 </div>
             </div>
         </div>

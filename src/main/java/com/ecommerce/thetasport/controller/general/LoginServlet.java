@@ -28,8 +28,8 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
-        response.setContentType("text/html");
-        request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
+        response.setContentType( "text/html" );
+        request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
     }
 
     /**
