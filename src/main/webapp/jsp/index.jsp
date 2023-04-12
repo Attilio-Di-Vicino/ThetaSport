@@ -19,8 +19,8 @@
             function addToCart( productId, landingPage ) {
                 // Crea un oggetto XMLHttpRequest
                 var xhr = new XMLHttpRequest();
-                // var numItemCart = 0;
-                numItemCart = Number(document.getElementById("cartSection").getAttribute("numItemCart"));
+                var numItemCart = 0;
+                numItemCart = Number(document.getElementById("cartSection").innerHTML);
 
                 if (!isNaN(numItemCart)) {
                     numItemCart = Number(numItemCart);
@@ -43,9 +43,9 @@
                         numItemCart += 1;
                         console.log(numItemCart);
                         // Aggiorna il valore di numItemCart nella pagina
-                        document.getElementById( "cartSection" ).setAttribute( "numItemCart", numItemCart );
+                        // document.getElementById( "cartSection" ).setAttribute( "numItemCart", numItemCart );
                         // Aggiorna la sezione del carrello della pagina con i dati aggiornati
-                        document.getElementById( "cartSection" ).innerHTML = xhr.responseText;
+                        document.getElementById( "cartSection" ).innerHTML = numItemCart;
                     }
                 }
             }

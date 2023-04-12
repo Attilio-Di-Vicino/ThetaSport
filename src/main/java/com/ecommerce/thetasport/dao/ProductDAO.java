@@ -10,19 +10,19 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Classe DAO responsabile delle interrogazioni al database riguardo i prodotti
+ * DAO class responsible for database queries regarding products.
  */
 public class ProductDAO {
-    private static Connection connection; // connessione al database
-    private static PreparedStatement pstmt; // prepared statement per le query al database
-    private static ResultSet rs; // risultato delle query
-    private static final ProductBean productBean = new ProductBean(); // singolo prodotto
+    private static Connection connection; // database connection
+    private static PreparedStatement pstmt; // prepared statement for database queries
+    private static ResultSet rs; // query result
+    private static final ProductBean productBean = new ProductBean(); // single product
     private final static String QUERY_SINGLE_PRODUCT_SQL = "SELECT * FROM PRODUCT WHERE CODE = (?)";
     private static int result;
     private final static String QUERY_SOLD_SINGLE_CATEGORY_SQL = "SELECT SUM(C.QUANTITY) FROM `ORDER` " +
             "JOIN `CONTAINS` C on `ORDER`.ORDERID = C.ORDERID_C JOIN PRODUCT P on P.CODE = C.CODE " +
             "WHERE P.CATEGORY = (?) AND P.SUBCATEGORY = (?)";
-    private static List<ProductBean> productBeanList; // lista di tutti i prodotti
+    private static List<ProductBean> productBeanList; // list of all product
     private final static String QUERY_ALL_PRODUCT_SQL = "SELECT * FROM PRODUCT";
     private final static String INSERT_SINGLE_PRODUCT_SQL = "INSERT INTO PRODUCT (NAME, DESCRIPTION, STOCK, " +
             "PRICE, CATEGORY, SUBCATEGORY, IMAGE) VALUES (?,?,?,?,?,?,?)";
@@ -38,13 +38,15 @@ public class ProductDAO {
     private final static String QUERY_ALL_PRODUCT = "SELECT NAME FROM PRODUCT";
 
     /**
-     * il metodo getSingleProduct() assume in input un codice univoco
-     * ed interroga il database restituendo il prodotto inerente al quel codice
-     * setta il singolo productBean aiutandosi con {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)}
-     * infine nel blocco finally vengono chiusi connection, prepared statement ed result set
-     * @param code codice prodotto univoco
-     * @return prodotto avente quel codice
-     * @throws SQLException Definisce un'eccezione generale che si può generare
+     * the getSingleProduct<br>
+     * il metodo getSingleProduct() takes as input a unique code<br>
+     * and queries the database returning the product inherent in that code.<br>
+     * sets the individual productBean with the help of {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)}<br>
+     * finally in the finally block the connection, prepared statement and result set are closed.
+     *
+     * @param code unique product code
+     * @return product having that code
+     * @throws SQLException Defines a general exception that can be generated
      */
     public static ProductBean getSingleProduct( int code ) throws SQLException {
         try {
@@ -72,13 +74,14 @@ public class ProductDAO {
     }
 
     /**
-     * il metodo getSumSoldItemsCategory() assume in input una categoria e sotto-categoria
-     * ed interroga il database restituendo la somma degli item venduti per quella categoria e sotto-categoria
-     * infine nel blocco finally vengono chiusi connection, prepared statement ed result set
-     * @param category categoria del porodotto
-     * @param subCategory sotto-categoria del prodotto
-     * @return somma degli item venduti per quella categoria e sotto-categoria
-     * @throws SQLException Definisce un'eccezione generale che si può generare
+     * the getSumSoldItemsCategory() method takes as input a category and subcategory<br>
+     * and queries the database returning the sum of items sold for that category and sub-category<br>
+     * finally in the finally block the connection, prepared statement and result set are closed
+     *
+     * @param category product category
+     * @param subCategory product sub-category
+     * @return sum of items sold for that category and sub-category
+     * @throws SQLException Defines a general exception that can be generated
      */
     public static int getSumSoldItemsCategory( @NotNull Category category, @NotNull SubCategory subCategory ) throws SQLException {
         try {
@@ -107,10 +110,11 @@ public class ProductDAO {
     }
 
     /**
-     * il metodo getProductBeanList() viene utilizzato per la lista di tutti i prodotti
-     * setta il singolo productBean aiutandosi con {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)}
+     * The getProductBeanList() method is used for the list of all products.
+     * sets the individual productBean with the help of {@link HelperDAO#setSingleProductBean(ProductBean, ResultSet)}
      * per poi aggiungerlo alla lista
      * infine nel blocco finally vengono chiusi connection, prepared statement ed result set
+     *
      * @return lista di tutti i prodotti
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */

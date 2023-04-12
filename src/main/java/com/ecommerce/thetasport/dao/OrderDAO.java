@@ -11,9 +11,9 @@ import java.util.Date;
 
 public class OrderDAO {
 
-    private static Connection connection; // connessione al database
-    private static PreparedStatement pstmt; // prepared statement per le query al database
-    private static ResultSet rs; // risultato delle query
+    private static Connection connection; // database connection
+    private static PreparedStatement pstmt; // prepared statement for database queries
+    private static ResultSet rs; // query result
     private static double result;
     private static List<TotalOrdersUsersBean> totalOrdersUsersBeanList;
     private final static String INSERT_ORDER_SQL = "INSERT INTO `ORDER` (ORDERDATE, EMAIL, GROSSPROFIT) " +
@@ -32,27 +32,27 @@ public class OrderDAO {
             " GROUP BY ORDERID";
 
     /**
-     * il metodo insertListOrder assume in input una map che rappresenta il carrello della spesa
-     * una mail che rappresenta la mail di chi ha eseguito l'ordine, e un totale dato dal totale
-     * dei prodotti presenti nel carrello
-     * in primis va a recuperare l'orario al momento dell'inserimento in formato anno-mese-giorno
-     * quindi prepara lo statement dando un input un ulteriore statement il quale è una richiesta
-     * di ritornare la chiave generata all'inserimento nella tabella ORDER essendo un attributo "AUTO_INCREMENT"
-     * quindi imposta i valori ed esegue l'inserimento nella tabella ORDER,
-     * recuperando ORDERID generato automaticamente.
-     * Dopodiche bisogna riempire la tabella CONTAINS, quindi si itera la map che rappresenta il carrello
-     * ed per ogni elemento si inserisce nella tabella CONTAINS con i rispettivi codici
-     *
-     * @param items map che rappresenta il carrello della spesa
-     * @param email mail dell'user che ha effettuato l'ordine
-     * @param total totale del carrello della spesa
-     * @throws SQLException Definisce un'eccezione generale che si può generare
+     * The insertListOrder method takes as input a map representing the shopping cart,<br>
+     * an email representing the email of the person who placed the order and a total given by the total<br>
+     * of the products in the shopping cart.<br>
+     * First goes to retrieve the time of when it was entered in year-month-day format<br>
+     * then prepares the statement by giving an input an additional statement which is a request<br>
+     * to return the key generated upon insertion into the ORDER table being an "AUTO_INCREMENT" attribute<br>
+     * then sets the values and performs the insertion into the ORDER table,<br>
+     * retrieving automatically generated ORDERID.<br>
+     * After that we need to fill the CONTAINS table, so we iterate the map representing the cart<br>
+     * and for each element you insert into the CONTAINS table with the respective codes.
+
+     * @param items map representing the shopping cart
+     * @param email email of the user who placed the order
+     * @param total shopping cart total
+     * @throws SQLException Defines a general exception that can be generated
      */
     public static void insertOrder(Map<ItemElement, Integer> items, String email, double total ) throws SQLException {
         try {
             connection = DatabaseConnection.getInstance().getConnection();
             pstmt = connection.prepareStatement( INSERT_ORDER_SQL, Statement.RETURN_GENERATED_KEYS );
-            // prendo la data attuale in formato anno-mese-giorno
+            // the current date in year-month-day format is taken
             SimpleDateFormat dateFormat = new SimpleDateFormat();
             dateFormat.setTimeZone( TimeZone.getTimeZone( "Europe/Rome" ) );
             dateFormat.applyPattern( "yyyy.MM.dd" );
@@ -61,14 +61,14 @@ public class OrderDAO {
             pstmt.setDouble( 3, total );
             pstmt.executeUpdate();
             int id = 0;
-            // Recupera il valore generato per la colonna di chiave primaria
+            // The value generated for the primary key column is retrieved
             rs = pstmt.getGeneratedKeys();
             if ( rs.next() ) {
                 id = rs.getInt( 1 );
                 System.out.println( "Il valore generato per la chiave primaria è: " + id );
             }
-            // ciclo i prodotti presenti all'interno del carrello
-            // ed inserisco all'interno della tabella CONTAINS
+            // products within the shopping cart are cycled
+            // and inserted within the CONTAINS table.
             for ( ItemElement item : items.keySet() ) {
                 Product product = ( Product ) item;
                 pstmt = connection.prepareStatement( INSERT_CONTAINS_SQL );
@@ -94,12 +94,13 @@ public class OrderDAO {
     }
 
     /**
-     * il metodo getSumPriceOrderMonthly() esegue un interrogazione al database
-     * avvalendosi di due funzioni che restituiscono il mese corrente e l'anno corrente
-     * per il mese usa {@link HelperDAO#getCurrentMonth()}
-     * per l'anno usa {@link HelperDAO#getCurrentYear()}
-     * @return totale profitto lordo del mese corrente
-     * @throws SQLException Definisce un'eccezione generale che si può generare
+     * The getSumPriceOrderMonthly method execute a query on the database<br>
+     * using two function that return the current month and year.<br>
+     * for the month {@link HelperDAO#getCurrentMonth()} is used<br>
+     * for the month {@link HelperDAO#getCurrentYear()} is used<br>
+     *
+     * @return total gross profit of the current month
+     * @throws SQLException Defines a general exception that can be generated
      */
     public static double getSumPriceOrderMonthly() throws SQLException {
         try {
@@ -128,8 +129,9 @@ public class OrderDAO {
     }
 
     /**
-     * il metodo getSumPriceOrderYear() esegue un interrogazione al database
-     * avvalendosi di due funzioni che restituiscono l'anno corrente {@link HelperDAO#getCurrentYear()}
+     * the getSumPriceOrderYear() method performs a query to the database<br>
+     * making use of two functions that return the current year {@link HelperDAO#getCurrentYear()}.
+     *
      * @return totale profitto lordo dell'anno corrente
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
@@ -159,7 +161,8 @@ public class OrderDAO {
     }
 
     /**
-     * il metodo getSumPriceOrderTotal() esegue un interrogazione al database
+     * The getSumPriceOrderTotal method performs a query to the database<br>
+     *
      * @return totale profitto lordo
      * @throws SQLException Definisce un'eccezione generale che si può generare
      */
@@ -188,10 +191,10 @@ public class OrderDAO {
     }
 
     /**
-     * il metodo getTotalOrdersUsersBeanList() interroga il database
-     * e restituisce una tupla composta da più attributi presenti in più tabelle
-     * dopodiche construisce la lista che contiene tutti gli ordini effettuati
-     * con ulteriori informazioni come il nome la mail di chi ha effettuato quell'ordine
+     * The getTotalOrdersUsersBeanList() method queries the database<br>
+     * and returns a tuple consisting of multiple attributes present in multiple tables<br>
+     * after which it constructs the list containing all the orders placed<br>
+     * with additional information such as the name the email of the person who placed that order
      *
      * @return lista di un oggetto composto da attributi di più tabelle
      * @throws SQLException Definisce un'eccezione generale che si può generare
