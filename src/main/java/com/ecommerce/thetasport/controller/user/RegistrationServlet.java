@@ -10,19 +10,21 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.SQLException;
 
+
+
 /**
- * RegistrationServlet viene utilizzata per la registrazione di un utente, nell'login.jsp è presente un riferimento a questa servlet
- * invocando quindi il metodo get che inoltra la richiesta alla pagina dedicata alla registrazione.
- * Quindi nella pagina dedicata alla registrazione è presente un form che invoca il metodo post della seguente servlet.
+ * RegistrationServlet is used to register a user, in the login.jsp there is a reference to this servlet<br>
+ * that invokes the get method which forwards the request to the registration page.<br>
+ * Then on the registration page there is a form that invokes the post method of the following servlet.<br>
  */
 @WebServlet( name = "RegistrationServlet", value = "/RegistrationServlet" )
 public class RegistrationServlet extends HttpServlet {
 
     /**
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
      */
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
@@ -31,16 +33,16 @@ public class RegistrationServlet extends HttpServlet {
     }
 
     /**
-     * Il metodo post inizialmete recupera i paramentri inoltrati tramite protocollo http dal client tramite un form,
-     * il form di riferimento gia esegue vari controllo sfruttando HTML5 e javascript, è necessario però effettuare un controllo
-     * anche lato server, infatti andiamo a controllare se la email inserita dal client è presente nel database,
-     * essendo un'attributo unico ed identificativo, nel caso è presente nel database la registrazione fallisce
-     * altrimenti la registrazione avrà successso.
+     * The post method initially retrieves the parameters forwarded via http protocol from the client via a form,<br>
+     * the reference form already performs various check by exploiting HTML5 and javascript, it is necessary however to perform a check<br>
+     * also server sided, in fact we go to check if the email entered by the client is present in the database,<br>
+     * being a unique and identifying attribute, in case it is present in the database the registration will fail<br>
+     * otherwise the registration will succeed.
      *
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
      */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
@@ -51,7 +53,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             if ( !ManagerLogin.userMailExist( email ) ) {
                 ManagerLogin.registrationUser( name, email, password );
-                // Se si sta registrando è sicuramente un User e non un admin
+                // If he is registering he is definitely a User and not an admin
                 HelperController.loggedOrRegistrationSuccessful( request, response, email, 1, "jsp/index.jsp" );
             } else {
                 request.setAttribute( "errorMessage", "Attention, the email entered already exists!" );

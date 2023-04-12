@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
         response.setContentType( "text/html" );
         String email = request.getParameter( "email" );
         String password = request.getParameter( "password" );
-        // Effettuo la verifica del login tramite il CoR
+        // Login verification through the CoR
         ToHandle result = ManagerLogin.login( email, password, "admin" );
         switch ( result ) {
             case UNREGISTERED: HelperController.loggedError( request, response, "Please check your email or register!" );

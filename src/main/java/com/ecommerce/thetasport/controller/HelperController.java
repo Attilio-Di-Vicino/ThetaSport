@@ -39,13 +39,13 @@ public class HelperController {
     public static void nullSession( @NotNull HttpServletRequest request ) {
         HttpSession session = request.getSession();
         Cart myCart = new Cart();
-        // setto variabili per la sessione
+        // variables are set for the session
         session.setAttribute( "isLogged", 0 );
-        // setto variabili per la sessione
+        // variables are set for the session
         session.setAttribute( "login", 0 );
         session.setAttribute( "itemsCart", myCart );
         session.setAttribute( "numItemCart",  myCart.sizeCart() );
-        // setto variabili per la request
+        // variables are set for the request
         request.setAttribute( "login", 0);
         // request.setAttribute( "itemsCart", myCart );
         // request.setAttribute( "numItemCart", myCart.sizeCart() );
@@ -53,23 +53,22 @@ public class HelperController {
 
     public static void sessionExists( @NotNull HttpServletRequest request ) {
         HttpSession session = request.getSession( false );
-        // recupero variabili dalla sessione
+        // variable recovery from the session
         int isLogged = ( int ) session.getAttribute( "isLogged" );
         Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
-        // setto variabili per la request
+        // variables are set for the request
         request.setAttribute( "login", isLogged );
         request.setAttribute( "itemsCart", myCart );
         request.setAttribute( "numItemCart", myCart.sizeCart() );
     }
 
     /**
-     * loggedError viene invocato nel caso in cui ci siano stato errori nel login
+     * loggedError is invoked if there were errors in the login.
      *
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @param message messaggio di errore riscontrato
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     * @param request Request made via a browser
+     * @param response Response
+     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
+     * @throws IOException Report thar an I/O exception has occurred
      */
     public static void loggedError( @NotNull HttpServletRequest request, HttpServletResponse response, String message ) throws ServletException, IOException {
         request.setAttribute( "errorMessage", message );
@@ -77,29 +76,29 @@ public class HelperController {
     }
 
     /**
-     * loggedoOrRegistrationSuccessful viene invocato nel caso in cui il login, o la registrazione ha avuto successo,
-     * quindi si recupera la sessione attuale, e nel caso in cui esista viene inavlidata.
-     * Quindi si crea una nuova sessione settando il tempo massimo (in questo caso 30 minuti), si recuperano quindi
-     * i dati inerenti all'utente/admin appena registarto si setta il campo login della sessione e della pagina di atterraggio,
-     * ed infine si ridereziona alla pagina di atterraggio che è condizionata dal tipo di risultato ottenuto dal login
+     * loggedOrRegistrationSuccessful is invoked if the login, or the registration, was successful<br>
+     * then the current session is retrieved or, if it exists it is invalidated.<br>
+     * Then a new session is created by setting the maximum time (in this case 30 minutes), then retrieve<br>
+     * the data inherent to the newly registered user/admin, you set the login field of the session and landing page,<br>
+     * and finally redirect to the landig page which is conditioned by type of result obtained from the login.
      *
-     * @param request richiesta effettuata tramite un browser
-     * @param response risposta
-     * @param email mail dell'utente loggato
-     * @param isLogged stato di log, quindi 1 se utente, 2 se admin
-     * @param landingPage la rispettiva jsp di destinazione
-     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
-     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
+     * @param request Request made via a browser
+     * @param response Response
+     * @param email mail from the logged user
+     * @param isLogged log status: 1 from user, 2 from admin
+     * @param landingPage the respective jsp target
+     * @throws ServletException Defines a general exception that a servlet can generate when it encounters difficulties
+     * @throws IOException Reports that an I/O exception has occurred
      */
     public static void loggedOrRegistrationSuccessful( @NotNull HttpServletRequest request, HttpServletResponse response, String email, int isLogged, String landingPage ) throws ServletException, IOException, SQLException, ClassNotFoundException {
-        // recupero la sessione corrente e se esiste la invalido
+        // the current session is retrieved and if it exists it is invalidated
         HttpSession oldSession = request.getSession( false );
         if ( oldSession != null ) {
-            oldSession.invalidate(); // invalido la sessione
+            oldSession.invalidate(); //  the session is invalidated
         }
-        // prendo la nouva sessione corrente
+        // the new current session is taken
         HttpSession currentSession = request.getSession();
-        currentSession.setMaxInactiveInterval( 30 * 60 ); // la nuova sessione durerà 30 minuti
+        currentSession.setMaxInactiveInterval( 30 * 60 ); // the new session will last 30 minutes
         UserBean userBean = ManagerLogin.getSingleUser( email );
         currentSession.setAttribute( "userBean", userBean );
         currentSession.setAttribute( "isLogged", isLogged );
@@ -107,7 +106,7 @@ public class HelperController {
         Cart myCart = new Cart();
         currentSession.setAttribute( "itemsCart", myCart );
         currentSession.setAttribute( "numItemCart", myCart.sizeCart() );
-        // setto variabili per la request
+        // variables are set for the request
         // request.setAttribute( "itemsCart", myCart );
         // request.setAttribute( "numItemCart", myCart.sizeCart() );
         if ( landingPage.equals("jsp/index.jsp") ) {
@@ -143,7 +142,7 @@ public class HelperController {
 
     public static void statusLog( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         HttpSession session = request.getSession( false );
-        // recupero variabili dalla sessione
+        // variables are retrieved from the session
         int isLogged = ( int ) session.getAttribute( "isLogged" );
         if ( isLogged == 0 ) {
             request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );

@@ -50,7 +50,7 @@ public class ForgotPasswordServlet extends HttpServlet {
         String to = request.getParameter( "email" );
         try {
             if ( ManagerLogin.userMailExist( to ) ) {
-                // sendMail da implementare
+                // sendMail
                 request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
             } else {
                 request.setAttribute( "errorMessage", "Warning, the email entered does not exist!" );

@@ -26,7 +26,7 @@ public class LogoutServlet extends HttpServlet {
         response.setContentType( "text/html" );
         HttpSession session = request.getSession( false );
         if ( session != null ) {
-            session.invalidate(); // invalido la sessione rendendo nulli tutti gli attributi presenti nella sessione
+            session.invalidate(); // the session is invalidated by making all attributes in the session null and void
         }
         HelperController.nullSession( request );
         HelperController.ForwardProductList( request );
