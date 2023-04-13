@@ -17,13 +17,6 @@ public class RemoveCartServlet extends HttpServlet {
         response.setContentType( "text/html" );
         String landingPage = request.getParameter( "landingPage" );
         try {
-            /*if ( landingPage.equals( "index" ) ) {
-                HelperController.removeCartCaseIndex( request, response );
-            } else if ( landingPage.equals( "cart" ) ) {
-                HelperController.removeCartCaseCart( request, response );
-            } else {
-                HelperController.removeCartCaseSingleProduct( request, response );
-            }*/
             if ( !landingPage.equals( "cart" ) ) {
                 HelperController.removeCartCaseIndexOrSingleProduct( request, response );
             } else {

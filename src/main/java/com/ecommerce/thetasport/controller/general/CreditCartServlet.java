@@ -56,11 +56,7 @@ public class CreditCartServlet extends HttpServlet {
         } catch ( SQLException e ) {
             throw new RuntimeException( "SQL Error in CreditCartServlet/doPost" + e );
         }
-        // svuotare il carrello
-        myCart.removeAll();
-        session.setAttribute( "itemsCart", myCart );
-        session.setAttribute( "numItemCart", myCart.sizeCart() );
-        HelperController.setVarThankYouPage( request, country, firstName, lastName, address,
+        HelperController.setVarThankYouPage( request, session, myCart, country, firstName, lastName, address,
                 shippingAddress, stateCountry, postalCode, email, phone, orderNotes );
         request.getRequestDispatcher( "jsp/thank_you.jsp" ).forward( request,response );
     }
