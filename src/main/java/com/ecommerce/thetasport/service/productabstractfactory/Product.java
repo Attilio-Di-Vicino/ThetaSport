@@ -4,7 +4,7 @@ import com.ecommerce.thetasport.service.cartvisitor.Cart;
 import com.ecommerce.thetasport.service.cartvisitor.ItemElement;
 
 /**
- * La classe astratta {@code Product} rappresenta una classe con gli attributi e medoti base
+ * La classe astratta {@code Product} rappresenta una classe con gli attributi e metodi base
  * che deve avere un prodotto specifico.
  *
  * @author Theta Sport
