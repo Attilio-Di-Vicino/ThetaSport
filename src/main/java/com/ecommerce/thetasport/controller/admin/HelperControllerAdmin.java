@@ -31,14 +31,18 @@ public class HelperControllerAdmin {
         request.setAttribute( "salesupdates", salesUpdates );
         request.setAttribute( "sendoffers", sendOffers );
         request.setAttribute( "queydone", queryDone );
+        setListAndSumPrice( request );
+    }
+
+    public static void setListAndSumPrice( @NotNull HttpServletRequest request ) {
         request.setAttribute( "categoryList", ManagerProduct.getCategoryList());
         try {
             request.setAttribute( "earningMonthly", OrderDAO.getSumPriceOrderMonthly() );
             request.setAttribute( "earningYears", OrderDAO.getSumPriceOrderYear() );
             request.setAttribute( "earningTotal", OrderDAO.getSumPriceOrderTotal() );
             request.setAttribute( "orderList", OrderDAO.getTotalOrdersUsersBeanList() );
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch ( SQLException e ) {
+            throw new RuntimeException( "SQL Error in HelperControllerAdmin" + e );
         }
     }
 

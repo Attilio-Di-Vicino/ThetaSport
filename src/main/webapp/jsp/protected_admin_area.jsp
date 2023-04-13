@@ -60,36 +60,62 @@
 
                         <c:choose>
                             <c:when test="${addproduct == true}">
-                                <h4>Add product:</h4>
                                 <c:forEach items="${categoryList}" var="category">
-                                    <h4>Add: ${category.toString()}</h4>
-                                    <form action="AddProductServlet" method="post" enctype="multipart/form-data">
-                                        <div>
-                                            <label for="name">name</label>
-                                            <input required maxlength="45" type="text" name="name" id="name" placeholder="Air Jordan" />
-                                        </div>
-                                        <div>
-                                            <label for="description">Description</label>
-                                            <input required maxlength="100" type="text" name="description" id="description" placeholder="This is a fantastic shoes" />
-                                        </div>
-                                        <div>
-                                            <label for="stock">stock</label>
-                                            <input required type="number" name="stock" id="stock" placeholder="100" />
-                                        </div>
-                                        <div>
-                                            <label for="price">price</label>
-                                            <input required type="number" step="0.01" name="price" id="price" placeholder="49.99" />
-                                        </div>
-                                        <div>
-                                            <label for="image">image</label>
-                                            <input required type="file" name="image" id="image" accept="image/*"/>
-                                        </div>
-                                        <div>
-                                            <input name="category" value="${category}" type="hidden"/>
-                                            <input type="submit" value="Add ${category.toString()}" />
-                                        </div>
-                                    </form>
+                                    <jsp:include page="component/form_add_product.jsp">
+                                        <jsp:param name="category" value="${category}"/>
+                                    </jsp:include>
                                 </c:forEach>
+                            </c:when>
+                            <c:when test="${productCreated == true}">
+                                <h4>Product created success: ${product.getName()}</h4>
+                            </c:when>
+                            <c:when test="${editproduct == true}">
+                                <!-- Page Heading -->
+                                <h1 class="h3 mb-2 text-gray-800">Product</h1>
+                                <!-- DataTales -->
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Product </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                <thead>
+                                                <tr>
+                                                    <th>Category</th>
+                                                    <th>Sub-category</th>
+                                                    <th>Name</th>
+                                                    <th>Stock</th>
+                                                    <th>Price</th>
+                                                    <th></th>
+                                                </tr>
+                                                </thead>
+                                                <tfoot>
+                                                <tr>
+                                                    <th>Category</th>
+                                                    <th>Sub-category</th>
+                                                    <th>Name</th>
+                                                    <th>Stock</th>
+                                                    <th>Price</th>
+                                                    <th></th>
+                                                </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                <c:forEach var="product" items="${productBeanList}">
+                                                    <tr>
+                                                        <td>${product.getCategory().toString()}</td>
+                                                        <td>${product.getSubCategory().toString()}</td>
+                                                        <td>${product.getName()}</td>
+                                                        <td>${product.getStock()}</td>
+                                                        <td>${product.getPrice()}</td>
+                                                        <td>Edit</td>
+                                                    </tr>
+                                                </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </c:when>
                             <c:when test="${editproduct == true}">
                                 <c:forEach var="product" items="${productBeanList}">
@@ -171,54 +197,6 @@
                             </c:when>
                         </c:choose>
 
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Orders</h1>
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">DataTables Orders</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Total</th>
-                                            <th>Quantity of product</th>
-                                            <th>Date</th>
-                                        </tr>
-                                        </thead>
-                                        <tfoot>
-                                        <tr>
-                                            <th>Order ID</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Total</th>
-                                            <th>Quantity of product</th>
-                                            <th>Date</th>
-                                        </tr>
-                                        </tfoot>
-                                        <tbody>
-                                        <c:forEach var="order" items="${orderList}">
-                                            <tr>
-                                                <td>${order.getOrderId()}</td>
-                                                <td>${order.getName()}</td>
-                                                <td>${order.getEmail()}</td>
-                                                <td>$${order.getTotal()}</td>
-                                                <td>${order.getQuantity()}</td>
-                                                <td>${order.getDate()}</td>
-                                            </tr>
-                                        </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
                     <!-- /.container-fluid -->
 
@@ -248,6 +226,8 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <jsp:include page="component/footer.jsp"></jsp:include>
 
     <!-- Bootstrap core JavaScript-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
