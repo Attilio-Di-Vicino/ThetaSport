@@ -16,7 +16,7 @@ public class EditProductServlet extends HttpServlet {
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
-        HelperControllerAdmin.setAdminPage( request, false, true, true,
+        HelperControllerAdmin.setAdminPage( request, false, false, true,
                 false, false, false );
         int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
         try {
