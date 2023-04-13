@@ -15,18 +15,14 @@
         </jsp:include>
     </head>
     <body>
-        <jsp:include page="component/navbar.jsp">
-            <jsp:param name="name" value="${userBean.getName()}"/>
-            <jsp:param name="isLogged" value="${isLogged}"/>
-            <jsp:param name="login" value="${login}"/>
-            <jsp:param name="numItemCart" value="${numItemCart}"/>
-        </jsp:include>
+        <jsp:include page="component/navbar.jsp"></jsp:include>
 
         <jsp:include page="component/hero_section.jsp">
-            <jsp:param name="homeMessageOne" value="Best Product"/>
-            <jsp:param name="homeMessageTwo" value=" Your Cart"/>
-            <jsp:param name="slogan" value="this is a fantastic slogan"/>
+            <jsp:param name="homeMessageOne" value="Challenge the limits"/>
+            <jsp:param name="homeMessageTwo" value=" of your sport with ThetaSport"/>
+            <jsp:param name="slogan" value="Challenge the limits of your sport with ThetaSport"/>
             <jsp:param name="botton" value="Shop Now"/>
+            <jsp:param name="image" value="tennis-racket.svg"/>
             <jsp:param name="requestHref" value="HomeServlet"/>
         </jsp:include>
 
