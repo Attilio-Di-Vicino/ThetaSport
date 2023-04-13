@@ -14,7 +14,7 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doGet( HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
-        HelperController.checkoutPage( request, response );
+        HelperController.checkoutPage( request );
         request.setAttribute( "creditCart", true );
         request.setAttribute( "bancomat", false );
         request.setAttribute( "cash", false );

@@ -18,12 +18,18 @@ public class AddCartServlet extends HttpServlet {
         if ( landingPage == null ) {
             throw new NullPointerException( "landing page is null." );
         }
-        if ( landingPage.equals( "index" ) ) {
+        /*if ( landingPage.equals( "index" ) ) {
             HelperController.addCartCaseIndex( request,response );
         } else if ( landingPage.equals( "cart" ) ) {
             HelperController.addCartCaseCart( request, response );
         } else {
             HelperController.addCartCaseSingleProduct( request, response );
+        }*/
+
+        if ( !landingPage.equals( "cart" ) ) {
+            HelperController.addCartCaseIndexOrSingleProduct( request,response );
+        } else {
+            HelperController.addCartCaseCart( request, response );
         }
     }
 }

@@ -21,7 +21,7 @@ public class CreditCartServlet extends HttpServlet {
     @Override
     protected void doGet( HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
-        HelperController.checkoutPage( request, response );
+        HelperController.checkoutPage( request );
         request.setAttribute( "creditCart", true );
         request.setAttribute( "bancomat", false );
         request.setAttribute( "cash", false );
@@ -59,7 +59,7 @@ public class CreditCartServlet extends HttpServlet {
         // svuotare il carrello
         myCart.removeAll();
         session.setAttribute( "itemsCart", myCart );
-        HelperController.sessionExists( request );
+        session.setAttribute( "numItemCart", myCart.sizeCart() );
         HelperController.setVarThankYouPage( request, country, firstName, lastName, address,
                 shippingAddress, stateCountry, postalCode, email, phone, orderNotes );
         request.getRequestDispatcher( "jsp/thank_you.jsp" ).forward( request,response );

@@ -120,7 +120,7 @@
                             </div>
                             <div class="row pb-3">
                                 <div class="col d-grid">
-                                    <button onclick="addToCart( '${singleProduct.getCode()}', 'single_product', ${isLogged} )" class="btn btn-success btn-lg" name="codeProduct" value=${singleProduct.getCode()}>Add Cart</button>
+                                    <button onclick="addToCart( '${singleProduct.getCode()}', 'index', ${isLogged} )" class="btn btn-success btn-lg" name="codeProduct" value=${singleProduct.getCode()}>Add Cart</button>
                                 </div>
                             </div>
                         </div>
