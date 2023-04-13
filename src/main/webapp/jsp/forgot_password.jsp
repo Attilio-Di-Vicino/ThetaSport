@@ -20,6 +20,7 @@
         </style>
 </head>
     <body>
+        <br><br>
         <!-- Sign up form -->
         <section class="signup">
             <div class="container">
@@ -60,5 +61,6 @@
                 </div>
             </div>
         </section>
+        <br><br>
     </body>
 </html>

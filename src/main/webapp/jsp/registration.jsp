@@ -44,6 +44,7 @@
     </head>
 
     <body>
+    <br><br>
         <div class="main">
             <!-- Sign up form -->
             <section class="signup">
@@ -115,6 +116,7 @@
                 </div>
             </section>
         </div>
+    <br><br>
 
         <script type="text/javascript">
             function testpass(conferma_password){

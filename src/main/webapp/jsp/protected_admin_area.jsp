@@ -136,6 +136,7 @@
                                         <button name="codeProduct" value=${product.getCode()}>Edit</button>
                                     </form>
                                 </c:forEach>
+                                <br><br>
                             </c:when>
                             <c:when test="${editsingleproduct == true}">
                                 <div class="col-md-10 mb-5 mb-md-0">
