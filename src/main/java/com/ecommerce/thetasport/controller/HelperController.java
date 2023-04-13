@@ -87,6 +87,7 @@ public class HelperController {
         UserBean userBean = ManagerLogin.getSingleUser( email );
         currentSession.setAttribute( "userBean", userBean );
         currentSession.setAttribute( "isLogged", isLogged );
+        currentSession.setAttribute( "login", isLogged );
         request.setAttribute( "login", isLogged );
         Cart myCart = new Cart();
         currentSession.setAttribute( "itemsCart", myCart );

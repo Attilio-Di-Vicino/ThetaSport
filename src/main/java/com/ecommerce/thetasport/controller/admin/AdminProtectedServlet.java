@@ -62,8 +62,8 @@ public class AdminProtectedServlet extends HttpServlet {
                 request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
                 System.out.println( "Non sei loggato, oppure sei loggato ma non sei admin" );
             } else {
-                // da capire un attimo come far funzionare meglio questa cosa
-                request.setAttribute( "addproduct", false );
+                HelperControllerAdmin.setAdminPage( request, false );
+                /*request.setAttribute( "addproduct", false );
                 request.setAttribute( "editproduct", false );
                 request.setAttribute( "editsingleproduct", false );
                 request.setAttribute( "salesupdates", false );
@@ -77,7 +77,7 @@ public class AdminProtectedServlet extends HttpServlet {
                     request.setAttribute( "orderList", OrderDAO.getTotalOrdersUsersBeanList() );
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }
+                }*/
                 request.getRequestDispatcher("jsp/protected_admin_area.jsp").forward(request, response);
                 System.out.println("Sei Admin");
             }

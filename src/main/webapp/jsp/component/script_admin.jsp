@@ -1,9 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: attilio
-  Date: 27/03/23
-  Time: 22:00
-  To change this template use File | Settings | File Templates.
+  Project: ThetaSport
+  Version: 1.0
+  Current year: 2023
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -11,7 +10,6 @@
   <!-- Bootstrap core JavaScript-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
-
   <!-- Core plugin JavaScript-->
   <script><%@include file="../../vendor/jquery-easing/jquery.easing.min.js"%></script>
 

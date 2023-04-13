@@ -1,17 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
-  User: attilio
-  Date: 27/03/23
-  Time: 21:46
-  To change this template use File | Settings | File Templates.
+  Project: ThetaSport
+  Version: 1.0
+  Current year: 2023
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <body>
   <!-- Content Row -->
   <div class="row">
-
+    <fmt:setLocale value = "en_US"/>
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-left-primary shadow h-100 py-2">
@@ -20,7 +20,7 @@
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                 Earnings (Monthly)</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">$${param.earningMonthly}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${param.earningMonthly}" type="currency"/></div>
             </div>
             <div class="col-auto">
               <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,7 +38,7 @@
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                 Earnings (Annual)</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">$${param.earningYears}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${param.earningYears}" type="currency"/></div>
             </div>
             <div class="col-auto">
               <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -56,7 +56,7 @@
             <div class="col mr-2">
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                 Earnings (Total)</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">$${param.earningTotal}</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${param.earningTotal}" type="currency"/></div>
             </div>
             <div class="col-auto">
               <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>

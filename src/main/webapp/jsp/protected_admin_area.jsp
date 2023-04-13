@@ -249,6 +249,9 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <!-- Bootstrap core JavaScript-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <jsp:include page="component/script_admin.jsp"></jsp:include>
     </body>
 </html>

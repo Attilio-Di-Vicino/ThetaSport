@@ -1,9 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: attilio
-  Date: 27/03/23
-  Time: 20:27
-  To change this template use File | Settings | File Templates.
+  Project: ThetaSport
+  Version: 1.0
+  Current year: 2023
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -124,7 +123,7 @@
           </h6>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="dropdown-list-image mr-3">
-              <img class="rounded-circle" src="img/undraw_profile_1.svg"
+              <img class="rounded-circle" src="${pageContext.request.contextPath}/images/user1.png"
                    alt="...">
               <div class="status-indicator bg-success"></div>
             </div>
@@ -136,7 +135,7 @@
           </a>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="dropdown-list-image mr-3">
-              <img class="rounded-circle" src="img/undraw_profile_2.svg"
+              <img class="rounded-circle" src="${pageContext.request.contextPath}/images/user2.png"
                    alt="...">
               <div class="status-indicator"></div>
             </div>
@@ -148,7 +147,7 @@
           </a>
           <a class="dropdown-item d-flex align-items-center" href="#">
             <div class="dropdown-list-image mr-3">
-              <img class="rounded-circle" src="img/undraw_profile_3.svg"
+              <img class="rounded-circle" src="${pageContext.request.contextPath}/images/user3.png"
                    alt="...">
               <div class="status-indicator bg-warning"></div>
             </div>
@@ -182,7 +181,7 @@
            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
           <img class="img-profile rounded-circle"
-               src="img/undraw_profile.svg">
+               src="${pageContext.request.contextPath}/images/user1.png">
         </a>
         <!-- Dropdown - User Information -->
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
