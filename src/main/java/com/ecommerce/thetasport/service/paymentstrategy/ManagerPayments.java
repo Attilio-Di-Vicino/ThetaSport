@@ -2,12 +2,9 @@ package com.ecommerce.thetasport.service.paymentstrategy;
 
 import com.ecommerce.thetasport.dao.OrderDAO;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Classe che rappresenta un gestore di pagamenti.

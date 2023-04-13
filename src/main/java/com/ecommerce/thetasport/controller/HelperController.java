@@ -8,6 +8,7 @@ import com.ecommerce.thetasport.service.cartvisitor.ShoppingCartVisitorImpl;
 import com.ecommerce.thetasport.service.loginCor.ManagerLogin;
 import com.ecommerce.thetasport.service.productabstractfactory.Director;
 import com.ecommerce.thetasport.service.productabstractfactory.ManagerProduct;
+import com.ecommerce.thetasport.service.productabstractfactory.Product;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -128,16 +129,23 @@ public class HelperController {
 
     public static void getCode( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
-        ProductBean productBean;
+        Product product;
         try {
-            productBean = ManagerProduct.getSingleProduct( code );
+            product = Director.createProduct( ManagerProduct.getSingleProduct( code ) );
         } catch ( SQLException e ) {
             throw new RuntimeException( "SQL Exception in HelperController/getCode" + e );
         } catch ( ClassNotFoundException ce ) {
             throw new RuntimeException( "ClassNotFound Exception in HelperController/getCode" + ce );
         }
         HelperController.verifyLoginAndCart( request );
-        request.setAttribute( "singleProduct", productBean );
+        request.setAttribute( "singleProduct", product );
+        HttpSession session = request.getSession( false );
+        Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
+        if ( myCart != null && myCart.getMyCart().containsKey( product ) ) {
+            request.setAttribute( "viewRemoveButton", true );
+        } else { // se è uguale a null o non è presente il prodotto nel carrello
+            request.setAttribute( "viewRemoveButton", false );
+        }
         request.getRequestDispatcher( "jsp/single_product.jsp" ).forward( request, response );
     }
 

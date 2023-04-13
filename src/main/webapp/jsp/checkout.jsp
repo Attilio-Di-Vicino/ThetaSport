@@ -15,12 +15,7 @@
         </jsp:include>
     </head>
     <body>
-        <jsp:include page="component/navbar.jsp">
-            <jsp:param name="name" value="${userBean.getName()}"/>
-            <jsp:param name="isLogged" value="${isLogged}"/>
-            <jsp:param name="login" value="${login}"/>
-            <jsp:param name="numItemCart" value="${numItemCart}"/>
-        </jsp:include>
+        <jsp:include page="component/navbar.jsp"></jsp:include>
 
         <jsp:include page="component/hero_section.jsp">
             <jsp:param name="homeMessageOne" value="Best Product"/>
@@ -105,14 +100,14 @@
                                             <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
                                             <select required name="c_country" id="c_country" class="form-control">
                                                 <option value="1">Select a country</option>
-                                                <option value="2">bangladesh</option>
-                                                <option value="3">Algeria</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Ghana</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Bahrain</option>
-                                                <option value="8">Colombia</option>
-                                                <option value="9">Dominican Republic</option>
+                                                <option value="Austria">Austria</option>
+                                                <option value="Belgio">Belgio</option>
+                                                <option value="Danimarca">Danimarca</option>
+                                                <option value="Germania">Germania</option>
+                                                <option value="Italia">Italia</option>
+                                                <option value="Portogallo">Portogallo</option>
+                                                <option value="Spagna">Spagna</option>
+                                                <option value="Ungheria">Ungheria</option>
                                             </select>
                                         </div>
                                         <!-- End Country -->
@@ -248,14 +243,14 @@
                                             <label for="b_country" class="text-black">Country <span class="text-danger">*</span></label>
                                             <select required name="b_country" id="b_country" class="form-control">
                                                 <option value="1">Select a country</option>
-                                                <option value="2">bangladesh</option>
-                                                <option value="3">Algeria</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Ghana</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Bahrain</option>
-                                                <option value="8">Colombia</option>
-                                                <option value="9">Dominican Republic</option>
+                                                <option value="Austria">Austria</option>
+                                                <option value="Belgio">Belgio</option>
+                                                <option value="Danimarca">Danimarca</option>
+                                                <option value="Germania">Germania</option>
+                                                <option value="Italia">Italia</option>
+                                                <option value="Portogallo">Portogallo</option>
+                                                <option value="Spagna">Spagna</option>
+                                                <option value="Ungheria">Ungheria</option>
                                             </select>
                                         </div>
                                         <!-- End Country -->
@@ -390,14 +385,14 @@
                                             <label for="cc_country" class="text-black">Country <span class="text-danger">*</span></label>
                                             <select required name="cc_country" id="cc_country" class="form-control">
                                                 <option value="1">Select a country</option>
-                                                <option value="2">bangladesh</option>
-                                                <option value="3">Algeria</option>
-                                                <option value="4">Afghanistan</option>
-                                                <option value="5">Ghana</option>
-                                                <option value="6">Albania</option>
-                                                <option value="7">Bahrain</option>
-                                                <option value="8">Colombia</option>
-                                                <option value="9">Dominican Republic</option>
+                                                <option value="Austria">Austria</option>
+                                                <option value="Belgio">Belgio</option>
+                                                <option value="Danimarca">Danimarca</option>
+                                                <option value="Germania">Germania</option>
+                                                <option value="Italia">Italia</option>
+                                                <option value="Portogallo">Portogallo</option>
+                                                <option value="Spagna">Spagna</option>
+                                                <option value="Ungheria">Ungheria</option>
                                             </select>
                                         </div>
                                         <!-- End Country -->

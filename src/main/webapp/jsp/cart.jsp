@@ -65,7 +65,7 @@
                                             <div class="input-group-prepend">
                                                 <form action="RemoveCartServlet" method="get">
                                                     <input type="hidden" name="landingPage" value="cart">
-                                                    <button class="btn btn-outline-black" name="codeProduct" value="${product.getCode()}"> - </button>
+                                                    <button id="manager-cart" class="btn btn-outline-black" name="codeProduct" value="${product.getCode()}"> - </button>
                                                 </form>
                                             </div>
                                             <input type="text" name="numP" class="form-control text-center quantity-amount" value="${itemsCart.getMyCart().get( product )}"
@@ -155,5 +155,6 @@
 
         <jsp:include page="component/footer.jsp"></jsp:include>
         <jsp:include page="component/script.jsp"></jsp:include>
+
     </body>
 </html>

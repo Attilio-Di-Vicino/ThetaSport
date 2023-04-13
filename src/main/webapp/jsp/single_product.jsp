@@ -14,13 +14,43 @@
         </jsp:include>
     </head>
     <body class="bg-light">
+    <script>
+        function addToCart( productId, landingPage, isLogged ) {
+            // Crea un oggetto XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            if ( isLogged === 0 ) {
+                // Reindirizza l'utente a "login.jsp"
+                window.location.href = "LoginServlet";
+            } else {
+                var numItemCart = 0;
+                numItemCart = Number( document.getElementById( "cartSection" ).innerHTML );
 
-    <jsp:include page="component/navbar.jsp">
-        <jsp:param name="name" value="${userBean.getName()}"/>
-        <jsp:param name="isLogged" value="${isLogged}"/>
-        <jsp:param name="login" value="${login}"/>
-        <jsp:param name="numItemCart" value="${numItemCart}"/>
-    </jsp:include>
+                if (!isNaN(numItemCart)) {
+                    numItemCart = Number(numItemCart);
+                }
+
+                // Configura la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
+                xhr.open( 'GET', "AddCartServlet?landingPage=" + landingPage + "&codeProduct=" + productId );
+
+                console.log( "landingPage: " + landingPage );
+                console.log( "productId: " + productId );
+
+                // Invia la richiesta GET alla servlet che gestisce l'aggiunta del prodotto
+                xhr.send();
+
+                // Gestisci la risposta della servlet
+                xhr.onreadystatechange = function() {
+                    if ( xhr.readyState === 4 && xhr.status === 200 ) {
+                        numItemCart += 1;
+                        console.log( numItemCart );
+                        document.getElementById( "cartSection" ).innerHTML = numItemCart;
+                    }
+                }
+            }
+        }
+    </script>
+
+    <jsp:include page="component/navbar.jsp"></jsp:include>
 
     <jsp:include page="component/hero_section.jsp">
         <jsp:param name="homeMessageOne" value="ThetaSport: where AI meets sport"/>
@@ -90,16 +120,7 @@
                             </div>
                             <div class="row pb-3">
                                 <div class="col d-grid">
-                                    <form action="AddCartServlet" method="get">
-                                        <button class="btn btn-success btn-lg" name="codeProduct" value=${singleProduct.getCode()}>Add Cart</button>
-                                        <input type="hidden" name="landingPage" value="single_product">
-                                    </form>
-                                </div>
-                                <div class="col d-grid">
-                                    <form action="RemoveCartServlet" method="get">
-                                        <button class="btn btn-success btn-lg" name="codeProduct" value=${singleProduct.getCode()}>Remove Cart</button>
-                                        <input type="hidden" name="landingPage" value="single_product">
-                                    </form>
+                                    <button onclick="addToCart( '${singleProduct.getCode()}', 'single_product', ${isLogged} )" class="btn btn-success btn-lg" name="codeProduct" value=${singleProduct.getCode()}>Add Cart</button>
                                 </div>
                             </div>
                         </div>
