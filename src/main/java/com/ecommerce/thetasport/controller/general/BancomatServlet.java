@@ -17,8 +17,23 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Questa classe rappresenta il servlet per la pagina di pagamento con Bancomat.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 @WebServlet(name = "BancomatServlet", value = "/BancomatServlet")
 public class BancomatServlet extends HttpServlet {
+
+    /**
+     * Metodo che gestisce la richiesta GET per la pagina di pagamento con Bancomat.
+     *
+     * @param request  l'oggetto HttpServletRequest che contiene la richiesta del client
+     * @param response l'oggetto HttpServletResponse che contiene la risposta del server
+     * @throws ServletException se si verifica un errore durante la gestione della richiesta
+     * @throws IOException      se si verifica un errore durante la gestione della richiesta
+     */
     @Override
     protected void doGet( HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
@@ -29,6 +44,14 @@ public class BancomatServlet extends HttpServlet {
         request.getRequestDispatcher( "jsp/checkout.jsp" ).forward( request, response );
     }
 
+    /**
+     * Metodo che gestisce la richiesta POST per la pagina di pagamento con Bancomat.
+     *
+     * @param request  l'oggetto HttpServletRequest che contiene la richiesta del client
+     * @param response l'oggetto HttpServletResponse che contiene la risposta del server
+     * @throws ServletException se si verifica un errore durante la gestione della richiesta
+     * @throws IOException      se si verifica un errore durante la gestione della richiesta
+     */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html");

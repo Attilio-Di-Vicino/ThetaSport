@@ -2,7 +2,6 @@ package com.ecommerce.thetasport.controller.user;
 
 import com.ecommerce.thetasport.controller.HelperController;
 import com.ecommerce.thetasport.dao.UserDAO;
-import com.ecommerce.thetasport.service.loginCor.ManagerLogin;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -10,8 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
-
 
 /**
  * RegistrationServlet is used to register a user, in the login.jsp there is a reference to this servlet<br>

@@ -7,19 +7,26 @@ import jakarta.servlet.annotation.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+
 /**
- * Logout Servlet fetches the actual session and invalidates it, redirecting to the home page. <br>
- * Is superfluously checked if there is a session, because if this servlet is invoked, <br>
- * then a session exists.
+ * Questo è il servlet che gestisce il logout dell'utente.
+ * Invalida la sessione corrente e reindirizza l'utente alla homepage.
+ * Se non esiste una sessione, non fa nulla.
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 @WebServlet( name = "LogoutServlet", value = "/LogoutServlet" )
 public class LogoutServlet extends HttpServlet {
 
     /**
-     * @param request Request made via a browser
-     * @param response Response
-     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
-     * @throws IOException Report thar an I/O exception has occurred
+     * Invalida la sessione corrente e reindirizza l'utente alla homepage.
+     * Se non esiste una sessione, non fa nulla.
+     *
+     * @param request la richiesta fatta dal browser
+     * @param response la risposta da restituire
+     * @throws ServletException Eccezione generica per segnalare eventuali errori
+     * @throws IOException Eccezione sollevata in caso di errore di input/output
      */
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {

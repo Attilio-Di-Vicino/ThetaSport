@@ -9,10 +9,13 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 /**
- * HomeServlet respond to web application's root and verify whether a session exists. <br>
- * This check is executed to handle the case where the client returns to the home page while browsing <br>
- * but has already logged in, so there is an open session. <br>
- * If the session does not exist, it creates and sets the log in to 0, so not logged in.
+ * HomeServlet risponde alla radice dell'applicazione web e verifica se esiste una sessione. <br>
+ * Questo controllo viene eseguito per gestire il caso in cui il client torna alla pagina principale durante la navigazione <br>
+ * ma ha già effettuato l'accesso, quindi c'è una sessione aperta. <br>
+ * Se la sessione non esiste, viene creata e impostato il login su 0, quindi non connesso.
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 @WebServlet( name = "HomeServlet", value = "/" )
 public class HomeServlet extends HttpServlet {

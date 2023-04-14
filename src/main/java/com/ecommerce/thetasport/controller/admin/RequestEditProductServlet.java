@@ -9,10 +9,28 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
+/**
+ * RequestEditProductServlet è una servlet che gestisce la richiesta di modifica di un prodotto <br>
+ * da parte di un amministratore. Questa servlet viene invocata quando un utente amministratore <br>
+ * accede all'area riservata del sito e sceglie di modificare un prodotto.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 @WebServlet(name = "RequestEditProductServlet", value = "/RequestEditProductServlet")
 public class RequestEditProductServlet extends HttpServlet {
+
+    /**
+     * Questo metodo gestisce la richiesta HTTP GET. Viene invocato quando un utente amministratore <br>
+     * accede all'area riservata del sito e sceglie di modificare un prodotto. <br>
+     * Il metodo ottiene la lista di tutti i prodotti e la visualizza nella pagina protetta dell'area amministrativa.
+     *
+     * @param request  l'oggetto HttpServletRequest che contiene le informazioni sulla richiesta HTTP
+     * @param response l'oggetto HttpServletResponse che contiene le informazioni sulla risposta HTTP
+     * @throws ServletException se si verifica un errore durante l'elaborazione della richiesta
+     * @throws IOException      se si verifica un errore di I/O durante l'elaborazione della richiesta
+     */
     @Override
     protected void doGet(HttpServletRequest request, @NotNull HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

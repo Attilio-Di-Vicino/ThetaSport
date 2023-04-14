@@ -17,8 +17,24 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Questa classe rappresenta il servlet che gestisce il pagamento con carta di credito.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 @WebServlet( name = "CreditCartServlet", value = "/CreditCartServlet" )
 public class CreditCartServlet extends HttpServlet {
+
+    /**
+     * Questo metodo gestisce la richiesta GET al servlet, mostrando la pagina di checkout con l'opzione di pagamento
+     * con carta di credito selezionata.
+     *
+     * @param request  l'oggetto HttpServletRequest che contiene le informazioni sulla richiesta
+     * @param response l'oggetto HttpServletResponse che contiene le informazioni sulla risposta
+     * @throws ServletException se si verifica un'eccezione di tipo servlet
+     * @throws IOException      se si verifica un'errore di input/output
+     */
     @Override
     protected void doGet( HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
@@ -29,6 +45,15 @@ public class CreditCartServlet extends HttpServlet {
         request.getRequestDispatcher( "jsp/checkout.jsp" ).forward( request, response );
     }
 
+    /**
+     * Questo metodo gestisce la richiesta POST al servlet, processando il pagamento con carta di credito e inserendo
+     * l'ordine nel database.
+     *
+     * @param request  l'oggetto HttpServletRequest che contiene le informazioni sulla richiesta
+     * @param response l'oggetto HttpServletResponse che contiene le informazioni sulla risposta
+     * @throws ServletException se si verifica un'eccezione di tipo servlet
+     * @throws IOException      se si verifica un'errore di input/output
+     */
     @Override
     protected void doPost(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws ServletException, IOException {
         response.setContentType( "text/html" );

@@ -1,7 +1,6 @@
 package com.ecommerce.thetasport.controller.general;
 
 import com.ecommerce.thetasport.dao.UserDAO;
-import com.ecommerce.thetasport.service.loginCor.ManagerLogin;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -11,19 +10,24 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * ForgotPasswordServlet is used if the user does not remember the password, <br>
- * there is a reference to this servlet in the login.jsp <br>
- * which invokes the get method that forwards the request to the dedicated page to request the forgotten password. <br>
- * In the ForgotPassword.jsp file there is a form which invokes the post method of the following servlet <br>
+ * ForgotPasswordServlet viene utilizzato se l'utente non ricorda la password, <br>
+ * c'è un riferimento a questo servlet nel file login.jsp <br>
+ * che invoca il metodo get che inoltra la richiesta alla pagina dedicata per richiedere la password dimenticata. <br>
+ * Nel file ForgotPassword.jsp c'è un form che invoca il metodo post del seguente servlet <br>
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 @WebServlet( name = "ForgotPasswordServlet", value = "/ForgotPasswordServlet" )
 public class ForgotPasswordServlet extends HttpServlet {
 
-     /**
-     * @param request Request made via a browser
-     * @param response Response
-     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
-     * @throws IOException Report thar an I/O exception has occurred
+    /**
+     * Il metodo doGet inoltra la richiesta alla pagina jsp/forgot_password.jsp.
+     *
+     * @param request Richiesta fatta tramite un browser
+     * @param response Risposta
+     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
+     * @throws IOException Segnala che si è verificata un'eccezione di I/O
      */
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
@@ -33,16 +37,16 @@ public class ForgotPasswordServlet extends HttpServlet {
 
 
     /**
-     * The doPost method initially retrieves the parameters forwarded via http protocol from the client via a form, <br>
-     * the reference form already perform various checks using HTML5, however, it's necessary to perform a server-sided <br>
-     * check, in fact we check if the email inserted by the client exists in the database, being the unique and <br>
-     * identifying attribute.If the email it's present a fake email is forwarded with the respective password <br>
-     * otherwise an error message will appear
+     * Il metodo doPost recupera inizialmente i parametri inoltrati tramite protocollo http dal client tramite un form, <br>
+     * il form di riferimento già effettua vari controlli utilizzando HTML5, tuttavia, è necessario eseguire un controllo lato server, <br>
+     * infatti controlliamo se l'email inserita dal client esiste nel database, essendo l'attributo univoco e identificativo. <br>
+     * Se l'email è presente, viene inoltrata una email fake con la rispettiva password, <br>
+     * altrimenti comparirà un messaggio di errore.
      *
-     * @param request Request made via a browser
-     * @param response Response
-     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
-     * @throws IOException Report thar an I/O exception has occurred
+     * @param request Richiesta fatta tramite un browser
+     * @param response Risposta
+     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
+     * @throws IOException Segnala che si è verificata un'eccezione di I/O
      */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
@@ -52,6 +56,7 @@ public class ForgotPasswordServlet extends HttpServlet {
         try {
             if ( UserDAO.userMailExist( to ) ) {
                 // sendMail
+                System.out.println( "Email send to:" + to );
                 request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
             } else {
                 request.setAttribute( "errorMessage", "Warning, the email entered does not exist!" );

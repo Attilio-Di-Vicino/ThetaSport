@@ -17,8 +17,25 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * La classe CashServlet rappresenta la servlet per la gestione dei pagamenti in contanti.
+ * Essa estende la classe HttpServlet e gestisce le richieste HTTP GET e POST.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 @WebServlet(name = "CashServlet", value = "/CashServlet")
 public class CashServlet extends HttpServlet {
+
+    /**
+     * Il metodo doGet gestisce la richiesta HTTP GET per la pagina di pagamento in contanti.
+     *
+     * @param request  L'oggetto HttpServletRequest che contiene la richiesta del client.
+     * @param response L'oggetto HttpServletResponse che viene utilizzato per restituire la risposta al client.
+     *
+     * @throws ServletException Se si verifica un errore servlet.
+     * @throws IOException      Se si verifica un errore di input/output.
+     */
     @Override
     protected void doGet( HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
@@ -29,6 +46,15 @@ public class CashServlet extends HttpServlet {
         request.getRequestDispatcher( "jsp/checkout.jsp" ).forward( request,response );
     }
 
+    /**
+     * Il metodo doPost gestisce la richiesta HTTP POST per il pagamento in contanti.
+     *
+     * @param request  L'oggetto HttpServletRequest che contiene la richiesta del client.
+     * @param response L'oggetto HttpServletResponse che viene utilizzato per restituire la risposta al client.
+     *
+     * @throws ServletException Se si verifica un errore servlet.
+     * @throws IOException      Se si verifica un errore di input/output.
+     */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );

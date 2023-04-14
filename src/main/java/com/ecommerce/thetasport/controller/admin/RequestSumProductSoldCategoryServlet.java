@@ -13,8 +13,26 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * La servlet RequestSumProductSoldCategoryServlet gestisce la richiesta di calcolo della somma dei prodotti venduti
+ * per una specifica categoria e sottocategoria.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 @WebServlet( name = "RequestSumProductSoldCategoryServlet", value = "/RequestSumProductSoldCategoryServlet" )
 public class RequestSumProductSoldCategoryServlet extends HttpServlet {
+
+
+    /**
+     * Gestisce la richiesta GET di visualizzazione della pagina di calcolo della somma dei prodotti venduti per
+     * categoria e sottocategoria.
+     *
+     * @param request  l'oggetto HttpServletRequest che contiene la richiesta del client
+     * @param response l'oggetto HttpServletResponse che contiene la risposta da inviare al client
+     * @throws ServletException se la richiesta non può essere gestita correttamente
+     * @throws IOException      se si verifica un errore di input/output durante la gestione della richiesta
+     */
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
@@ -23,6 +41,14 @@ public class RequestSumProductSoldCategoryServlet extends HttpServlet {
         request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
 
+    /**
+     * Gestisce la richiesta POST di calcolo della somma dei prodotti venduti per categoria e sottocategoria.
+     *
+     * @param request  l'oggetto HttpServletRequest che contiene la richiesta del client
+     * @param response l'oggetto HttpServletResponse che contiene la risposta da inviare al client
+     * @throws ServletException se la richiesta non può essere gestita correttamente
+     * @throws IOException      se si verifica un errore di input/output durante la gestione della richiesta
+     */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
