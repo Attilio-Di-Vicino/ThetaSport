@@ -57,6 +57,7 @@
                             <img src="${pageContext.request.contextPath}/images/signup-image.png" class="img-fluid product-thumbnail">						</figure>
                         </figure>
                         <a href="LoginServlet" class="signup-image-link">I am already member</a>
+                        <a href="HomeServlet" class="signup-image-link">Back to Home</a>
                     </div>
                 </div>
             </div>

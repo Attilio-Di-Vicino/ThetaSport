@@ -34,6 +34,7 @@
                             </figure>
                             <a href="RegistrationServlet" class="signup-image-link link-primary text-decoration-none">Create an account</a>
                             <a href="ForgotPasswordServlet" class="signup-image-link link-primary text-decoration-none">Forgot password</a>
+                            <a href="HomeServlet" class="signup-image-link link-primary text-decoration-none">Back to Home</a>
                         </div>
 
                         <div class="signin-form">
