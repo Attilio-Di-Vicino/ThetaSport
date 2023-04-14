@@ -4,6 +4,7 @@ import com.ecommerce.thetasport.dao.ProductDAO;
 import com.ecommerce.thetasport.dao.UserDAO;
 import com.ecommerce.thetasport.service.productabstractfactory.Category;
 import com.ecommerce.thetasport.service.productabstractfactory.SubCategory;
+import com.ecommerce.thetasport.service.tfidf.CustomPriorityQueue;
 import com.ecommerce.thetasport.service.tfidf.ManagerTFIDF;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -37,9 +38,19 @@ public class RequestOfferTFIDFProductServlet extends HttpServlet {
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
         String email = request.getParameter( "email" );
-        Map< String, List<List<String>> > offerUserMap = ManagerTFIDF.getAllOffersMoreRelated( ManagerTFIDF.TFIDFSingleUsers( email ) );
+        Map< String, CustomPriorityQueue< String, Double > > mapResult = ManagerTFIDF.TFIDFSingleUsers( email );
+        Map< String, List<List<String>> > offerUserMap = ManagerTFIDF.getAllOffersMoreRelated( mapResult );
         request.setAttribute( "email", email );
-        request.setAttribute( "offerListProduct", offerUserMap.get( email ) );
+        List< List< String > > productList = offerUserMap.get( email );
+        // nel caso il cui la differenza insiemistica è minore di 0, quindi la lista dei prodotti
+        // da offrire risulta essere nulla allora procediamo con il secondo utente più simile ad esso
+        // considerando che all'interno del metodo getAllOffersMoreRelated viene eseguito una poll sulla coda di massima priorità
+        if ( productList.isEmpty() ) {
+            while ( productList.isEmpty() && !mapResult.get( email ).isEmpty() ) {
+                productList = ManagerTFIDF.getAllOffersMoreRelated( mapResult ).get( email );
+            }
+        }
+        request.setAttribute( "offerListProduct", productList );
         HelperControllerAdmin.setAdminPage( request, false, false, false,
                 false, false, false, true, false );
         request.getRequestDispatcher("jsp/protected_admin_area.jsp").forward(request, response);
