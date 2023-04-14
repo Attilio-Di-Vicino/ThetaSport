@@ -15,9 +15,13 @@ import java.io.IOException;
  * Questa classe rappresenta un servlet che si occupa di modificare il valore del campo stock di un prodotto
  * nel database, ricevendo i dati dalla richiesta POST. In seguito, il servlet effettua un reindirizzamento alla
  * lista dei prodotti, sempre attraverso il controller di supporto HelperController.
+ *
+ *  @author Theta Sport
+ *  @version 1.0
  */
 @WebServlet( name = "EditStockProductServlet", value = "/EditStockProductServlet" )
 public class EditStockProductServlet extends HttpServlet {
+
     /**
      * Questo metodo viene invocato dal container Servlet quando arriva una richiesta HTTP POST.
      *

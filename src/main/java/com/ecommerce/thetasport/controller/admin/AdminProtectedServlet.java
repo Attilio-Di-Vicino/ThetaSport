@@ -21,6 +21,9 @@ import java.sql.SQLException;
  * che indica che l'utente ha l'autorizzazione di amministratore. Questo servlet risponde solo
  * alle richieste HTTP GET e non riceve parametri da URL. Le eccezioni ServletException e
  * IOException possono essere sollevate durante l'elaborazione delle richieste HTTP.
+ *
+ *  @author Theta Sport
+ *  @version 1.0
  */
 
 @WebServlet( name = "AdminProtectedServlet", value = "/AdminProtectedServlet" )

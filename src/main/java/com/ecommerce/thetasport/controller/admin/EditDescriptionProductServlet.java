@@ -12,14 +12,28 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 
 /**
- *  Questa servlet gestisce la modifica della descrizione di un prodotto da parte dell'amministratore.
- *  Riceve la descrizione e il codice del prodotto tramite una richiesta POST e utilizza il metodo
- *  editDescriptionProduct della classe ProductDAO per effettuare la modifica nel database.
- *  Infine, reindirizza l'amministratore alla lista dei prodotti e imposta la pagina di amministrazione.
+ * La classe EditDescriptionProductServlet è una servlet che gestisce la modifica della descrizione di un singolo prodotto.
+ * Riceve una richiesta HTTP POST contenente la nuova descrizione del prodotto e il suo codice identificativo.
+ * Dopodiché, utilizzando la classe ProductDAO, modifica la descrizione del prodotto nel database.
+ * Infine, reindirizza l'utente alla lista dei prodotti e visualizza la pagina di amministrazione.
+ *
+ *  @author Theta Sport
+ *  @version 1.0
  */
 @WebServlet(name = "EditDescriptionProductServlet", value = "/EditDescriptionProductServlet")
 public class EditDescriptionProductServlet extends HttpServlet {
 
+    /**
+     * Gestisce una richiesta HTTP POST per modificare la descrizione di un singolo prodotto.
+     * Riceve una richiesta HTTP POST contenente la nuova descrizione del prodotto e il suo codice identificativo.
+     * Utilizzando la classe ProductDAO, modifica la descrizione del prodotto nel database.
+     * Infine, reindirizza l'utente alla lista dei prodotti e visualizza la pagina di amministrazione.
+     *
+     * @param request l'oggetto HttpServletRequest contenente la richiesta HTTP
+     * @param response l'oggetto HttpServletResponse contenente la risposta HTTP
+     * @throws ServletException se si verifica un errore durante la gestione della richiesta
+     * @throws IOException se si verifica un errore di input o output durante la gestione della richiesta
+     */
     @Override
     protected void doPost(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");

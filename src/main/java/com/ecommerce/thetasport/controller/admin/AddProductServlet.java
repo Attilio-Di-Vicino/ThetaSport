@@ -24,11 +24,25 @@ import java.sql.SQLException;
  * Prende i dati inseriti dall'utente (categoria, sottocategoria, nome, descrizione, quantità, prezzo e immagine) e crea un oggetto ProductBean.
  * La servlet salva l'immagine selezionata nella cartella images/product e inserisce il nuovo prodotto nel database attraverso il ProductDAO.
  * Infine, imposta gli attributi di richiesta "productCreated" e "newProduct" e inoltra la richiesta alla pagina "protected_admin_area.jsp" tramite il metodo forward().
+ *
+ *  @author Theta Sport
+ *  @version 1.0
  */
 @WebServlet( name = "AddProductServlet", value = "/AddProductServlet" )
 @MultipartConfig( maxFileSize = 1024 * 1024 * 10 ) // Imposta la dimensione massima del file a 10 MB
 public class AddProductServlet extends HttpServlet {
 
+    /**
+     * Gestisce una richiesta HTTP POST per l'aggiunta di un nuovo prodotto.
+     * Riceve una richiesta HTTP POST contenente i dati del nuovo prodotto, tra cui l'immagine del prodotto.
+     * Salva l'immagine nel server e utilizzando la classe ProductDAO, inserisce il nuovo prodotto nel database.
+     * Infine, reindirizza l'utente alla pagina di amministrazione dei prodotti.
+     *
+     * @param request l'oggetto HttpServletRequest contenente la richiesta HTTP
+     * @param response l'oggetto HttpServletResponse contenente la risposta HTTP
+     * @throws ServletException se si verifica un errore durante la gestione della richiesta
+     * @throws IOException se si verifica un errore di input o output durante la gestione della richiesta
+     */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );

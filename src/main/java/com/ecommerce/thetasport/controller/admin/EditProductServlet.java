@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
 /**
  * Questa classe rappresenta un servlet che si occupa di recuperare le informazioni di un prodotto specifico dal
  * database, utilizzando il suo codice identificativo, e di visualizzarle nella pagina di amministrazione del sito.
@@ -17,9 +18,13 @@ import java.sql.SQLException;
  * visualizzare. Successivamente, il servlet recupera le informazioni del prodotto dal database utilizzando il DAO,
  * imposta l'attributo "singleProduct" della richiesta con queste informazioni e inoltra la richiesta e la risposta
  * alla pagina JSP per la visualizzazione della pagina di amministrazione.
+ *
+ *  @author Theta Sport
+ *  @version 1.0
  */
 @WebServlet( name = "EditProductServlet", value = "/EditProductServlet" )
 public class EditProductServlet extends HttpServlet {
+
     /**
      * Questo metodo viene invocato dal container Servlet quando arriva una richiesta HTTP GET.
      *
