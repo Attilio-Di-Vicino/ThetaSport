@@ -2,6 +2,7 @@ package com.ecommerce.thetasport.service.tfidf;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +24,7 @@ public class Client {
      *
      * @param args argomento di default
      */
-    public static void main( String[] args ) {
+    public static void main( String[] args ) throws SQLException {
         Map< String, CustomPriorityQueue< String, Double > > mapResult = ManagerTFIDF.TFIDFAllUsers();
         System.out.println( "\n*** TEST MAP RESULT OF TFIDF USERS ***" );
         for ( String mail : mapResult.keySet() ) {
@@ -38,6 +39,9 @@ public class Client {
         customPrint( offerUserMap );
         System.out.println( "\n*** TEST OFFERS ALL USERS WITH QUANTITY RELATED (2) ***" );
         offerUserMap = ManagerTFIDF.getAllOffersWithQuantityRelated( ManagerTFIDF.TFIDFAllUsers(), 2 );
+        customPrint( offerUserMap );
+        System.out.println( "\n*** TEST OFFERS SINGLE USERS MORE RELATED ( attilio@gmail.com ) ***" );
+        offerUserMap = ManagerTFIDF.getAllOffersMoreRelated( ManagerTFIDF.TFIDFSingleUsers( "attilio@gmail.com" ) );
         customPrint( offerUserMap );
     }
 

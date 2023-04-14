@@ -25,7 +25,30 @@ public class ManagerTFIDF {
      *
      * @return la mappa contenente i risultati TF-IDF per ogni user il quale è associato ad una coda di massima priorità
      */
-    public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFAllUsers() {
+    public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFSingleUsers( String email ) {
+        return TFIDFQuantityUsers( Collections.singletonList( email ) );
+    }
+
+    /**
+     * Calcola il punteggio TF-IDF per ogni utente e restituisce una map che ha come chiave la mail<br>
+     * dell'utente di riferimento, e come valore è associato una coda di massima priorità<br>
+     * la quale è ordinata in bale al valore del TF-IDF {@link TFIDFCalculator}.
+     *
+     * @return la mappa contenente i risultati TF-IDF per ogni user il quale è associato ad una coda di massima priorità
+     */
+    public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFAllUsers() throws SQLException {
+        List< String > userMails = UserDAO.getUsersMailMinusOne( "admin" );
+        return TFIDFQuantityUsers( userMails );
+    }
+
+    /**
+     * Calcola il punteggio TF-IDF per ogni utente e restituisce una map che ha come chiave la mail<br>
+     * dell'utente di riferimento, e come valore è associato una coda di massima priorità<br>
+     * la quale è ordinata in bale al valore del TF-IDF {@link TFIDFCalculator}.
+     *
+     * @return la mappa contenente i risultati TF-IDF per ogni user il quale è associato ad una coda di massima priorità
+     */
+    public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFQuantityUsers( List<String> userMails ) {
         // Map contenente i risultati TF-IDF per ogni user il quale
         // è associato ad una coda di massima priorità
         Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF = new HashMap<>();
@@ -35,13 +58,13 @@ public class ManagerTFIDF {
             // questa map associa ad ogni user la sua lista di ordini effettuati nel tempo
             Map< String, List<String> > usersOrders = new HashMap<>();
             // inizialmente recupero tutte le email apparte la email dell'admin
-            List< String > userMails = UserDAO.getUsersMailMinusOne( "admin" );
-            for ( String email : userMails ) {
+            List< String > userMailsTotal = UserDAO.getUsersMailMinusOne( "admin" );
+            for ( String email : userMailsTotal ) {
                 // associo ad ogni users la sua lista di ordini effettuati
                 usersOrders.put( email, ProductDAO.getProductListAllOrderSingleUser( email ) );
             }
             // per tutti gli utenti
-            for ( String userMail : usersOrders.keySet() ) {
+            for ( String userMail : userMails ) {
                 // utilizzo una coda mi massima priorità custom
                 mapResultTFIDF.put( userMail, new CustomPriorityQueue<>( new MyEntryComparator() ) );
                 List<String> singleDocument = usersOrders.get( userMail );
@@ -98,7 +121,7 @@ public class ManagerTFIDF {
      * @return Una mappa che associa ad ogni email una lista di prodotti che possono essere offerti all'utente associato
      */
     public static @NotNull Map< String, List<List<String>> > getAllOffersAllRelated( Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF ) {
-        return ManagerTFIDF.getAllOffersWithQuantityRelated( mapResultTFIDF, mapResultTFIDF.size() - 1 );
+        return ManagerTFIDF.getAllOffersWithQuantityRelated( mapResultTFIDF, UserDAO.getUsersMail().size() - 1 );
     }
 
     /**

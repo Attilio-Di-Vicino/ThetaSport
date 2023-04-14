@@ -206,7 +206,12 @@
                             </c:when>
 
                             <c:when test="${sendoffers == true}">
-                                <h4>Send offers: da implementare</h4>
+                                <c:forEach items="${userList}" var="user">
+                                    <h4>Send offer to ${user}</h4>
+                                    <form action="RequestOfferTFIDFProductServlet" method="post">
+
+                                    </form>
+                                </c:forEach>
                             </c:when>
 
                             <c:otherwise>
