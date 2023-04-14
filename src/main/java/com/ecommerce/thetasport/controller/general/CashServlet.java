@@ -1,6 +1,7 @@
 package com.ecommerce.thetasport.controller.general;
 
 import com.ecommerce.thetasport.controller.HelperController;
+import com.ecommerce.thetasport.dao.OrderDAO;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
 import com.ecommerce.thetasport.service.cartvisitor.ShoppingCartVisitorImpl;
 import com.ecommerce.thetasport.service.paymentstrategy.CashStrategy;
@@ -49,7 +50,7 @@ public class CashServlet extends HttpServlet {
         ManagerPayments.pay( new CashStrategy( firstName, phone, shippingAddress ), total);
         // inserire gli ordini nel DB
         try {
-            ManagerPayments.insertOrder( myCart, email, total );
+            OrderDAO.insertOrder( myCart.getMyCart(), email, total);
         } catch ( SQLException e ) {
             throw new RuntimeException( "SQL Error in CashServlet/doPost" + e);
         }

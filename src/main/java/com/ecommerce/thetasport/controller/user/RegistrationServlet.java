@@ -1,6 +1,7 @@
 package com.ecommerce.thetasport.controller.user;
 
 import com.ecommerce.thetasport.controller.HelperController;
+import com.ecommerce.thetasport.dao.UserDAO;
 import com.ecommerce.thetasport.service.loginCor.ManagerLogin;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -51,8 +52,8 @@ public class RegistrationServlet extends HttpServlet {
         String email = request.getParameter( "email" );
         String password = request.getParameter( "password" );
         try {
-            if ( !ManagerLogin.userMailExist( email ) ) {
-                ManagerLogin.registrationUser( name, email, password );
+            if ( !UserDAO.userMailExist( email ) ) {
+                UserDAO.registration( name, email, password );
                 // If he is registering he is definitely a User and not an admin
                 HelperController.loggedOrRegistrationSuccessful( request, response, email, 1, "jsp/index.jsp" );
             } else {

@@ -42,6 +42,8 @@ public class HelperTFIDF {
 
     /**
      * Questo metodo rimuove i duplicati da una lista di liste di stringhe mantenendo l'ordine preso in input
+     * Quindi come risultato avremo la differenza insiemistica delle liste di liste di stringhe e l'output
+     * mantiene l'ordine preso in input essendo importante
      *
      * @param originalList la lista originale da cui rimuovere i duplicati
      * @return una nuova lista di liste di stringhe senza duplicati
@@ -52,20 +54,20 @@ public class HelperTFIDF {
             throw new NullPointerException( "Original List is null in deleteDuplicates." );
         }
         Set<String> uniqueStrings = new HashSet<>();
-        for (List<String> innerList : originalList) {
-            uniqueStrings.addAll(innerList);
+        for ( List<String> innerList : originalList ) {
+            uniqueStrings.addAll( innerList );
         }
 
-        List<List<String>> output = new ArrayList<>();
-        for (List<String> innerList : originalList) {
-            List<String> uniqueList = new ArrayList<>();
-            for (String str : innerList) {
-                if (uniqueStrings.contains(str)) {
-                    uniqueList.add(str);
-                    uniqueStrings.remove(str);
+        List< List<String> > output = new ArrayList<>();
+        for ( List<String> innerList : originalList ) {
+            List< String > uniqueList = new ArrayList<>();
+            for ( String str : innerList ) {
+                if ( uniqueStrings.contains( str ) ) {
+                    uniqueList.add( str );
+                    uniqueStrings.remove( str );
                 }
             }
-            output.add(uniqueList);
+            output.add( uniqueList );
         }
         return output;
     }

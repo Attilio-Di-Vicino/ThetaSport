@@ -28,43 +28,45 @@ public class ManagerTFIDF {
     public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFAllUsers() {
         // Map contenente i risultati TF-IDF per ogni user il quale
         // è associato ad una coda di massima priorità
-        Map< String, CustomPriorityQueue<String, Double> > mapResultTFIDF = new HashMap<>();
+        Map< String, CustomPriorityQueue< String, Double > > mapResultTFIDF = new HashMap<>();
         List< List<String> > documents;
         double sumTFIDF;
         try {
+            // questa map associa ad ogni user la sua lista di ordini effettuati nel tempo
             Map< String, List<String> > usersOrders = new HashMap<>();
+            // inizialmente recupero tutte le email apparte la email dell'admin
             List< String > userMails = UserDAO.getUsersMailMinusOne( "admin" );
             for ( String email : userMails ) {
+                // associo ad ogni users la sua lista di ordini effettuati
                 usersOrders.put( email, ProductDAO.getProductListAllOrderSingleUser( email ) );
             }
             // per tutti gli utenti
             for ( String userMail : usersOrders.keySet() ) {
+                // utilizzo una coda mi massima priorità custom
                 mapResultTFIDF.put( userMail, new CustomPriorityQueue<>( new MyEntryComparator() ) );
-                documents = new ArrayList<>();
-                // per tutta la lista creare i documents senza il singleDocument della persona corrente
-                for ( String userMailDocuments : usersOrders.keySet() ) {
-                    if ( !userMailDocuments.equals( userMail ) ) {
-                        documents.add( usersOrders.get( userMailDocuments ) );
-                    }
-                }
-                // per ogni singolo documento
-                for ( String userMailSingleDocument : usersOrders.keySet() ) {
-                    // setting sumTFIDF
-                    sumTFIDF = 0.0;
-                    // calcolare il TF-IDF di un utente apparte che per l'utente corrente
-                    if ( !userMailSingleDocument.equals( userMail ) ) {
+                List<String> singleDocument = usersOrders.get( userMail );
+                for ( String userMailVs : usersOrders.keySet() ) {
+                    // non verrà calcolato per se stesso
+                    if ( !userMail.equals( userMailVs ) ) {
+                        documents = new ArrayList<>();
+                        // creazione dei documents, in questo caso i documents sono i prodotti ordinati da
+                        // un singolo utente
+                        // per tutta la lista del primo documents che conterrà la lista degli ordini
+                        // del primo utente cioè userMailVs
+                        for ( String product : usersOrders.get( userMailVs ) ) {
+                            documents.add( Collections.singletonList( product ) );
+                        }
                         List<String> termsAlredyCalculated = new ArrayList<>();
-                        // per tutti i termini una e una sola volta altrimenti sarebbe ridondante
-                        for ( String term : usersOrders.get( userMail ) ) {
-                            // se non è stato gia calcolato per questo termine specifico
+                        // per tutti i term
+                        sumTFIDF = 0.0;
+                        for ( String term : singleDocument ) {
                             if ( !termsAlredyCalculated.contains( term ) ) {
                                 termsAlredyCalculated.add( term );
-                                // TF-IDF per tutti i "term" sommati per un singleDocument
-                                sumTFIDF += TFIDFCalculator.tfIdf( usersOrders.get( userMailSingleDocument ), documents, term );
+                                sumTFIDF += TFIDFCalculator.tfIdf( singleDocument, documents, term );
                             }
                         }
                         // aggiungo alla map il risultato appena calcolato con la mail dello user in questione
-                        mapResultTFIDF.get( userMail ).add( new AbstractMap.SimpleEntry<>( userMailSingleDocument, sumTFIDF ) );
+                        mapResultTFIDF.get( userMail ).add( new AbstractMap.SimpleEntry<>( userMailVs, sumTFIDF ) );
                     }
                 }
             }

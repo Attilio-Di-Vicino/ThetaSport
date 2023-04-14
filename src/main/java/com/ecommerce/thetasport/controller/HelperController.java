@@ -1,5 +1,8 @@
 package com.ecommerce.thetasport.controller;
 
+import com.ecommerce.thetasport.dao.OrderDAO;
+import com.ecommerce.thetasport.dao.ProductDAO;
+import com.ecommerce.thetasport.dao.UserDAO;
 import com.ecommerce.thetasport.model.UserBean;
 import com.ecommerce.thetasport.service.admin.ManagerAdmin;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
@@ -28,7 +31,7 @@ public class HelperController {
 
     public static void ForwardProductList( @NotNull HttpServletRequest request ) {
         try {
-            request.setAttribute( "productBeanList", ManagerProduct.getProductList() );
+            request.setAttribute( "productBeanList", ProductDAO.getProductBeanList() );
         } catch ( SQLException e ) {
             throw new RuntimeException( "Error in ForwardProductList SQLException" + e );
         }
@@ -84,7 +87,7 @@ public class HelperController {
         // the new current session is taken
         HttpSession currentSession = request.getSession();
         currentSession.setMaxInactiveInterval( 30 * 60 ); // the new session will last 30 minutes
-        UserBean userBean = ManagerLogin.getSingleUser( email );
+        UserBean userBean = new UserDAO().getUser( email );
         currentSession.setAttribute( "userBean", userBean );
         currentSession.setAttribute( "isLogged", isLogged );
         currentSession.setAttribute( "login", isLogged );
@@ -100,10 +103,10 @@ public class HelperController {
             request.setAttribute( "addproduct", false );
             request.setAttribute( "editproduct", false );
             request.setAttribute( "editsingleproduct", false );
-            request.setAttribute( "earningMonthly", ManagerAdmin.getSumOrderMontly() );
-            request.setAttribute( "earningYears", ManagerAdmin.getSumOrderYear() );
-            request.setAttribute( "earningTotal", ManagerAdmin.getSumOrderTotal() );
-            request.setAttribute( "orderList", ManagerAdmin.getTotalOrderBean() );
+            request.setAttribute( "earningMonthly", OrderDAO.getSumPriceOrderMonthly() );
+            request.setAttribute( "earningYears", OrderDAO.getSumPriceOrderYear() );
+            request.setAttribute( "earningTotal", OrderDAO.getSumPriceOrderTotal() );
+            request.setAttribute( "orderList", OrderDAO.getSumPriceOrderTotal() );
         }
         request.getRequestDispatcher( landingPage ).forward( request, response );
     }
@@ -112,11 +115,9 @@ public class HelperController {
         int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
         Product product;
         try {
-            product = Director.createProduct( ManagerProduct.getSingleProduct( code ) );
+            product = Director.createProduct( ProductDAO.getSingleProduct( code ) );
         } catch ( SQLException e ) {
             throw new RuntimeException( "SQL Exception in HelperController/getCode" + e );
-        } catch ( ClassNotFoundException ce ) {
-            throw new RuntimeException( "ClassNotFound Exception in HelperController/getCode" + ce );
         }
         HelperController.verifyLoginAndCart( request );
         request.setAttribute( "singleProduct", product );
@@ -141,11 +142,9 @@ public class HelperController {
             Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
             int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
             try {
-                myCart.add( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
+                myCart.add( Director.createProduct( ProductDAO.getSingleProduct( code ) ) );
             } catch ( SQLException e ) {
                 throw new RuntimeException( "SQL Exception in HelperController/addCart" + e );
-            } catch ( ClassNotFoundException ce ) {
-                throw new RuntimeException( "ClassNotFound Exception in HelperController/addCart" + ce );
             }
             session.setAttribute( "itemsCart", myCart );
             session.setAttribute( "numItemCart", myCart.sizeCart() );
@@ -161,7 +160,7 @@ public class HelperController {
             statusLog( request, response );
             Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
             int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
-            myCart.decreaseQuantity( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
+            myCart.decreaseQuantity( Director.createProduct( ProductDAO.getSingleProduct( code ) ) );
             session.setAttribute( "itemsCart", myCart );
             session.setAttribute( "numItemCart", myCart.sizeCart() );
         }
@@ -211,7 +210,7 @@ public class HelperController {
             statusLog( request, response );
             Cart myCart = ( Cart ) session.getAttribute( "itemsCart" );
             int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
-            myCart.remove( Director.createProduct( ManagerProduct.getSingleProduct( code ) ) );
+            myCart.remove( Director.createProduct( ProductDAO.getSingleProduct( code ) ) );
             session.setAttribute( "itemsCart", myCart );
             session.setAttribute( "numItemCart", myCart.sizeCart() );
         }

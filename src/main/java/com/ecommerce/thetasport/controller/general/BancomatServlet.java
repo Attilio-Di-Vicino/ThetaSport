@@ -1,6 +1,7 @@
 package com.ecommerce.thetasport.controller.general;
 
 import com.ecommerce.thetasport.controller.HelperController;
+import com.ecommerce.thetasport.dao.OrderDAO;
 import com.ecommerce.thetasport.service.cartvisitor.Cart;
 import com.ecommerce.thetasport.service.cartvisitor.ShoppingCartVisitorImpl;
 import com.ecommerce.thetasport.service.paymentstrategy.BancomatStrategy;
@@ -52,7 +53,7 @@ public class BancomatServlet extends HttpServlet {
         ManagerPayments.pay( new BancomatStrategy( firstName, cartNumber, cvv, dateOfExpiry), total);
         // inserire gli ordini nel DB
         try {
-            ManagerPayments.insertOrder( myCart, email, total );
+            OrderDAO.insertOrder( myCart.getMyCart(), email, total);
         } catch ( SQLException e ) {
             throw new RuntimeException( "SQL Error in BancomatServlet/doPost" + e);
         }

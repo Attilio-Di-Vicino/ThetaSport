@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class ManagerAdmin {
 
-    private static final int NUMBER_RELATED_OFFERS = 3;
+    /*private static final int NUMBER_RELATED_OFFERS = 3;
 
     public static @NotNull List< ProductBean > getOfferSingleUser(String email ) throws SQLException {
         List< ProductBean > productBeanListOffer = new ArrayList<>();
@@ -50,19 +50,9 @@ public class ManagerAdmin {
         System.out.println( "\n*** TEST TF-IDF OFFER ***" );
         System.out.println( "Number of products for offer is: " + productBeanList.size() );
         System.out.println( productBeanList );
-    }
+    }*/
 
-    public static double getSumOrderMontly() throws SQLException {
-        return OrderDAO.getSumPriceOrderMonthly();
-    }
-    public static double getSumOrderYear() throws SQLException {
-        return OrderDAO.getSumPriceOrderYear();
-    }
-    public static double getSumOrderTotal() throws SQLException {
-        return OrderDAO.getSumPriceOrderTotal();
-    }
-
-    public static List< TotalOrdersUsersBean > getTotalOrderBean() throws SQLException {
-        return OrderDAO.getTotalOrdersUsersBeanList();
+    public static void main(String[] args) {
+        System.out.println();
     }
 }

@@ -21,16 +21,4 @@ public class ManagerLogin {
         AuthService authService = new AuthService( handler );
         return authService.login( name, password );
     }
-
-    public static UserBean getSingleUser( String email ) throws SQLException {
-        return new UserDAO().getUser( email );
-    }
-
-    public static boolean userMailExist(String email ) throws SQLException {
-        return UserDAO.userMailExist(email);
-    }
-
-    public static void registrationUser( String name, String email, String password ) throws SQLException {
-        UserDAO.registration( name, email, password );
-    }
 }

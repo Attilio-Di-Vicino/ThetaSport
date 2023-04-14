@@ -1,5 +1,6 @@
 package com.ecommerce.thetasport.controller.general;
 
+import com.ecommerce.thetasport.dao.UserDAO;
 import com.ecommerce.thetasport.service.loginCor.ManagerLogin;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -49,7 +50,7 @@ public class ForgotPasswordServlet extends HttpServlet {
         response.setContentType( "text/html" );
         String to = request.getParameter( "email" );
         try {
-            if ( ManagerLogin.userMailExist( to ) ) {
+            if ( UserDAO.userMailExist( to ) ) {
                 // sendMail
                 request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
             } else {
