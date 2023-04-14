@@ -18,7 +18,7 @@ public class RequestEditProductServlet extends HttpServlet {
         response.setContentType("text/html");
         HelperController.ForwardProductList( request );
         HelperControllerAdmin.setAdminPage( request, false, true, false,
-                false, false, false );
+                false, false, false, false, false );
         request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
 }

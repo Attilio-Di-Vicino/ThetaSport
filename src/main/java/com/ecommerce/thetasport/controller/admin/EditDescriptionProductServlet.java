@@ -22,7 +22,7 @@ public class EditDescriptionProductServlet extends HttpServlet {
         ProductDAO.editDescriptionProduct(description,code);
         HelperController.ForwardProductList( request );
         HelperControllerAdmin.setAdminPage( request, false, true, false, false,
-                false, false);
+                false, false, false, false );
         request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
 }

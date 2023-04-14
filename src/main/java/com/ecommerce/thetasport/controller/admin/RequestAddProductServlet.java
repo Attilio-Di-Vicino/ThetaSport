@@ -18,7 +18,7 @@ public class RequestAddProductServlet extends HttpServlet {
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html");
         HelperControllerAdmin.setAdminPage( request, true, false, false,
-                false, false, false );
+                false, false, false, false, false );
         /*request.setAttribute( "addproduct", true );
         request.setAttribute( "editproduct", false );
         request.setAttribute( "editsingleproduct", false );

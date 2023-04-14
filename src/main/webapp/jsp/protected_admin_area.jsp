@@ -206,12 +206,27 @@
                             </c:when>
 
                             <c:when test="${sendoffers == true}">
-                                <c:forEach items="${userList}" var="user">
-                                    <h4>Send offer to ${user}</h4>
+                                <c:forEach items="${userList}" var="userMail">
+                                    <h4>Send offer to ${userMail}</h4>
                                     <form action="RequestOfferTFIDFProductServlet" method="post">
-
+                                        <input type="hidden" name="email" value="${userMail}" >
+                                        <input type="submit" value="Generated offer">
                                     </form>
                                 </c:forEach>
+                            </c:when>
+                            <c:when test="${offerDone == true}">
+                                <c:forEach items="${offerListProduct}" var="product" >
+                                    <h4>For ${email} offer is: </h4>
+                                    <h4>${product}</h4>
+                                    <form action="SendOfferServlet" method="post">
+                                        <input type="hidden" name="offerListProduct" value="${offerListProduct}" >
+                                        <input type="hidden" name="email" value="${email}" >
+                                        <input type="submit" value="Send">
+                                    </form>
+                                </c:forEach>
+                            </c:when>
+                            <c:when test="${sendOffer == true}">
+                                <h4>${email} GOOD!</h4>
                             </c:when>
 
                             <c:otherwise>

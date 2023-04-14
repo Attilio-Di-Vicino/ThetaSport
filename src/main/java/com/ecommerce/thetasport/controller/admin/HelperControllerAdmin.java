@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
-import java.util.Map;
 
 public class HelperControllerAdmin {
 
@@ -24,13 +23,15 @@ public class HelperControllerAdmin {
      */
     public static void setAdminPage( @NotNull HttpServletRequest request, boolean addProduct,
                                      boolean editProduct, boolean editSingleProduct, boolean salesUpdates,
-                                     boolean sendOffers, boolean queryDone ) {
+                                     boolean sendOffers, boolean queryDone, boolean offerDone, boolean sendOffer ) {
         request.setAttribute( "addproduct", addProduct );
         request.setAttribute( "editproduct", editProduct );
         request.setAttribute( "editsingleproduct", editSingleProduct );
         request.setAttribute( "salesupdates", salesUpdates );
         request.setAttribute( "sendoffers", sendOffers );
         request.setAttribute( "queydone", queryDone );
+        request.setAttribute( "offerDone", offerDone );
+        request.setAttribute( "sendOffer", sendOffer );
         setListAndSumPrice( request );
     }
 
@@ -47,6 +48,6 @@ public class HelperControllerAdmin {
     }
 
     public static void setAdminPage( @NotNull HttpServletRequest request, boolean value ){
-        setAdminPage( request, value, value, value, value, value, value );
+        setAdminPage( request, value, value, value, value, value, value, value, value );
     }
 }
