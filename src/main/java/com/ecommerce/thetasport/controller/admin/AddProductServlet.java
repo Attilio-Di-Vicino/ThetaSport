@@ -15,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 
 /**
  * La classe AddProductServlet rappresenta la servlet utilizzata per aggiungere un nuovo prodotto al catalogo.
@@ -43,6 +42,7 @@ public class AddProductServlet extends HttpServlet {
      * @throws ServletException se si verifica un errore durante la gestione della richiesta
      * @throws IOException se si verifica un errore di input o output durante la gestione della richiesta
      */
+    @SuppressWarnings( value = "Result of 'InputStream.read()' is ignored" )
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
@@ -57,7 +57,7 @@ public class AddProductServlet extends HttpServlet {
         try {
             FileOutputStream fos = new FileOutputStream( uploadPath );
             InputStream is = file.getInputStream();
-            byte[] data=new byte[ is.available() ];
+            byte[] data = new byte[ is.available() ];
             is.read( data );
             fos.write( data );
             fos.close();

@@ -1,7 +1,5 @@
 package com.ecommerce.thetasport.controller.admin;
 
-import com.ecommerce.thetasport.dao.OrderDAO;
-import com.ecommerce.thetasport.service.productabstractfactory.ManagerProduct;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * Questa classe è un servlet che viene utilizzato per proteggere l'area amministrativa del sito
