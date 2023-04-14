@@ -14,32 +14,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * AdminProtectedServlet viene richiamata ogni qualvolta si tenta di accedere
- * alla pagina riservata all'admin, semplicente controlla la sessione attuale,
- * e quindi ne verifica l'esistenza, se non esiste di conseguenza l'utente non può essere registarto,
- * rimandando cosi alla pagina dedicata al login, altrimenti verifica lo stato del login precedentemete settato
- * nei casi in cui il login è diverso da "2", significa che non è loggato come admin, quindi questo include
- * i casi in il login sia "null", "0", "1", di conseguenza riporta alla pagina dedicata al login, altrimenti prosegue.
+ * Questa classe è un servlet che viene utilizzato per proteggere l'area amministrativa del sito
+ * web. Se un utente che non ha l'autorizzazione di amministratore tenta di accedere all'area
+ * amministrativa, viene reindirizzato alla pagina di login. In caso contrario, l'utente viene
+ * reindirizzato all'area amministrativa e viene stampato a console un messaggio di conferma
+ * che indica che l'utente ha l'autorizzazione di amministratore. Questo servlet risponde solo
+ * alle richieste HTTP GET e non riceve parametri da URL. Le eccezioni ServletException e
+ * IOException possono essere sollevate durante l'elaborazione delle richieste HTTP.
  */
 
-/**
- * Quando un servlet viene chiamato per la prima volta, l'oggetto risposta è fresco e nuovo:
- * le sue intestazioni non sono state impostate, i suoi buffer sono vuoti e nessun dato è stato scritto sul client.
- * Tuttavia, non appena il codice di stato o una qualsiasi delle intestazioni è stato scritto,
- * o potenzialmente scritto, nel client, o quando i dati sono stati, o potrebbero essere stati,
- * scritti nel body stream, è possibile essere suscettibile all'errore IllegalStateException.
- * Il problema che questa eccezione sta segnalando è che i nuovi dati che stai (o potresti scrivere)
- * non sono coerenti con i dati che sono già stati impostati e quindi irrevocabilmente inviati ("commissionati")
- * al client.
- * Due varianti comuni di questa eccezione sono "java.lang.IllegalStateException:
- * intestazione già inviata" e "java.lang.IllegalStateException: impossibile inoltrare
- * come Output Stream o Writer è già stato ottenuto".
- * "Intestazione già inviata" significa che una o più intestazioni sono state inviate
- * al client, quindi non puoi reimpostare quell'intestazione.
- * "Output Stream o Writer è già stato ottenuto" significa che poiché il servlet chiamante
- * ha già chiamato response.getWriter() o response.getOutputStream(), ciò contamina il flusso di dati,
- * poiché la risposta è stata (o potrebbe essere stata) scritta su già, rendendolo inadatto per l'inoltro.
- */
 @WebServlet( name = "AdminProtectedServlet", value = "/AdminProtectedServlet" )
 public class AdminProtectedServlet extends HttpServlet {
 

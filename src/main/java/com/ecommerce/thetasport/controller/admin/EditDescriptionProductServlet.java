@@ -11,6 +11,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+/**
+ *  Questa servlet gestisce la modifica della descrizione di un prodotto da parte dell'amministratore.
+ *  Riceve la descrizione e il codice del prodotto tramite una richiesta POST e utilizza il metodo
+ *  editDescriptionProduct della classe ProductDAO per effettuare la modifica nel database.
+ *  Infine, reindirizza l'amministratore alla lista dei prodotti e imposta la pagina di amministrazione.
+ */
 @WebServlet(name = "EditDescriptionProductServlet", value = "/EditDescriptionProductServlet")
 public class EditDescriptionProductServlet extends HttpServlet {
 

@@ -11,8 +11,21 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
+/**
+ * Questa classe rappresenta un servlet che si occupa di modificare il valore del campo stock di un prodotto
+ * nel database, ricevendo i dati dalla richiesta POST. In seguito, il servlet effettua un reindirizzamento alla
+ * lista dei prodotti, sempre attraverso il controller di supporto HelperController.
+ */
 @WebServlet( name = "EditStockProductServlet", value = "/EditStockProductServlet" )
 public class EditStockProductServlet extends HttpServlet {
+    /**
+     * Questo metodo viene invocato dal container Servlet quando arriva una richiesta HTTP POST.
+     *
+     * @param request  la richiesta HTTP ricevuta dal client
+     * @param response la risposta HTTP da inviare al client
+     * @throws ServletException se si verifica un'eccezione durante l'elaborazione della richiesta
+     * @throws IOException      se si verifica un'eccezione durante l'invio della risposta
+     */
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );

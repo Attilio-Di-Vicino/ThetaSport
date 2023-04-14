@@ -17,6 +17,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 
+/**
+ * La classe AddProductServlet rappresenta la servlet utilizzata per aggiungere un nuovo prodotto al catalogo.
+ * Imposta la dimensione massima del file a 10 MB tramite l'annotazione @MultipartConfig.
+ * In particolare, gestisce la richiesta POST inviata dal form per l'inserimento di un nuovo prodotto.
+ * Prende i dati inseriti dall'utente (categoria, sottocategoria, nome, descrizione, quantità, prezzo e immagine) e crea un oggetto ProductBean.
+ * La servlet salva l'immagine selezionata nella cartella images/product e inserisce il nuovo prodotto nel database attraverso il ProductDAO.
+ * Infine, imposta gli attributi di richiesta "productCreated" e "newProduct" e inoltra la richiesta alla pagina "protected_admin_area.jsp" tramite il metodo forward().
+ */
 @WebServlet( name = "AddProductServlet", value = "/AddProductServlet" )
 @MultipartConfig( maxFileSize = 1024 * 1024 * 10 ) // Imposta la dimensione massima del file a 10 MB
 public class AddProductServlet extends HttpServlet {
