@@ -1,6 +1,6 @@
 # ThetaSport
 
-ThetaSport è un progetto universitario di ecommerce realizzato in Java, utilizzando i pattern MVC, DAO, Strategy, Abstract Factory, Visitor e Chain of Responsibility. L'applicazione utilizza un algoritmo di Intelligenza Artificiale, il TF-IDF.
+ThetaSport è un progetto universitario di ecommerce realizzato in Java, utilizzando i pattern MVC, DAO, Singleton, Strategy, Abstract Factory, Visitor e Chain of Responsibility. L'applicazione utilizza un algoritmo di Intelligenza Artificiale, il TF-IDF.
 
 ## Descrizione
 

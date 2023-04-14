@@ -62,7 +62,6 @@ public class RequestSumProductSoldCategoryServlet extends HttpServlet {
         }
         HelperControllerAdmin.setAdminPage( request, false, false, false,
                 true, false, true, false, false );
-        System.out.println("\n" + result);
         request.setAttribute( "categotySum", result );
         request.setAttribute( "category", category );
         request.setAttribute( "subCategory", subCategory );

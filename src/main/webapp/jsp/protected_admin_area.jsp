@@ -191,40 +191,60 @@
                                 </div>
                             </c:when>
                             <c:when test="${salesupdates == true}">
-                                <h4>Choose category:</h4>
+                                <div class="">
+                                <h4 class="h3 mb-3 text-black" style="">Choose category </h4>
                                 <c:forEach items="${categoryList}" var="category">
-                                    <form action="RequestSumProductSoldCategoryServlet" method="post">
-                                        <div>
+                                    <form action="RequestSumProductSoldCategoryServlet" method="post" style="margin: 20px">
+                                        <a class="btn btn-success btn-icon-split float-left">
                                             <input name="categoryRequest" value="${category}" type="hidden"/>
                                             <input name="subCategoryRequest" value="shoes" type="hidden"/>
-                                            <input type="submit" value="${category.toString()}" />
-                                        </div>
+                                            <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                            <span class="text"><input style="background-color: transparent !important;border: 0 !important; color: white;" type="submit" value="${category.toString()}" /></span>
+                                        </a>
                                     </form>
+                                    <br>
                                 </c:forEach>
+                                </div>
+                                <br><br>
                             </c:when>
 
                             <c:when test="${sendoffers == true}">
                                 <c:forEach items="${userList}" var="userMail">
-                                    <h4>Send offer to ${userMail}</h4>
                                     <form action="RequestOfferTFIDFProductServlet" method="post">
-                                        <input type="hidden" name="email" value="${userMail}" >
-                                        <input type="submit" value="Generated offer">
+                                        <a class="btn btn-success btn-icon-split float-left">
+                                            <input type="hidden" name="email" value="${userMail}" >
+                                            <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                            <span class="text"><input style="background-color: transparent !important;border: 0 !important; color: white;" type="submit" value="Generate offer" /></span>
+                                        </a>
                                     </form>
+                                    <h4 class="h3 mb-3 text-black"> To ${userMail}</h4>
                                 </c:forEach>
                             </c:when>
                             <c:when test="${offerDone == true}">
                                 <c:forEach items="${offerListProduct}" var="product" >
-                                    <h4>For ${email} offer is: </h4>
-                                    <h4>${product}</h4>
+                                    <h4 class="h3 mb-3 text-black">For ${email} offer is: </h4>
+                                    <h4 class="h3 mb-3 text-black">${product}</h4>
                                     <form action="SendOfferServlet" method="post">
-                                        <input type="hidden" name="offerListProduct" value="${offerListProduct}" >
-                                        <input type="hidden" name="email" value="${email}" >
-                                        <input type="submit" value="Send">
+                                        <a class="btn btn-success btn-icon-split float-left">
+                                            <input type="hidden" name="offerListProduct" value="${offerListProduct}" >
+                                            <input type="hidden" name="email" value="${email}" >
+                                            <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                            <span class="text"><input style="background-color: transparent !important;border: 0 !important; color: white;" type="submit" value="Send offer" /></span>
+                                        </a>
                                     </form>
                                 </c:forEach>
                             </c:when>
                             <c:when test="${sendOffer == true}">
-                                <h4>${email} GOOD!</h4>
+                                <h4 class="h3 mb-3 text-black">The offer for ${email} has been sent successfully!</h4>
+                                <a class="btn btn-success btn-circle btn-lg">
+                                    <i class="fas fa-check"></i>
+                                </a>
                             </c:when>
 
                             <c:otherwise>
@@ -239,7 +259,6 @@
                                     <jsp:param name="subCategory" value="${subCategory}"/>
                                     <jsp:param name="result" value="${categotySum}"/>
                                 </jsp:include>
-                                <h4>For category: ${categotySum} the total of products sold is: ${result}</h4>
                             </c:when>
                         </c:choose>
 
