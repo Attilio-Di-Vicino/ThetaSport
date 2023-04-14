@@ -29,7 +29,6 @@ public class RequestSumProductSoldCategoryServlet extends HttpServlet {
         Category category = Category.valueOf( request.getParameter( "categoryRequest" ).toUpperCase().trim() );
         SubCategory subCategory = SubCategory.valueOf( request.getParameter( "subCategoryRequest" ).toUpperCase().trim() );
         int result;
-        System.out.println( "\n" + subCategory );
         try {
             result = ProductDAO.getSumSoldItemsCategory( category, subCategory );
         } catch ( SQLException e ) {
