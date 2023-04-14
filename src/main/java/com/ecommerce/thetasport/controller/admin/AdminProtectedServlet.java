@@ -55,30 +55,13 @@ public class AdminProtectedServlet extends HttpServlet {
         HttpSession session = request.getSession( false );
         if ( session == null ) {
             request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
-            System.out.println( "Non hai effettuato il login" );
         } else {
             int isLogged = (int) session.getAttribute( "isLogged" );
-            if ( isLogged != 2 ){
+            if ( isLogged != 2 ) {
                 request.getRequestDispatcher( "jsp/login.jsp" ).forward( request, response );
-                System.out.println( "Non sei loggato, oppure sei loggato ma non sei admin" );
             } else {
                 HelperControllerAdmin.setAdminPage( request, false );
-                /*request.setAttribute( "addproduct", false );
-                request.setAttribute( "editproduct", false );
-                request.setAttribute( "editsingleproduct", false );
-                request.setAttribute( "salesupdates", false );
-                request.setAttribute( "sendoffers", false );
-                request.setAttribute( "queydone", false );
-                request.setAttribute( "categoryList", ManagerProduct.getCategoryList() );
-                try {
-                    request.setAttribute( "earningMonthly", OrderDAO.getSumPriceOrderMonthly() );
-                    request.setAttribute( "earningYears", OrderDAO.getSumPriceOrderYear() );
-                    request.setAttribute( "earningTotal", OrderDAO.getSumPriceOrderTotal() );
-                    request.setAttribute( "orderList", OrderDAO.getTotalOrdersUsersBeanList() );
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }*/
-                request.getRequestDispatcher("jsp/protected_admin_area.jsp").forward(request, response);
+                request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
                 System.out.println("Sei Admin");
             }
         }

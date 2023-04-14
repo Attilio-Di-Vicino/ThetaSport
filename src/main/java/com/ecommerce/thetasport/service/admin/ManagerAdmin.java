@@ -4,7 +4,6 @@ import com.ecommerce.thetasport.dao.OrderDAO;
 import com.ecommerce.thetasport.dao.ProductDAO;
 import com.ecommerce.thetasport.model.ProductBean;
 import com.ecommerce.thetasport.model.TotalOrdersUsersBean;
-import com.ecommerce.thetasport.service.tfidf.BackupTFIDF;
 import com.ecommerce.thetasport.service.tfidf.CustomPriorityQueue;
 import com.ecommerce.thetasport.service.tfidf.HelperTFIDF;
 import com.ecommerce.thetasport.service.tfidf.ManagerTFIDF;

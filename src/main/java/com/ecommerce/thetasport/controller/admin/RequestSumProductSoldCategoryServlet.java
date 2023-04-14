@@ -20,56 +20,27 @@ public class RequestSumProductSoldCategoryServlet extends HttpServlet {
         response.setContentType( "text/html" );
         HelperControllerAdmin.setAdminPage( request, false, false, false,
                 true, false, false );
-        /*request.setAttribute("addproduct", false);
-        request.setAttribute("editproduct", false);
-        request.setAttribute("editsingleproduct", false);
-        request.setAttribute("salesupdates", true);
-        request.setAttribute("sendoffers", false);
-        request.setAttribute("queydone", false);
-        request.setAttribute("categoryList", HelperProduct.getCategoryList());
-        try {
-            request.setAttribute("earningMonthly", SumPriceOrderDAO.getSumPriceOrderMonthly());
-            request.setAttribute("earningYears", HelperControllerAdmin.getSumOrderYear());
-            request.setAttribute("earningTotal", HelperControllerAdmin.getSumOrderTotal());
-            request.setAttribute("orderList", HelperControllerAdmin.getTotalOrderBean());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
         request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
 
     @Override
     protected void doPost( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
-        Category category = Category.valueOf( request.getParameter( "categoryRequest" ) );
-        int result = 0;
+        Category category = Category.valueOf( request.getParameter( "categoryRequest" ).toUpperCase().trim() );
+        SubCategory subCategory = SubCategory.valueOf( request.getParameter( "subCategoryRequest" ).toUpperCase().trim() );
+        int result;
+        System.out.println( "\n" + subCategory );
         try {
-            /**
-             * DA AGGIUSTARE
-             */
-            result = ProductDAO.getSumSoldItemsCategory( category, SubCategory.SHOES );
+            result = ProductDAO.getSumSoldItemsCategory( category, subCategory );
         } catch ( SQLException e ) {
             throw new RuntimeException( "SQL Error in RequestSumProductSoldCategoryServlet" + e );
         }
         HelperControllerAdmin.setAdminPage( request, false, false, false,
                 true, false, true );
-        /*request.setAttribute("addproduct", false);
-        request.setAttribute("editproduct", false);
-        request.setAttribute("editsingleproduct", false);
-        request.setAttribute("salesupdates", true);
-        request.setAttribute("sendoffers", false);
-        request.setAttribute("queydone", true);
-        request.setAttribute("categotySum", category.toString());
-        request.setAttribute("categoryList", HelperProduct.getCategoryList());
-        request.setAttribute("result", result);
-        try {
-            request.setAttribute("earningMonthly", HelperControllerAdmin.getSumOrderMontly());
-            request.setAttribute("earningYears", HelperControllerAdmin.getSumOrderYear());
-            request.setAttribute("earningTotal", HelperControllerAdmin.getSumOrderTotal());
-            request.setAttribute("orderList", HelperControllerAdmin.getTotalOrderBean());
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }*/
-        request.getRequestDispatcher("jsp/protected_admin_area.jsp").forward(request, response);
+        System.out.println("\n" + result);
+        request.setAttribute( "categotySum", result );
+        request.setAttribute( "category", category );
+        request.setAttribute( "subCategory", subCategory );
+        request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
 }

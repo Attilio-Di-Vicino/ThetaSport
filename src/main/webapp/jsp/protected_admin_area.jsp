@@ -198,6 +198,7 @@
                                     <form action="RequestSumProductSoldCategoryServlet" method="post">
                                         <div>
                                             <input name="categoryRequest" value="${category}" type="hidden"/>
+                                            <input name="subCategoryRequest" value="shoes" type="hidden"/>
                                             <input type="submit" value="${category.toString()}" />
                                         </div>
                                     </form>
@@ -215,6 +216,11 @@
 
                         <c:choose>
                             <c:when test="${queydone == true}">
+                                <jsp:include page="component/sales_update.jsp">
+                                    <jsp:param name="category" value="${category}"/>
+                                    <jsp:param name="subCategory" value="${subCategory}"/>
+                                    <jsp:param name="result" value="${categotySum}"/>
+                                </jsp:include>
                                 <h4>For category: ${categotySum} the total of products sold is: ${result}</h4>
                             </c:when>
                         </c:choose>
