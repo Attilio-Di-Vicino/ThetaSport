@@ -17,8 +17,21 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * HelperController è una classe di utilità che fornisce metodi statici per facilitare <br>
+ * il lavoro di altri controller.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 public class HelperController {
 
+    /**
+     * Verifica se l'utente ha effettuato il login e ha un carrello della spesa, <br>
+     * se non ha una sessione attiva si genera una nuova sessione.
+     *
+     * @param request la richiesta HTTP inviata dal client
+     */
     public static void verifyLoginAndCart( @NotNull HttpServletRequest request ) {
         HttpSession session = request.getSession( false );
         if ( session == null ) {
@@ -26,6 +39,12 @@ public class HelperController {
         }
     }
 
+    /**
+     * Popola l'attributo "productBeanList" della richiesta con la lista di prodotti
+     * disponibili nel database.
+     *
+     * @param request la richiesta HTTP inviata dal client
+     */
     public static void ForwardProductList( @NotNull HttpServletRequest request ) {
         try {
             request.setAttribute( "productBeanList", ProductDAO.getProductBeanList() );
@@ -34,6 +53,12 @@ public class HelperController {
         }
     }
 
+    /**
+     * Se non esiste una sessione attiva, ne viene creata una e vengono inizializzati
+     * i campi per il login e il carrello della spesa.
+     *
+     * @param request la richiesta HTTP inviata dal client
+     */
     public static void nullSession( @NotNull HttpServletRequest request ) {
         HttpSession session = request.getSession();
         Cart myCart = new Cart();
@@ -48,12 +73,13 @@ public class HelperController {
     }
 
     /**
-     * loggedError is invoked if there were errors in the login.
+     * Gestisce l'errore di login e mostra un messaggio di errore all'utente.
      *
-     * @param request Request made via a browser
-     * @param response Response
-     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
-     * @throws IOException Report thar an I/O exception has occurred
+     * @param request  la richiesta HTTP inviata dal client
+     * @param response la risposta HTTP inviata dal server
+     * @param message  il messaggio di errore da visualizzare
+     * @throws ServletException se si verificano problemi nella gestione della richiesta HTTP
+     * @throws IOException      se si verificano problemi nella gestione dell'input/output
      */
     public static void loggedError( @NotNull HttpServletRequest request, HttpServletResponse response, String message ) throws ServletException, IOException {
         request.setAttribute( "errorMessage", message );
@@ -108,7 +134,17 @@ public class HelperController {
         request.getRequestDispatcher( landingPage ).forward( request, response );
     }
 
-    public static void getCode( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+    /**
+     * Prende il codice di un prodotto dalla richiesta HTTP, crea un oggetto prodotto utilizzando il metodo "createProduct" <br>
+     * della classe "Director" e lo salva nell'attributo "singleProduct" della richiesta. <br>
+     * Infine, inoltra la richiesta alla pagina JSP "single_product.jsp".
+     *
+     * @param request  l'oggetto HttpServletRequest
+     * @param response l'oggetto HttpServletResponse
+     * @throws ServletException se si verifica un errore di servlet
+     * @throws IOException se si verifica un errore di I/O
+     */
+    public static void singleProduct(@NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         int code = Integer.parseInt( request.getParameter( "codeProduct" ) );
         Product product;
         try {
@@ -121,6 +157,15 @@ public class HelperController {
         request.getRequestDispatcher( "jsp/single_product.jsp" ).forward( request, response );
     }
 
+    /**
+     * Verifica che l'utente sia loggato prima di accedere alla pagina del carrello. <br>
+     * Se l'utente non è loggato, inoltra la richiesta alla pagina JSP "login.jsp".
+     *
+     * @param request  l'oggetto HttpServletRequest
+     * @param response l'oggetto HttpServletResponse
+     * @throws ServletException se si verifica un errore di servlet
+     * @throws IOException se si verifica un errore di I/O
+     */
     public static void statusLog( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         HttpSession session = request.getSession( false );
         // variables are retrieved from the session
@@ -130,6 +175,16 @@ public class HelperController {
         }
     }
 
+    /**
+     * Aggiunge un prodotto al carrello dell'utente e aggiorna l'attributo "itemsCart" della sessione con il nuovo carrello. <br>
+     * Se la sessione è nulla, inoltra la richiesta alla pagina JSP "null_session.jsp". <br>
+     * Se l'utente non è loggato, inoltra la richiesta alla pagina JSP "login.jsp".
+     *
+     * @param request  l'oggetto HttpServletRequest
+     * @param response l'oggetto HttpServletResponse
+     * @throws ServletException se si verifica un errore di servlet
+     * @throws IOException se si verifica un errore di I/O
+     */
     public static void addCart( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         HttpSession session = request.getSession( false );
         if ( session == null ) {
@@ -148,7 +203,18 @@ public class HelperController {
         }
     }
 
-    public static void removeCart( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException, SQLException, ClassNotFoundException {
+    /**
+     * Rimuove un prodotto dal carrello dell'utente e aggiorna l'attributo "itemsCart" della sessione con il nuovo carrello. <br>
+     * Se la sessione è nulla, inoltra la richiesta alla pagina JSP "null_session.jsp". <br>
+     * Se l'utente non è loggato, inoltra la richiesta alla pagina JSP "login.jsp".
+     *
+     * @param request  l'oggetto HttpServletRequest
+     * @param response l'oggetto HttpServletResponse
+     * @throws ServletException se si verifica un errore di servlet
+     * @throws IOException se si verifica un errore di I/O
+     * @throws SQLException se si verifica un errore di SQL
+     */
+    public static void removeCart( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException, SQLException {
         HttpSession session = request.getSession( false );
         if ( session == null ) {
             nullSession( request );
@@ -163,6 +229,15 @@ public class HelperController {
         }
     }
 
+    /**
+     * Metodo che gestisce la pagina del carrello.
+     *
+     * @param request  La richiesta HTTP dal client.
+     * @param response La risposta HTTP dal server.
+     *
+     * @throws ServletException Se si verifica un errore nel servlet.
+     * @throws IOException      Se si verifica un errore di input/output.
+     */
     public static void cartPage( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         HttpSession session = request.getSession( false );
         if ( session == null ) {
@@ -180,24 +255,73 @@ public class HelperController {
         }
     }
 
+    /**
+     * Metodo che aggiunge un prodotto al carrello dalla pagina dell'indice o dalla pagina di un singolo prodotto.
+     *
+     * @param request  La richiesta HTTP dal client.
+     * @param response La risposta HTTP dal server.
+     *
+     * @throws ServletException Se si verifica un errore nel servlet.
+     * @throws IOException      Se si verifica un errore di input/output.
+     */
     public static void addCartCaseIndexOrSingleProduct(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         addCart( request,response );
     }
 
+    /**
+     * Metodo che aggiunge un prodotto al carrello dalla pagina del carrello.
+     *
+     * @param request  La richiesta HTTP dal client.
+     * @param response La risposta HTTP dal server.
+     *
+     * @throws ServletException Se si verifica un errore nel servlet.
+     * @throws IOException      Se si verifica un errore di input/output.
+     */
     public static void addCartCaseCart( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         addCart( request, response );
         cartPage( request, response );
     }
 
+    /**
+     * Metodo che rimuove un prodotto dal carrello dalla pagina dell'indice o dalla pagina di un singolo prodotto.
+     *
+     * @param request  La richiesta HTTP dal client.
+     * @param response La risposta HTTP dal server.
+     *
+     * @throws ServletException Se si verifica un errore nel servlet.
+     * @throws IOException      Se si verifica un errore di input/output.
+     * @throws SQLException     Se si verifica un errore durante l'accesso al database.
+     * @throws ClassNotFoundException Se non si trova la classe specificata.
+     */
     public static void removeCartCaseIndexOrSingleProduct(HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException, SQLException, ClassNotFoundException {
         removeCart( request, response );
     }
 
+    /**
+     * Rimuove gli articoli dal carrello e mostra la pagina del carrello.
+     *
+     * @param request la richiesta HTTP in arrivo
+     * @param response la risposta HTTP in uscita
+     * @throws ServletException se si verifica un errore durante il processo di servlet
+     * @throws IOException se si verifica un errore di I/O durante il processo di servlet
+     * @throws SQLException se si verifica un errore SQL durante il processo di servlet
+     * @throws ClassNotFoundException se non viene trovata la classe durante il processo di servlet
+     */
     public static void removeCartCaseCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
         removeCart(request,response);
         cartPage(request,response);
     }
 
+    /**
+     * Rimuove un oggetto dal carrello dell'utente.
+     *
+     * @param request La richiesta HTTP in ingresso.
+     * @param response La risposta HTTP in uscita.
+     * @throws ServletException Se si verifica un errore durante l'esecuzione del servlet.
+     * @throws IOException Se si verifica un errore durante l'input/output.
+     * @throws SQLException Se si verifica un errore durante l'accesso al database.
+     * @throws ClassNotFoundException Se non è possibile trovare la classe specificata.
+     */
     public static void removeObjectCart( @NotNull HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException, SQLException, ClassNotFoundException {
         HttpSession session = request.getSession( false );
         if ( session == null ) {
@@ -214,6 +338,11 @@ public class HelperController {
         cartPage( request, response );
     }
 
+    /**
+     * Carica la pagina del checkout.
+     *
+     * @param request La richiesta HTTP in ingresso.
+     */
     public static void checkoutPage( @NotNull HttpServletRequest request ) {
         HttpSession session = request.getSession( false );
         // recupero variabili dalla sessione
@@ -228,6 +357,23 @@ public class HelperController {
         request.setAttribute( "totalPrice", total );
     }
 
+    /**
+     * Imposta le variabili necessarie per la pagina di ringraziamento dopo l'acquisto e svuota il carrello.
+     *
+     * @param request La richiesta HTTP in ingresso.
+     * @param session La sessione HTTP.
+     * @param myCart Il carrello dell'utente.
+     * @param country Il paese dell'utente.
+     * @param firstName Il nome dell'utente.
+     * @param lastName Il cognome dell'utente.
+     * @param address L'indirizzo dell'utente.
+     * @param shippingAddress L'indirizzo di spedizione dell'utente.
+     * @param stateCountry Lo stato/provincia dell'utente.
+     * @param postalCode Il codice postale dell'utente.
+     * @param email L'email dell'utente.
+     * @param phone Il numero di telefono dell'utente.
+     * @param orderNotes Eventuali note sull'ordine dell'utente.
+     */
     public static void setVarThankYouPage( @NotNull HttpServletRequest request, HttpSession session, Cart myCart,
                                            String country, String firstName, String lastName, String address,
                                            String shippingAddress, String stateCountry, String postalCode, String email,

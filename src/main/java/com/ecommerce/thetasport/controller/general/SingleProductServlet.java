@@ -15,6 +15,6 @@ public class SingleProductServlet extends HttpServlet {
     protected void doGet( HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
         HelperController.verifyLoginAndCart( request );
-        HelperController.getCode( request, response );
+        HelperController.singleProduct( request, response );
     }
 }
