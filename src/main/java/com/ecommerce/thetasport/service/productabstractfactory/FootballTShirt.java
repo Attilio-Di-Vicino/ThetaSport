@@ -13,7 +13,7 @@ package com.ecommerce.thetasport.service.productabstractfactory;
 public class FootballTShirt extends TShirt {
 
     /**
-     * Richiama il metodo della superclasse ed imposta la categoria del prodotto come FOOTBALL
+     * Richiama il metodo della superclasse ed imposta la categoria del prodotto come FOOTBALL<br>
      * restituisce l'istanza corrente.
      *
      * @return l'istanza corrente di {@code FootballTShirt} con la categoria impostata come FOOTBALL

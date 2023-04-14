@@ -16,7 +16,7 @@ import com.ecommerce.thetasport.model.ProductBean;
 public class FootballProductCreator implements ProductCreator {
 
     /**
-     * Metodo che crea un prodotto del tipo "Football" sulla base delle informazioni contenute in un oggetto
+     * Metodo che crea un prodotto del tipo "Football" sulla base delle informazioni contenute in un oggetto<br>
      * di tipo {@link ProductBean}.
      *
      * @param productBean oggetto di tipo {@link ProductBean} che contiene le informazioni del prodotto da creare

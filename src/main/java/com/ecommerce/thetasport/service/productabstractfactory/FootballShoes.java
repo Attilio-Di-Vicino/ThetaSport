@@ -1,7 +1,7 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
 /**
- * Rappresenta una classe concreta che estende la classe astratta {@link Shoes} e che rappresenta
+ * Rappresenta una classe concreta che estende la classe astratta {@link Shoes} e che rappresenta<br>
  * un paio di scarpe da calcio.
  * Questa classe sovrascrive il {@link Shoes#build()} per impostare la categoria del prodotto {@link Category#FOOTBALL}.
  *

@@ -1,7 +1,7 @@
 package com.ecommerce.thetasport.service.productabstractfactory;
 
 /**
- * Implementazione concreta delle interfacce {@link AbstractFactoryShoes} e {@link AbstractFactoryTShirt}.
+ * Implementazione concreta delle interfacce {@link AbstractFactoryShoes} e {@link AbstractFactoryTShirt}.<br>
  * Questa fabbrica crea istanze delle classi {@link FootballShoes} e {@link FootballTShirt}.
  *
  * @author Theta Sport

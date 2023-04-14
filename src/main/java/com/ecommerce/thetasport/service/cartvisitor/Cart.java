@@ -57,9 +57,7 @@ public class Cart {
      * @param itemElement elemento da rimuovere
      */
     public void remove( ItemElement itemElement ) {
-        if ( MY_CART.containsKey( itemElement ) ) {
             MY_CART.remove( itemElement );
-        }
     }
 
     /**
@@ -102,6 +100,12 @@ public class Cart {
         }
         return out.toString();
     }
+
+    /**
+     * Metodo che ritorna il numero totale di elementi nel carrello.<br>
+     * Ogni prodotto nel carrello viene moltiplicato per la quantità da ordinare.
+     * @return intero, numero di elementi totali nel carrello
+     */
 
     public int sizeCart() {
         int i = 0;
