@@ -87,19 +87,19 @@ public class HelperController {
     }
 
     /**
-     * loggedOrRegistrationSuccessful is invoked if the login, or the registration, was successful<br>
-     * then the current session is retrieved or, if it exists it is invalidated.<br>
-     * Then a new session is created by setting the maximum time (in this case 30 minutes), then retrieve<br>
-     * the data inherent to the newly registered user/admin, you set the login field of the session and landing page,<br>
-     * and finally redirect to the landig page which is conditioned by type of result obtained from the login.
+     * loggedOrRegistrationSuccessful viene invocato se il login o la registrazione hanno avuto successo.<br>
+     * allora viene recuperata la sessione corrente o, se esiste, viene invalidata.<br>
+     * Quindi viene creata una nuova sessione impostando il tempo massimo (in questo caso 30 minuti), per poi recuperare<br>
+     * i dati inerenti all'utente/admin appena registrato, si imposta il campo di login della sessione e della landing page,<br>
+     * e infine si reindirizza alla landing page che è condizionata dal tipo di risultato ottenuto dal login.<br>
      *
-     * @param request Request made via a browser
-     * @param response Response
-     * @param email mail from the logged user
-     * @param isLogged log status: 1 from user, 2 from admin
-     * @param landingPage the respective jsp target
-     * @throws ServletException Defines a general exception that a servlet can generate when it encounters difficulties
-     * @throws IOException Reports that an I/O exception has occurred
+     * @param request Richiesta effettuata tramite browser
+     * @param response Risposta
+     * @param email mail dall'utente registrato
+     * @param isLogged stato del log: 1 dall'utente, 2 dall'amministratore
+     * @param landingPage la rispettiva jsp target
+     * @throws ServletException Definisce un'eccezione generale che una servlet può generare quando incontra delle difficoltà.
+     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
      */
     public static void loggedOrRegistrationSuccessful( @NotNull HttpServletRequest request, HttpServletResponse response, String email, int isLogged, String landingPage ) throws ServletException, IOException, SQLException, ClassNotFoundException {
         // the current session is retrieved and if it exists it is invalidated

@@ -11,18 +11,18 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 /**
- * RegistrationServlet is used to register a user, in the login.jsp there is a reference to this servlet<br>
- * that invokes the get method which forwards the request to the registration page.<br>
- * Then on the registration page there is a form that invokes the post method of the following servlet.<br>
+ *  RegistrationServlet viene utilizzata per la registrazione di un utente, nell'login.jsp è presente un riferimento a questa servlet
+ *  invocando quindi il metodo get che inoltra la richiesta alla pagina dedicata alla registrazione.
+ *  Quindi nella pagina dedicata alla registrazione è presente un form che invoca il metodo post della seguente servlet.
  */
 @WebServlet( name = "RegistrationServlet", value = "/RegistrationServlet" )
 public class RegistrationServlet extends HttpServlet {
 
     /**
-     * @param request Request made via a browser
-     * @param response Response
-     * @throws ServletException Define a general exception that a servlet may generate when it encounters difficulties
-     * @throws IOException Report thar an I/O exception has occurred
+     * @param request richiesta effettuata tramite un browser
+     * @param response risposta
+     * @throws ServletException Definisce un'eccezione generale che un servlet può generare quando incontra difficoltà
+     * @throws IOException Segnala che si è verificata un'eccezione I/O di qualche tipo
      */
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
