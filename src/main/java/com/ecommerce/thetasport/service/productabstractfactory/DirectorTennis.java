@@ -19,7 +19,7 @@ public class DirectorTennis {
      * @param productBean oggetto di tipo {@link ProductBean} che contiene le informazioni del prodotto da creare
      * @return un nuovo oggetto di tipo {@link Product} rappresentante il prodotto creato
      */
-    @SuppressWarnings( value = "Duplicated code fragment (11 lines long)" )
+    @SuppressWarnings( value = "Duplicated code fragment" )
     public static Product createProduct( ProductBean productBean ) {
         if ( productBean == null ) {
             throw new NullPointerException( "ProductBean in DirectorTennis/createProduct is null." );

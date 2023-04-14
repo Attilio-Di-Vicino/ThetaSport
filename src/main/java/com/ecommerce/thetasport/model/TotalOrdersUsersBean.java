@@ -3,6 +3,10 @@ package com.ecommerce.thetasport.model;
 import java.beans.JavaBean;
 import java.io.Serializable;
 
+/**
+ * @author Theta Sport
+ * @version 1.0
+ */
 @JavaBean
 public class TotalOrdersUsersBean implements Serializable {
     private int orderId;
@@ -12,6 +16,7 @@ public class TotalOrdersUsersBean implements Serializable {
     private double total;
     private int quantity;
 
+    @SuppressWarnings( value = "Method 'getOrderId()' is never used" )
     public int getOrderId() {
         return orderId;
     }

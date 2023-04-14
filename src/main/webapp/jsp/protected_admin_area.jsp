@@ -25,8 +25,6 @@
         </style>
     </head>
     <body id="page-top">
-    <!-- chiamata per controllare i privilegi di accesso dell'admin -->
-    <%--<jsp:include page="AdminProtectedServlet"></jsp:include>--%>
 
     <!-- Page Wrapper -->
     <div id="wrapper">

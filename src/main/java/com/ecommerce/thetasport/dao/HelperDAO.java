@@ -10,6 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+/**
+ * La classe HelperDAO contiene metodi utili per la gestione dei DAO.
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 public class HelperDAO {
     public static void setSingleProductBean( @NotNull ProductBean productBean, @NotNull ResultSet rs ) throws SQLException {
         productBean.setCode( rs.getInt( "CODE" ) );

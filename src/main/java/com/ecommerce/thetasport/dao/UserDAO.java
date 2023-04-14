@@ -10,6 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Classe DAO responsabile delle interrogazioni al database riguardo gli user
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 public class UserDAO {
     private final static String QUERY_USERS_MAP_SQL = "SELECT EMAIL,PASSWORD FROM USER";
     private final static String QUERY_USERS_MAIL_SQL = "SELECT EMAIL FROM USER";

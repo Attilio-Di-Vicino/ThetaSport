@@ -37,6 +37,7 @@ public class CustomPriorityQueue< K, V > extends PriorityQueue< Map.Entry < K, V
      * @param key La chiave da cercare nella coda di priorità.
      * @return {@code true} se la coda di priorità contiene la chiave specificata, {@code false} altrimenti.
      */
+    @SuppressWarnings( value = "Method 'containsKey(K)' is never used" )
     public boolean containsKey( K key ) {
         return map.containsKey( key );
     }

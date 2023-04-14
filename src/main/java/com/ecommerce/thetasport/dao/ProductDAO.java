@@ -11,6 +11,9 @@ import java.util.*;
 
 /**
  * Classe DAO responsabile delle interrogazioni al database riguardo i prodotti
+ *
+ * @author Theta Sport
+ * @version 1.0
  */
 public class ProductDAO {
     private final static String QUERY_SINGLE_PRODUCT_SQL = "SELECT * FROM PRODUCT WHERE CODE = (?)";
@@ -28,7 +31,6 @@ public class ProductDAO {
     private final static String QUERY_PRODUCT_ORDER_SINGLE_USER_SQL = "SELECT P.NAME,C.QUANTITY FROM PRODUCT P " +
             "JOIN CONTAINS C on P.CODE = C.CODE JOIN `ORDER` O on O.ORDERID = C.ORDERID_C " +
             "JOIN USER U on O.EMAIL = U.EMAIL WHERE O.EMAIL = (?)";
-    private final static String QUERY_ALL_PRODUCT = "SELECT NAME FROM PRODUCT";
 
     /**
      * il metodo getSingleProduct() assume in input un codice univoco <br>
@@ -225,6 +227,7 @@ public class ProductDAO {
      * @param image nuova immagine del prodotto
      * @param code codice del prodotto che deve essere modificato
      */
+    @SuppressWarnings( value = "Method 'editImageProduct(java.lang.String, int)' is never used" )
     public static void editImageProduct( String image, int code ) {
         HelperDAO.editProduct( image, code, UPDATE_IMAGE_SQL );
     }
@@ -245,45 +248,22 @@ public class ProductDAO {
         ResultSet rs = null;
         List<String> productList = new ArrayList<>();
         try {
-            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_PRODUCT_ORDER_SINGLE_USER_SQL );
-            pstmt.setString( 1, email );
+            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement(QUERY_PRODUCT_ORDER_SINGLE_USER_SQL);
+            pstmt.setString(1, email);
             rs = pstmt.executeQuery();
-            while ( rs.next() ) {
-                int quantity = rs.getInt( "QUANTITY" );
-                for ( int i = 0; i < quantity; i++ ) {
-                    productList.add( rs.getString( "NAME" ) );
+            while (rs.next()) {
+                int quantity = rs.getInt("QUANTITY");
+                for (int i = 0; i < quantity; i++) {
+                    productList.add(rs.getString("NAME"));
                 }
             }
-        } catch ( SQLException e ) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if ( pstmt != null ) {
+            if (pstmt != null) {
                 pstmt.close();
             }
-            if ( rs != null ) {
-                rs.close();
-            }
-        }
-        return productList;
-    }
-
-    public static List< String > getAllProductList() throws SQLException {
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        List<String> productList = new ArrayList<>();
-        try {
-            pstmt = DatabaseConnection.getInstance().getConnection().prepareStatement( QUERY_ALL_PRODUCT );
-            rs = pstmt.executeQuery();
-            while ( rs.next() ) {
-                productList.add( rs.getString( "NAME" ) );
-            }
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-        } finally {
-            if ( pstmt != null ) {
-                pstmt.close();
-            }
-            if ( rs != null ) {
+            if (rs != null) {
                 rs.close();
             }
         }

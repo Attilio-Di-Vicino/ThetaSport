@@ -9,6 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
+/**
+ * Classe DAO responsabile delle interrogazioni al database riguardo gli ordini
+ *
+ * @author Theta Sport
+ * @version 1.0
+ */
 public class OrderDAO {
     private final static String INSERT_ORDER_SQL = "INSERT INTO `ORDER` (ORDERDATE, EMAIL, GROSSPROFIT) " +
             "VALUES (?,?,?)";

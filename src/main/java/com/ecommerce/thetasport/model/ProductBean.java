@@ -1,12 +1,15 @@
 package com.ecommerce.thetasport.model;
 
 import com.ecommerce.thetasport.service.productabstractfactory.Category;
-import com.ecommerce.thetasport.service.productabstractfactory.Product;
 import com.ecommerce.thetasport.service.productabstractfactory.SubCategory;
 
 import java.beans.JavaBean;
 import java.io.Serializable;
 
+/**
+ * @author Theta Sport
+ * @version 1.0
+ */
 @JavaBean
 public class ProductBean implements Serializable {
     private int code;

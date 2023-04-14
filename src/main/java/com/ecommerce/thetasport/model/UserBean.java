@@ -1,10 +1,12 @@
 package com.ecommerce.thetasport.model;
 
-import com.ecommerce.thetasport.service.cartvisitor.Cart;
-
 import java.beans.JavaBean;
 import java.io.Serializable;
 
+/**
+ * @author Theta Sport
+ * @version 1.0
+ */
 @JavaBean
 public class UserBean implements Serializable {
     private String name;

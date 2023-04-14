@@ -19,10 +19,11 @@ import java.util.*;
 public class ManagerTFIDF {
 
     /**
-     * Calcola il punteggio TF-IDF per ogni utente e restituisce una map che ha come chiave la mail<br>
+     * Calcola il punteggio TF-IDF per un singolo utente e restituisce una map che ha come chiave la mail<br>
      * dell'utente di riferimento, e come valore è associato una coda di massima priorità<br>
      * la quale è ordinata in bale al valore del TF-IDF {@link TFIDFCalculator}.
      *
+     * @see ManagerTFIDF#TFIDFQuantityUsers(List)
      * @return la mappa contenente i risultati TF-IDF per ogni user il quale è associato ad una coda di massima priorità
      */
     public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFSingleUsers( String email ) {
@@ -34,6 +35,7 @@ public class ManagerTFIDF {
      * dell'utente di riferimento, e come valore è associato una coda di massima priorità<br>
      * la quale è ordinata in bale al valore del TF-IDF {@link TFIDFCalculator}.
      *
+     * @see ManagerTFIDF#TFIDFQuantityUsers(List)
      * @return la mappa contenente i risultati TF-IDF per ogni user il quale è associato ad una coda di massima priorità
      */
     public static @NotNull Map< String, CustomPriorityQueue< String, Double > > TFIDFAllUsers() throws SQLException {
@@ -42,7 +44,7 @@ public class ManagerTFIDF {
     }
 
     /**
-     * Calcola il punteggio TF-IDF per ogni utente e restituisce una map che ha come chiave la mail<br>
+     * Calcola il punteggio TF-IDF per ogni utente preso in input e restituisce una map che ha come chiave la mail<br>
      * dell'utente di riferimento, e come valore è associato una coda di massima priorità<br>
      * la quale è ordinata in bale al valore del TF-IDF {@link TFIDFCalculator}.
      *

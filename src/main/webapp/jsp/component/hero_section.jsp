@@ -16,7 +16,6 @@
                     <div class="col-lg-5">
                         <div class="intro-excerpt">
                             <h1 style="font-size: xx-large">${param.homeMessageOne}<span clsas="d-block">${param.homeMessageTwo}</span></h1>
-                            <%--<p class="mb-4">${param.slogan}</p>--%>
                             <p><a href="${param.requestHref}" class="btn btn-secondary me-2">${param.botton}</a></p>
                         </div>
                     </div>
