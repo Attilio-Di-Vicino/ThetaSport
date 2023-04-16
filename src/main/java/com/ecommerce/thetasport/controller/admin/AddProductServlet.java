@@ -51,7 +51,7 @@ public class AddProductServlet extends HttpServlet {
         String imageFileName = file.getSubmittedFileName();  // get selected image file name
         System.out.println( "Selected Image File Name : " + imageFileName );
         // essendo il localhost bisogna inserire il proprio path
-        String uploadPath = "/home/attilio/Scrivania/ThetaSport/src/main/webapp/images/product/ " + imageFileName;  // upload path where we have to upload our actual image
+        String uploadPath = "/home/attilio/Scrivania/ThetaSport/src/main/webapp/images/product/" + imageFileName;  // upload path where we have to upload our actual image
         System.out.println( "Upload Path : " + uploadPath );
         // Uploading our selected image into the images folder
         try {
@@ -83,11 +83,8 @@ public class AddProductServlet extends HttpServlet {
                     throw new NullPointerException( "Product is null in AddProductServlet" );
                 }
                 ProductDAO.insertProduct( product );
-                HttpSession session = request.getSession( false );
-                if ( session == null ) {
-                    session = request.getSession();
-                }
-                session.setAttribute( "productCreated", true );
+                HelperControllerAdmin.setAdminPage( request, false, true,  false,
+                        false, false, false, false, false, false );
                 request.setAttribute( "newProduct", product );
                 HelperControllerAdmin.setListAndSumPrice( request );
                 request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );

@@ -63,10 +63,11 @@
                                         <jsp:param name="category" value="${category}"/>
                                     </jsp:include>
                                 </c:forEach>
+                                <br><br>
                             </c:when>
                             <c:when test="${productCreated == true}">
                                 <h4 class="h3 mb-2 text-gray-800">Product created success: ${product.getName()}</h4>
-                                <a class="btn btn-success btn-icon-split">
+                                <a class="btn btn-success btn-icon-split" href="RequestAddProductServlet">
                                         <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
@@ -127,15 +128,6 @@
                                     </div>
                                 </div>
                             </c:when>
-                            <c:when test="${editproduct == true}">
-                                <c:forEach var="product" items="${productBeanList}">
-                                    <h4>Name: ${product.getName()} Description: ${product.getDescription()} Price: ${product.getPrice()}</h4>
-                                    <form action="EditProductServlet" method="get">
-                                        <button name="codeProduct" value=${product.getCode()}>Edit</button>
-                                    </form>
-                                </c:forEach>
-                                <br><br>
-                            </c:when>
                             <c:when test="${editsingleproduct == true}">
                                 <div class="col-md-10 mb-5 mb-md-0">
                                     <div class="p-3 p-lg-5 border bg-white">
@@ -144,33 +136,35 @@
                                         <!-- Start Name -->
                                         <form action="EditNameProductServlet" method="post">
                                             <div class="form-group">
-                                                <label for="nameSingleProduct" class="text-black">Name </label>
-                                                <input required maxlength="45" value="${singleProduct.getName()}" type="text" class="form-control" id="nameSingleProduct" name="nameSingleProduct">
-                                                <input type="hidden" name="codeSingleProduct" value="${singleProduct.getCode()}" />
-                                                <input type="submit" value="change" class="btn btn-primary btn-icon-split" />
+                                                <div class="col-md-12">
+                                                    <label for="nameSingleProduct" class="text-black">Name </label>
+                                                    <input required maxlength="45" value="${singleProduct.getName()}" type="text" class="form-control" id="nameSingleProduct" name="nameSingleProduct">
+                                                    <input type="hidden" name="codeSingleProduct" value="${singleProduct.getCode()}" />
+                                                    <input class="edit-product edit-product-n" type="submit" value="change" class="btn btn-primary btn-icon-split" />
+                                                </div>
                                             </div>
                                         </form>
                                         <!-- End Name -->
                                         <!-- Start description -->
                                         <form action="EditDescriptionProductServlet" method="post">
-                                            <div class="form-group row">
-                                                <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
                                                     <label for="descriptionSingleProduct" class="text-black">Description </label>
-                                                    <input required maxlength="300" value="${singleProduct.getDescription()}" type="text" class="form-control" id="descriptionSingleProduct" name="descriptionSingleProduct">
+                                                    <input class="form-des" required maxlength="300" value="${singleProduct.getDescription()}" type="text" class="form-control" id="descriptionSingleProduct" name="descriptionSingleProduct">
                                                     <input type="hidden" name="codeSingleProduct" value="${singleProduct.getCode()}" />
-                                                    <input type="submit" value="change" class="btn btn-primary btn-icon-split"/>
+                                                    <input class="edit-product edit-product-d" type="submit" value="change" class="btn btn-primary btn-icon-split"/>
                                                 </div>
                                             </div>
                                         </form>
                                         <!-- End description -->
                                         <!-- Start stock -->
                                         <form action="EditStockProductServlet" method="post">
-                                            <div class="form-group row">
-                                                <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div class="col-md-12">
                                                     <label for="stockSingleProduct" class="text-black">Stock </label>
-                                                    <input required step="10" type="number" value="${singleProduct.getStock()}" class="form-control" id="stockSingleProduct" name="stockSingleProduct">
+                                                    <input required step="10" min="1" type="number" value="${singleProduct.getStock()}" class="form-control" id="stockSingleProduct" name="stockSingleProduct">
                                                     <input type="hidden" name="codeSingleProduct" value="${singleProduct.getCode()}" />
-                                                    <input type="submit" value="change" class="btn btn-primary btn-icon-split" />
+                                                    <input class="edit-product edit-product-d" type="submit" value="change" class="btn btn-primary btn-icon-split" />
                                                 </div>
                                             </div>
                                         </form>
@@ -180,9 +174,9 @@
                                             <div class="form-group row">
                                                 <div class="col-md-12">
                                                     <label for="priceSingleProduct" class="text-black">Price </label>
-                                                    <input required type="number" value="${singleProduct.getPrice()}" step="4.99" class="form-control" id="priceSingleProduct" name="priceSingleProduct">
+                                                    <input required type="number" min="1"  value="${singleProduct.getPrice()}" step="4.99" class="form-control" id="priceSingleProduct" name="priceSingleProduct">
                                                     <input type="hidden" name="codeSingleProduct" value="${singleProduct.getCode()}" />
-                                                    <input type="submit" value="change" class="btn btn-primary btn-icon-split" />
+                                                    <input class="edit-product edit-product-d" type="submit" value="change" class="btn btn-primary btn-icon-split" />
                                                 </div>
                                             </div>
                                         </form>
@@ -212,16 +206,17 @@
 
                             <c:when test="${sendoffers == true}">
                                 <c:forEach items="${userList}" var="userMail">
-                                    <form action="RequestOfferTFIDFProductServlet" method="post">
+                                    <form action="RequestOfferTFIDFProductServlet" method="post" class="form-offer">
                                         <a class="btn btn-success btn-icon-split float-left">
                                             <input type="hidden" name="email" value="${userMail}" >
                                             <span class="icon text-white-50">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                            <span class="text"><input style="background-color: transparent !important;border: 0 !important; color: white;" type="submit" value="Generate offer" /></span>
+                                            <span class="text">
+                                                <input class="offer-to" type="submit" value="Generate offer To ${userMail}" />
+                                            </span>
                                         </a>
                                     </form>
-                                    <h4 class="h3 mb-3 text-black"> To ${userMail}</h4>
                                 </c:forEach>
                             </c:when>
                             <c:when test="${offerDone == true}">
@@ -242,7 +237,7 @@
                             </c:when>
                             <c:when test="${sendOffer == true}">
                                 <h4 class="h3 mb-3 text-black">The offer for ${email} has been sent successfully!</h4>
-                                <a class="btn btn-success btn-circle btn-lg">
+                                <a class="btn btn-success btn-circle btn-lg" href="RequestOfferTFIDFProductServlet">
                                     <i class="fas fa-check"></i>
                                 </a>
                             </c:when>
@@ -272,6 +267,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
+            <div class="row"><h4 style="height: 10px"></h4></div>
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">

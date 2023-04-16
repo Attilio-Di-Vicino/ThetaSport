@@ -36,7 +36,7 @@ public class RequestOfferTFIDFProductServlet extends HttpServlet {
     @Override
     protected void doGet(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        HelperControllerAdmin.setAdminPage( request, false, false, false,
+        HelperControllerAdmin.setAdminPage( request, false, false, false, false,
                 false, true, false, false, false );
         try {
             request.setAttribute( "userList", UserDAO.getUsersMailMinusOne( "admin" ) );
@@ -78,7 +78,7 @@ public class RequestOfferTFIDFProductServlet extends HttpServlet {
             }
         }
         request.setAttribute( "offerListProduct", productList );
-        HelperControllerAdmin.setAdminPage( request, false, false, false,
+        HelperControllerAdmin.setAdminPage( request, false, false, false, false,
                 false, false, false, true, false );
         request.getRequestDispatcher("jsp/protected_admin_area.jsp").forward(request, response);
     }

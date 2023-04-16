@@ -36,7 +36,7 @@ public class RequestSumProductSoldCategoryServlet extends HttpServlet {
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html" );
-        HelperControllerAdmin.setAdminPage( request, false, false, false,
+        HelperControllerAdmin.setAdminPage( request, false, false, false, false,
                 true, false, false, false, false );
         request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
@@ -60,7 +60,7 @@ public class RequestSumProductSoldCategoryServlet extends HttpServlet {
         } catch ( SQLException e ) {
             throw new RuntimeException( "SQL Error in RequestSumProductSoldCategoryServlet" + e );
         }
-        HelperControllerAdmin.setAdminPage( request, false, false, false,
+        HelperControllerAdmin.setAdminPage( request, false, false, false, false,
                 true, false, true, false, false );
         request.setAttribute( "categotySum", result );
         request.setAttribute( "category", category );

@@ -32,7 +32,7 @@ public class SendOfferServlet extends HttpServlet {
         String offerListProduct = request.getParameter( "offerListProduct" );
         System.out.println( "Offer for " + email + " success" + offerListProduct );
         request.setAttribute( "email", email );
-        HelperControllerAdmin.setAdminPage( request, false, false, false,
+        HelperControllerAdmin.setAdminPage( request, false, false, false, false,
                 false, false, false, false, true );
         request.getRequestDispatcher("jsp/protected_admin_area.jsp").forward(request, response);
     }

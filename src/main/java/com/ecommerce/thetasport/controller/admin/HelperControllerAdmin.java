@@ -24,6 +24,7 @@ public class HelperControllerAdmin {
      *
      * @param request Oggetto HttpServletRequest che rappresenta la richiesta HTTP.
      * @param addProduct Flag booleano che indica se l'utente ha effettuato un'operazione di aggiunta prodotto.
+     * @param productCreated Flag booleano che indica se l'utente ha effettuato un'operazione di aggiunta prodotto con successo.
      * @param editProduct Flag booleano che indica se l'utente ha effettuato un'operazione di modifica prodotto.
      * @param editSingleProduct Flag booleano che indica se l'utente ha effettuato un'operazione di modifica prodotto singolo.
      * @param salesUpdates Flag booleano che indica se l'utente ha effettuato un'operazione di aggiornamento delle vendite.
@@ -32,10 +33,11 @@ public class HelperControllerAdmin {
      * @param offerDone Flag booleano che indica se l'operazione di invio offerte è stata completata.
      * @param sendOffer Flag booleano che indica se è stata effettuata un'operazione di invio offerte.
      */
-    public static void setAdminPage( @NotNull HttpServletRequest request, boolean addProduct,
+    public static void setAdminPage( @NotNull HttpServletRequest request, boolean addProduct, boolean productCreated,
                                      boolean editProduct, boolean editSingleProduct, boolean salesUpdates,
                                      boolean sendOffers, boolean queryDone, boolean offerDone, boolean sendOffer ) {
         request.setAttribute( "addproduct", addProduct );
+        request.setAttribute( "productCreated", productCreated );
         request.setAttribute( "editproduct", editProduct );
         request.setAttribute( "editsingleproduct", editSingleProduct );
         request.setAttribute( "salesupdates", salesUpdates );
@@ -66,12 +68,12 @@ public class HelperControllerAdmin {
     }
 
     /**
-     * Overload di {@link HelperControllerAdmin#setAdminPage(HttpServletRequest, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean)}
+     * Overload di {@link HelperControllerAdmin#setAdminPage(HttpServletRequest, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean, boolean)}
      *
      * @param request Oggetto HttpServletRequest che rappresenta la richiesta HTTP.
      * @param value Flag booleano che sarà uguale per tutte.
      */
     public static void setAdminPage( @NotNull HttpServletRequest request, boolean value ){
-        setAdminPage( request, value, value, value, value, value, value, value, value );
+        setAdminPage( request, value, value, value, value, value, value, value, value, value );
     }
 }

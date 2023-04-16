@@ -41,8 +41,8 @@ public class EditDescriptionProductServlet extends HttpServlet {
         int code = Integer.parseInt(request.getParameter("codeSingleProduct"));
         ProductDAO.editDescriptionProduct(description,code);
         HelperController.ForwardProductList( request );
-        HelperControllerAdmin.setAdminPage( request, false, true, false, false,
-                false, false, false, false );
+        HelperControllerAdmin.setAdminPage( request, false, false, true,
+                false, false, false, false, false, false );
         request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
 }

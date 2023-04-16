@@ -743,6 +743,57 @@ textarea {
 .text-primary {
   color: #3b5d50 !important; }
 
+.add-product {
+  background-color: #3b5d50;
+  height: 60px;
+  width: 100%;
+  border: none;
+  color: white;
+  font-size: 20px;
+}
+
+.edit-product {
+  background-color: #3b5d50;
+  border: none;
+  color: white;
+  font-size: 20px;
+  margin: 2px;
+  border-radius: 4px;
+}
+
+.form-des {
+  width: 100%;
+  height: 100px;
+}
+
+.edit-product:hover {
+  background-color: #90b40d;
+}
+
+.edit-product-n {
+  height: 100%;
+  width: 100%;
+}
+
+.edit-product-d {
+  width: 100%;
+}
+
+.add-product:hover {
+  background-color: #90b40d;
+}
+
+.offer-to {
+  background-color: transparent !important;
+  border: 0 !important;
+  color: white;
+}
+
+.form-offer {
+  width: 1%;
+  height: 60px;
+}
+
 .thankyou-icon {
   position: relative;
   color: #3b5d50; }

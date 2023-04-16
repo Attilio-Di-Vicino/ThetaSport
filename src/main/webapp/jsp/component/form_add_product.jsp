@@ -43,7 +43,7 @@
                     <div class="form-group row">
                         <div class="col-md-6">
                             <label for="stock" class="text-black">Stock <span class="text-danger">*</span></label>
-                            <input required step="10" type="number" placeholder="100" class="form-control" id="stock" name="stock">
+                            <input required min="1" step="10" type="number" placeholder="100" class="form-control" id="stock" name="stock">
                         </div>
                     </div>
                     <!-- End stock -->
@@ -51,7 +51,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="price" class="text-black">Price <span class="text-danger">*</span></label>
-                            <input required type="number" step="4.99" class="form-control" id="price" name="price" placeholder="49.99">
+                            <input required min="1" type="number" step="4.99" class="form-control" id="price" name="price" placeholder="49.99">
                         </div>
                     </div>
                     <!-- End price -->
@@ -65,7 +65,7 @@
                     <!-- End image -->
                     <div class="form-group">
                         <input name="category" value="${param.category}" type="hidden"/>
-                        <input type="submit" value="Add product" class="btn btn-black btn-lg py-3 btn-block">
+                        <input class="add-product" type="submit" value="Add product" class="btn btn-black btn-lg py-3 btn-block">
                     </div>
                 </div>
             </div>

@@ -29,7 +29,7 @@ public class RequestAddProductServlet extends HttpServlet {
     @Override
     protected void doGet( @NotNull HttpServletRequest request, @NotNull HttpServletResponse response ) throws ServletException, IOException {
         response.setContentType( "text/html");
-        HelperControllerAdmin.setAdminPage( request, true, false, false,
+        HelperControllerAdmin.setAdminPage( request, true, false, false, false,
                 false, false, false, false, false );
         request.getRequestDispatcher("jsp/protected_admin_area.jsp").forward(request, response);
     }
