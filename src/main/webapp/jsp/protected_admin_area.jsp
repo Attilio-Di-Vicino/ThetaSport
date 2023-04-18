@@ -16,6 +16,7 @@
         <!-- Custom fonts for this template-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
         <!-- Custom styles for this template-->
         <!-- Custom styles for this page -->
@@ -185,7 +186,12 @@
                                 </div>
                             </c:when>
                             <c:when test="${salesupdates == true}">
-                                <div class="">
+                                <div id="fs" style="color: transparent">${fs}</div>
+                                <div id="ft" style="color: transparent">${ft}</div>
+                                <div id="rs" style="color: transparent">${rs}</div>
+                                <div id="rt" style="color: transparent">${rt}</div>
+                                <canvas id="myChart"></canvas>
+                                <%--<div class="">
                                 <h4 class="h3 mb-3 text-black" style="">Choose category </h4>
                                 <c:forEach items="${categoryList}" var="category">
                                     <form action="RequestSumProductSoldCategoryServlet" method="post" style="margin: 20px">
@@ -200,7 +206,7 @@
                                     </form>
                                     <br>
                                 </c:forEach>
-                                </div>
+                                </div>--%>
                                 <br><br>
                             </c:when>
 
@@ -292,5 +298,46 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <jsp:include page="component/script_admin.jsp"></jsp:include>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var fs = Number( document.getElementById( "fs" ).innerHTML );
+        var ft = Number( document.getElementById( "ft" ).innerHTML );
+        var rs = Number( document.getElementById( "rs" ).innerHTML );
+        var rt = Number( document.getElementById( "rt" ).innerHTML );
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Football Shoes', 'Football T-Shirt', 'Tennis Shoes', 'Tennis T-Shirt'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [fs, ft, rs, rt],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
     </body>
 </html>

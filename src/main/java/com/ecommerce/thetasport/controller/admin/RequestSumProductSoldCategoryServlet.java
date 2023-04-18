@@ -38,6 +38,19 @@ public class RequestSumProductSoldCategoryServlet extends HttpServlet {
         response.setContentType( "text/html" );
         HelperControllerAdmin.setAdminPage( request, false, false, false, false,
                 true, false, false, false, false );
+        int fs, ft, rs, rt;
+        try {
+            fs = ProductDAO.getSumSoldItemsCategory( Category.FOOTBALL, SubCategory.SHOES );
+            ft = ProductDAO.getSumSoldItemsCategory( Category.FOOTBALL, SubCategory.TSHIRT );
+            rs = ProductDAO.getSumSoldItemsCategory( Category.TENNIS, SubCategory.SHOES );
+            rt = ProductDAO.getSumSoldItemsCategory( Category.TENNIS, SubCategory.TSHIRT );
+        } catch ( SQLException e ) {
+            throw new RuntimeException( "SQL Error in RequestSumProductSoldCategoryServlet" + e );
+        }
+        request.setAttribute( "fs", fs );
+        request.setAttribute( "ft", ft );
+        request.setAttribute( "rs", rs );
+        request.setAttribute( "rt", rt );
         request.getRequestDispatcher( "jsp/protected_admin_area.jsp" ).forward( request, response );
     }
 
