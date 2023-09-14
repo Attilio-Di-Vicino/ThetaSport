@@ -37,6 +37,10 @@ Il progetto prevede la realizzazione di un ecommerce di abbigliamento sportivo, 
 
 5. Avviare il server Tomcat e accedere all'applicazione all'indirizzo `http://localhost:8080`.
 
+## Premio
+
+Vincitore "Best Project Award" durante la conferenza FGPE.
+
 ## Crediti
 
 Il progetto è stato realizzato da:
