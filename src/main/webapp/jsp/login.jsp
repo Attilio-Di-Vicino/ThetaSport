@@ -38,7 +38,7 @@
                         </div>
 
                         <div class="signin-form">
-                            <h2 class="form-title">Sign up</h2>
+                            <h2 class="form-title">Sign in</h2>
                             <c:choose>
                                 <c:when test="${ errorMessage != null}">
                                     <h4 class="term-service" style="color: red">${errorMessage}</h4>
